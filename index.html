@@ -7,6 +7,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="ثبات">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
 <title>ثبات</title>
 <style>
 :root{--bg:#0b1a1f;--bg2:#0f242b;--card:#143039;--card2:#1a3b46;--line:#24505e;--tx:#e8f1f2;--mut:#8fb0b8;--acc:#e6b85c;--acc2:#4fd1a5;--bad:#ef6b6b;--ok:#4fd1a5;--r:18px}
@@ -1109,5 +1112,6 @@ boot();
 
 })();
 </script>
+<script>if('serviceWorker' in navigator)window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})});</script>
 </body>
 </html>
