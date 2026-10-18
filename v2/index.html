@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-s="dark" data-acc="teal">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#091014">
+<meta name="color-scheme" content="dark light">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ثبات">
+<meta name="description" content="ثبات — رفيقك للتعافي بخصوصية تامة">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>ثبات</title>
+<style>
+:root{--r:20px;--nav-h:64px;--ease:cubic-bezier(.2,.8,.2,1)}
+html[data-s=dark]{color-scheme:dark;--bg:#091014;--bg2:#0d171b;--card:#121e23;--card2:#18272d;--card3:#1e3139;--line:rgba(255,255,255,.075);--tx:#eef5f4;--mut:#93a8ab;--faint:#5f767a;--ok:#3ddc97;--bad:#ff7070;--warn:#ffc857;--shadow:0 8px 30px rgba(0,0,0,.35);--glass:rgba(9,16,20,.82)}
+html[data-s=light]{color-scheme:light;--bg:#f2f6f6;--bg2:#e9f0f0;--card:#fff;--card2:#eef4f4;--card3:#e0eaea;--line:rgba(10,35,40,.09);--tx:#0d2227;--mut:#566f74;--faint:#8ca2a6;--ok:#0f9d63;--bad:#d93f3f;--warn:#b7791f;--shadow:0 8px 28px rgba(20,50,55,.10);--glass:rgba(242,246,246,.85)}
+html[data-s=dark][data-acc=teal]{--acc:#2dd4bf;--acc2:#0ea5a0;--onacc:#03201c}
+html[data-s=dark][data-acc=gold]{--acc:#f5c451;--acc2:#d9981f;--onacc:#2a1d02}
+html[data-s=dark][data-acc=sky]{--acc:#63b3ff;--acc2:#3b82f6;--onacc:#031530}
+html[data-s=dark][data-acc=violet]{--acc:#b39dfb;--acc2:#8b5cf6;--onacc:#150a38}
+html[data-s=light][data-acc=teal]{--acc:#0d9488;--acc2:#0f766e;--onacc:#fff}
+html[data-s=light][data-acc=gold]{--acc:#b7791f;--acc2:#92600f;--onacc:#fff}
+html[data-s=light][data-acc=sky]{--acc:#2563eb;--acc2:#1d4ed8;--onacc:#fff}
+html[data-s=light][data-acc=violet]{--acc:#7c3aed;--acc2:#6d28d9;--onacc:#fff}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-size:100%;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI","Noto Sans Arabic","Noto Naskh Arabic",Tahoma,sans-serif;line-height:1.65;font-size:16px;overscroll-behavior-y:contain}
+button,input,select,textarea{font:inherit;color:inherit}
+button{border:0;background:none;cursor:pointer;padding:0}
+input,textarea,select{width:100%;background:var(--card2);border:1px solid var(--line);border-radius:14px;padding:12px 14px;outline:none;transition:border-color .2s}
+input:focus,textarea:focus,select:focus{border-color:var(--acc)}
+textarea{min-height:92px;resize:vertical}
+select{appearance:none}
+h1,h2,h3,h4,p{margin:0}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+[hidden]{display:none!important}
+/* shell */
+#shell{max-width:560px;margin:0 auto;min-height:100vh;min-height:100dvh;padding-bottom:calc(var(--nav-h) + 40px + env(safe-area-inset-bottom))}
+#top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:8px;padding:calc(10px + env(safe-area-inset-top)) 16px 10px;background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+#top .ttl{flex:1;min-width:0}
+#top .ttl b{display:block;font-size:19px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#top .ttl small{display:block;color:var(--mut);font-size:12.5px;margin-top:-2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ib{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:var(--card);border:1px solid var(--line);color:var(--tx);flex:none;transition:transform .15s}
+.ib:active{transform:scale(.92)}
+.ib svg,.nv svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+#view{padding:6px 16px 0}
+.pg{animation:up .38s var(--ease) both}
+@keyframes up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+/* nav */
+#nav{position:fixed;inset-inline:0;bottom:0;z-index:30;max-width:560px;margin:0 auto;display:flex;align-items:stretch;height:calc(var(--nav-h) + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--line)}
+.nv{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--faint);font-size:11.5px;font-weight:600;transition:color .2s}
+.nv.on{color:var(--acc)}
+.nv.on svg{stroke-width:2.3}
+.sos{flex:none;width:76px;position:relative}
+.sos button{position:absolute;top:-22px;left:50%;transform:translateX(-50%);width:62px;height:62px;border-radius:50%;background:linear-gradient(145deg,#ff8a7a,#e5484d);color:#fff;display:grid;place-items:center;box-shadow:0 8px 24px rgba(229,72,77,.45);border:4px solid var(--bg);transition:transform .15s}
+.sos button:active{transform:translateX(-50%) scale(.92)}
+.sos svg{width:26px;height:26px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.sos span{position:absolute;bottom:6px;width:100%;text-align:center;font-size:11.5px;font-weight:700;color:var(--bad)}
+/* cards */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin:12px 0;box-shadow:var(--shadow)}
+.card.flat{box-shadow:none}
+.card.acc{background:linear-gradient(160deg,color-mix(in srgb,var(--acc) 16%,var(--card)),var(--card));border-color:color-mix(in srgb,var(--acc) 35%,var(--line))}
+.card.bad{border-color:color-mix(in srgb,var(--bad) 50%,var(--line))}
+.sec{display:flex;align-items:center;justify-content:space-between;margin:22px 4px 8px}
+.sec h3{font-size:16px;font-weight:800}
+.sec small,.mut{color:var(--mut)}
+.sm{font-size:13.5px}
+.xs{font-size:12px}
+.mt{margin-top:10px}.mt2{margin-top:18px}
+.center{text-align:center}
+.row{display:flex;gap:10px;align-items:center}
+.row.w{flex-wrap:wrap}
+.grow{flex:1;min-width:0}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px 16px;border-radius:16px;background:var(--card2);border:1px solid var(--line);font-weight:700;margin:8px 0;transition:transform .12s,opacity .2s}
+.btn:active{transform:scale(.97)}
+.btn.pri{background:linear-gradient(135deg,var(--acc),var(--acc2));color:var(--onacc);border-color:transparent;box-shadow:0 6px 18px color-mix(in srgb,var(--acc) 30%,transparent)}
+.btn.bad{background:color-mix(in srgb,var(--bad) 14%,var(--card));border-color:color-mix(in srgb,var(--bad) 45%,transparent);color:var(--bad)}
+.btn.ok{background:color-mix(in srgb,var(--ok) 14%,var(--card));border-color:color-mix(in srgb,var(--ok) 45%,transparent);color:var(--ok)}
+.btn.ghost{background:none}
+.btn.sm{padding:8px 12px;font-size:14px;width:auto;margin:0;border-radius:12px}
+.btn.big{padding:16px;font-size:17px}
+.btn[disabled]{opacity:.45;pointer-events:none}
+.link{color:var(--acc);font-weight:700;font-size:14px}
+.chip{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:99px;background:var(--card2);border:1px solid var(--line);font-size:12.5px;color:var(--mut)}
+.chip.on{background:color-mix(in srgb,var(--acc) 18%,var(--card));border-color:var(--acc);color:var(--acc)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button.chip{cursor:pointer;padding:7px 13px;font-size:14px}
+.seg{display:flex;background:var(--card2);border:1px solid var(--line);border-radius:16px;padding:4px;gap:4px}
+.seg button{flex:1;padding:9px 6px;border-radius:12px;font-weight:700;font-size:14px;color:var(--mut);transition:all .2s;line-height:1.3}
+.seg button small{display:block;font-size:11.5px;font-weight:500;opacity:.8}
+.seg button.on{background:var(--card);color:var(--tx);box-shadow:0 2px 10px rgba(0,0,0,.22)}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding:4px 0 8px;scrollbar-width:none;margin:0 -16px;padding-inline:16px}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:none;padding:8px 15px;border-radius:99px;background:var(--card);border:1px solid var(--line);font-weight:700;font-size:14px;color:var(--mut)}
+.tabs button.on{background:var(--acc);color:var(--onacc);border-color:transparent}
+.lbl{display:block;margin:14px 2px 6px;font-weight:700;font-size:14px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tile{display:flex;flex-direction:column;gap:6px;align-items:flex-start;text-align:start;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;min-height:118px;box-shadow:var(--shadow);transition:transform .15s}
+.tile:active{transform:scale(.97)}
+.tile .ic{font-size:26px;line-height:1}
+.tile b{font-size:16px}
+.tile span{font-size:12.5px;color:var(--mut);line-height:1.45}
+.tile.wide{grid-column:1/-1;min-height:0;flex-direction:row;align-items:center;gap:14px}
+.tile.sosT{background:linear-gradient(135deg,color-mix(in srgb,var(--bad) 22%,var(--card)),var(--card));border-color:color-mix(in srgb,var(--bad) 40%,var(--line))}
+.list{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.li{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line);width:100%;text-align:start}
+.li:last-child{border-bottom:0}
+.li .ic{font-size:20px;width:28px;text-align:center}
+.li .sub{display:block;color:var(--mut);font-size:12.5px}
+.li .arr{color:var(--faint);transform:scaleX(-1)}
+/* ring */
+.ringbox{position:relative;width:min(250px,68vw);aspect-ratio:1;margin:6px auto 4px}
+.ringbox svg{width:100%;height:100%;transform:rotate(-90deg);overflow:visible}
+.ringbox .bg{fill:none;stroke:var(--card3);stroke-width:9}
+.ringbox .fg{fill:none;stroke:url(#rg);stroke-width:9;stroke-linecap:round;transition:stroke-dashoffset 1s var(--ease);filter:drop-shadow(0 0 8px color-mix(in srgb,var(--acc) 55%,transparent))}
+.ringbox .mid{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ringbox .big{font-size:clamp(54px,18vw,72px);font-weight:800;line-height:1;letter-spacing:-1px;font-variant-numeric:tabular-nums}
+.ringbox .lab{color:var(--mut);font-size:15px;margin-top:4px}
+.ringbox .sub2{color:var(--acc);font-size:13px;font-weight:700;margin-top:6px;font-variant-numeric:tabular-nums}
+.units{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:10px}
+.units div{background:var(--card2);border-radius:14px;padding:8px 2px;text-align:center}
+.units b{display:block;font-size:19px;font-variant-numeric:tabular-nums;line-height:1.2}
+.units small{font-size:11px;color:var(--mut)}
+.bar{height:8px;border-radius:9px;background:var(--card3);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:9px;background:linear-gradient(90deg,var(--acc2),var(--acc));transition:width .8s var(--ease)}
+/* tasks */
+.task{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}
+.task:last-child{border-bottom:0}
+.ck{width:28px;height:28px;border-radius:50%;border:2px solid var(--faint);display:grid;place-items:center;flex:none;transition:all .2s;color:transparent;font-size:15px;font-weight:800}
+.ck.ok{background:var(--ok);border-color:var(--ok);color:#04210f}
+.ck.no{background:var(--bad);border-color:var(--bad);color:#fff}
+.task .t{flex:1;min-width:0;font-weight:600;font-size:15px}
+.task .t small{display:block;color:var(--mut);font-weight:400;font-size:12.5px}
+.task.done .t{opacity:.55}
+.mini{display:flex;gap:6px}
+.mini button{width:34px;height:34px;border-radius:11px;background:var(--card2);border:1px solid var(--line);font-size:15px;font-weight:800}
+.mini button.ok{background:var(--ok);color:#04210f;border-color:transparent}
+.mini button.no{background:var(--bad);color:#fff;border-color:transparent}
+.tipbox{font-size:18px;line-height:1.95;font-weight:600;padding:6px 2px}
+/* calendar */
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.cal .dh{text-align:center;font-size:11.5px;color:var(--mut);padding:4px 0}
+.day{aspect-ratio:1;border-radius:13px;background:var(--card2);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:700;font-size:14px;position:relative;font-variant-numeric:tabular-nums;border:1.5px solid transparent}
+.day.clean{background:color-mix(in srgb,var(--ok) 20%,var(--card));color:var(--ok)}
+.day.slip{background:color-mix(in srgb,var(--bad) 22%,var(--card));color:var(--bad)}
+.day.none,.day.future{opacity:.4;font-weight:500}
+.day.today{border-color:var(--acc)}
+.day.empty{background:none}
+.day i{position:absolute;bottom:4px;width:5px;height:5px;border-radius:50%;background:var(--acc)}
+.legend{display:flex;gap:14px;font-size:12.5px;color:var(--mut);justify-content:center;margin-top:12px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:4px;margin-inline-end:5px;vertical-align:middle}
+.stat{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stat div{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px 6px;text-align:center}
+.stat b{display:block;font-size:22px;font-variant-numeric:tabular-nums}
+.stat small{color:var(--mut);font-size:12px}
+.hb{display:flex;align-items:center;gap:10px;margin:7px 0;font-size:13.5px}
+.hb span:first-child{width:92px;flex:none;color:var(--mut);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hb .bar{flex:1}
+.hb b{width:28px;text-align:end}
+.dots7{display:inline-flex;gap:4px;vertical-align:middle}
+.dots7 i{width:9px;height:9px;border-radius:50%;background:var(--card3)}
+.dots7 i.ok{background:var(--ok)}.dots7 i.broke{background:var(--bad)}
+/* sheets */
+#sheets .bd{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.55);backdrop-filter:blur(3px);animation:fade .25s both;display:flex;align-items:flex-end;justify-content:center}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.sh{width:100%;max-width:560px;max-height:92dvh;max-height:92vh;overflow-y:auto;background:var(--bg2);border:1px solid var(--line);border-bottom:0;border-radius:26px 26px 0 0;padding:10px 18px calc(22px + env(safe-area-inset-bottom));animation:sl .32s var(--ease) both}
+@keyframes sl{from{transform:translateY(100%)}to{transform:none}}
+.sh .grip{width:42px;height:5px;border-radius:9px;background:var(--faint);opacity:.5;margin:2px auto 14px}
+.sh h3{font-size:19px;margin-bottom:6px}
+.sh .x{position:absolute}
+.toast{position:fixed;z-index:90;bottom:calc(var(--nav-h) + 26px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);max-width:88vw;background:var(--tx);color:var(--bg);padding:11px 18px;border-radius:99px;font-weight:700;font-size:14.5px;box-shadow:var(--shadow);animation:up .3s var(--ease) both}
+/* lock */
+#lock{position:fixed;inset:0;z-index:100;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px}
+.lk-ic{font-size:44px}
+.lk-dots{display:flex;gap:14px;margin:22px 0 8px;height:16px}
+.lk-dots i{width:14px;height:14px;border-radius:50%;border:2px solid var(--faint);transition:all .15s}
+.lk-dots i.f{background:var(--acc);border-color:var(--acc);transform:scale(1.15)}
+.lk-dots.shake{animation:shake .4s}
+@keyframes shake{20%{transform:translateX(-10px)}40%{transform:translateX(10px)}60%{transform:translateX(-7px)}80%{transform:translateX(7px)}}
+.pad{display:grid;grid-template-columns:repeat(3,76px);gap:14px;margin-top:22px;direction:ltr}
+.pad button{height:76px;border-radius:50%;background:var(--card);border:1px solid var(--line);font-size:26px;font-weight:700;transition:transform .1s,background .2s}
+.pad button:active{transform:scale(.9);background:var(--card3)}
+.pad .ghost{background:none;border:0;font-size:15px;color:var(--mut)}
+/* emergency */
+#emerg{position:fixed;inset:0;z-index:80;background:radial-gradient(120% 80% at 50% 0%,color-mix(in srgb,var(--acc) 14%,var(--bg)),var(--bg));overflow-y:auto;padding:calc(14px + env(safe-area-inset-top)) 18px 40px;animation:fade .3s both}
+#emerg .in{max-width:520px;margin:0 auto}
+.breath{width:190px;height:190px;margin:18px auto;border-radius:50%;display:grid;place-items:center;text-align:center;background:radial-gradient(circle,color-mix(in srgb,var(--acc) 40%,transparent),color-mix(in srgb,var(--acc) 8%,transparent));border:2px solid color-mix(in srgb,var(--acc) 60%,transparent);transition:transform 4s ease-in-out}
+.breath b{font-size:22px}
+.timer{font-size:44px;font-weight:800;text-align:center;font-variant-numeric:tabular-nums;letter-spacing:1px}
+.step{display:flex;gap:12px;padding:10px 0;align-items:flex-start}
+.step i{flex:none;width:28px;height:28px;border-radius:50%;background:var(--acc);color:var(--onacc);display:grid;place-items:center;font-style:normal;font-weight:800;font-size:14px}
+/* onboarding */
+#ob{position:fixed;inset:0;z-index:70;background:var(--bg);overflow-y:auto;padding:calc(24px + env(safe-area-inset-top)) 22px 30px}
+#ob .in{max-width:480px;margin:0 auto;min-height:calc(100dvh - 60px);display:flex;flex-direction:column}
+.pdots{display:flex;gap:6px;justify-content:center;margin:6px 0 22px}
+.pdots i{width:22px;height:5px;border-radius:9px;background:var(--card3)}
+.pdots i.on{background:var(--acc)}
+.hero-ic{font-size:64px;text-align:center;margin:16px 0 8px}
+.big-t{font-size:26px;font-weight:800;text-align:center;line-height:1.4}
+.swatch{display:flex;gap:12px}
+.swatch button{width:38px;height:38px;border-radius:50%;border:3px solid transparent;box-shadow:0 0 0 1px var(--line)}
+.swatch button.on{border-color:var(--tx)}
+.sw-teal{background:#2dd4bf}.sw-gold{background:#f5c451}.sw-sky{background:#63b3ff}.sw-violet{background:#b39dfb}
+.sw{position:relative;display:inline-block;width:52px;height:30px;flex:none}
+.sw input{opacity:0;width:0;height:0;position:absolute}
+.sw span{position:absolute;inset:0;background:var(--card3);border-radius:99px;transition:.2s}
+.sw span:before{content:"";position:absolute;width:24px;height:24px;border-radius:50%;background:#fff;top:3px;inset-inline-start:3px;transition:.2s}
+.sw input:checked+span{background:var(--acc)}
+.sw input:checked+span:before{inset-inline-start:25px}
+.ph{padding:30px 10px;text-align:center;color:var(--mut)}
+.banner{background:color-mix(in srgb,var(--warn) 14%,var(--card));border:1px solid color-mix(in srgb,var(--warn) 45%,transparent);border-radius:16px;padding:12px 14px;margin:12px 0;font-size:14px}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media (max-width:360px){.units b{font-size:16px}.pad{grid-template-columns:repeat(3,68px)}.pad button{height:68px}}
+
+</style>
+</head>
+<body>
+<div id="shell" hidden><header id="top"></header><main id="view"></main></div>
+<nav id="nav" hidden></nav>
+<div id="sheets"></div>
+<div id="lock" hidden></div>
+<div id="ob" hidden></div>
+<noscript><p style="padding:30px;text-align:center">يحتاج «ثبات» إلى تفعيل جافاسكربت.</p></noscript>
+<script>
+(function(){
+'use strict';
+const TIPS={"deen": {"n": "دينية وإيمانية", "t": ["غضّ البصر أول الطريق، قال تعالى: ﴿قُل لِّلْمُؤْمِنِينَ يَغُضُّوا مِنْ أَبْصَارِهِمْ وَيَحْفَظُوا فُرُوجَهُمْ ذَٰلِكَ أَزْكَىٰ لَهُمْ﴾.", "﴿وَلِمَنْ خَافَ مَقَامَ رَبِّهِ جَنَّتَانِ﴾ — كلما خفت الله في خلوتك ارتفعت منزلتك عنده.", "﴿وَمَن يَتَّقِ اللَّهَ يَجْعَل لَّهُ مَخْرَجًا﴾ — لكل ضيق مخرج، فاثبت حتى يأتيك.", "﴿أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ﴾ — إذا ضاق صدرك فاذكر الله بدل أن تهرب إلى الشاشة.", "﴿وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا﴾ — مجاهدتك لنفسك وعدٌ من الله لك بالهداية.", "﴿قُلْ يَا عِبَادِيَ الَّذِينَ أَسْرَفُوا عَلَىٰ أَنفُسِهِمْ لَا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ﴾ — لا يأس مهما تكررت العثرة.", "﴿إِنَّ الْحَسَنَاتِ يُذْهِبْنَ السَّيِّئَاتِ﴾ — أتبع كل زلة بحسنة سريعة: ركعتان أو صدقة.", "﴿وَاللَّهُ يُرِيدُ أَن يَتُوبَ عَلَيْكُمْ﴾ — الله يريد لك التوبة أكثر مما تريدها لنفسك.", "﴿فَإِنَّ مَعَ الْعُسْرِ يُسْرًا﴾ — صعوبة الأسابيع الأولى مؤقتة، واليسر قادم.", "﴿وَأَمَّا مَنْ خَافَ مَقَامَ رَبِّهِ وَنَهَى النَّفْسَ عَنِ الْهَوَىٰ فَإِنَّ الْجَنَّةَ هِيَ الْمَأْوَىٰ﴾ — نهي النفس عن الهوى طريق الجنة.", "﴿إِنَّ النَّفْسَ لَأَمَّارَةٌ بِالسُّوءِ إِلَّا مَا رَحِمَ رَبِّي﴾ — النفس تأمر بالسوء، فاطلب رحمة الله وأعِنه عليها بالحذر.", "﴿قَدْ أَفْلَحَ مَن زَكَّاهَا﴾ — الفلاح في تزكية النفس لا في إطلاقها.", "﴿يَعْلَمُ خَائِنَةَ الْأَعْيُنِ وَمَا تُخْفِي الصُّدُورُ﴾ — الله يعلم نظرة العين وما يخفيه القلب.", "﴿أَلَمْ يَعْلَم بِأَنَّ اللَّهَ يَرَىٰ﴾ — استحضر رؤية الله لك في كل خلوة.", "﴿وَاسْتَعِينُوا بِالصَّبْرِ وَالصَّلَاةِ﴾ — الصبر والصلاة سلاحك الأول عند الشدة.", "﴿إِنَّ الصَّلَاةَ تَنْهَىٰ عَنِ الْفَحْشَاءِ وَالْمُنكَرِ﴾ — حافظ على صلاتك فهي حصنك.", "﴿وَاصْبِرْ نَفْسَكَ مَعَ الَّذِينَ يَدْعُونَ رَبَّهُم بِالْغَدَاةِ وَالْعَشِيِّ﴾ — اختر صحبة تعينك على الطاعة.", "﴿وَمَن يَعْتَصِم بِاللَّهِ فَقَدْ هُدِيَ إِلَىٰ صِرَاطٍ مُّسْتَقِيمٍ﴾ — الاعتصام بالله هو الطريق.", "﴿وَإِنِّي لَغَفَّارٌ لِّمَن تَابَ وَآمَنَ وَعَمِلَ صَالِحًا ثُمَّ اهْتَدَىٰ﴾ — التوبة مع العمل الصالح مغفرة مضمونة بوعد الله.", "﴿وَهُوَ مَعَكُمْ أَيْنَ مَا كُنتُمْ﴾ — الله معك في غرفتك وعلى هاتفك وفي كل مكان.", "﴿وَلَا تَيْأَسُوا مِن رَّوْحِ اللَّهِ﴾ — اليأس ليس من أخلاق المؤمنين.", "﴿إِنَّ اللَّهَ يُحِبُّ التَّوَّابِينَ وَيُحِبُّ الْمُتَطَهِّرِينَ﴾ — الله يحب من يعود إليه، فعد كلما تعثرت.", "﴿وَمَن يَعْمَلْ سُوءًا أَوْ يَظْلِمْ نَفْسَهُ ثُمَّ يَسْتَغْفِرِ اللَّهَ يَجِدِ اللَّهَ غَفُورًا رَّحِيمًا﴾ — الاستغفار بعد الذنب باب مفتوح دائمًا.", "﴿وَلَمْ يُصِرُّوا عَلَىٰ مَا فَعَلُوا﴾ — المؤمن يعثر لكنه لا يصرّ؛ فقم فورًا.", "﴿وَلَا تَقْرَبُوا الزِّنَىٰ﴾ — النهي عن القرب يشمل المقدمات من نظر وتصفح وخلوة؛ ابتعد عن الطرق المؤدية.", "قال ﷺ عن السبعة الذين يظلهم الله في ظله: «وشابٌّ نشأ في عبادة الله» (متفق عليه) — شبابك في الطاعة مرتبة عظيمة.", "قال ﷺ: «يا معشر الشباب من استطاع منكم الباءة فليتزوج، ومن لم يستطع فعليه بالصوم فإنه له وجاء» (متفق عليه) — الصوم علاج نبوي لشدة الشهوة.", "قال ﷺ: «لا تتبع النظرة النظرة، فإن لك الأولى وليست لك الآخرة» (أبو داود والترمذي) — أول نظرة تُعفى، والثانية مسؤوليتك.", "قال ﷺ: «اتق الله حيثما كنت، وأتبع السيئة الحسنة تمحها» (الترمذي) — تقوى الله في كل مكان، وحسنة بعد كل خطأ.", "قال ﷺ: «كل ابن آدم خطّاء، وخير الخطائين التوابون» (الترمذي وابن ماجه) — الخطأ بشري، والعودة هي الفضل.", "قال ﷺ: «التائب من الذنب كمن لا ذنب له» (ابن ماجه) — ابدأ صفحتك بعد التوبة وكأنها بيضاء.", "قال ﷺ: «احفظ الله يحفظك» (الترمذي) — من حفظ الله في خلوته حفظه الله في أمره كله.", "قال ﷺ: «المؤمن القوي خير وأحب إلى الله من المؤمن الضعيف... احرص على ما ينفعك واستعن بالله ولا تعجز» (مسلم).", "قال ﷺ: «من ترك شيئًا لله عوّضه الله خيرًا منه» (أحمد) — ما تتركه لله لا يضيع.", "قال ﷺ: «ما من عبد يذنب ذنبًا فيحسن الطهور، ثم يقوم فيصلي ركعتين، ثم يستغفر الله إلا غفر له» (أبو داود والترمذي).", "قال ﷺ: «إنما الأعمال بالنيات» (متفق عليه) — جدّد نيتك كل صباح: أترك لله.", "قال ﷺ: «الحياء لا يأتي إلا بخير» (متفق عليه) — حافظ على حيائك من الله ومن نفسك.", "قال ﷺ: «ألا وإن في الجسد مضغة إذا صلحت صلح الجسد كله» (متفق عليه) — إصلاح القلب هو أصل المعركة.", "قال ﷺ: «ومن يستعفف يعفّه الله، ومن يتصبّر يصبّره الله» (متفق عليه) — الاستعفاف والتصبّر يستجلبان عون الله.", "قال ﷺ: «كل أمتي معافى إلا المجاهرين» (متفق عليه) — إذا سترك الله فلا تفضح نفسك، وتب سرًّا.", "قال ﷺ: «أكثروا ذكر هادم اللذات الموت» (الترمذي) — ذكر الموت يهوّن لذة تعقبها حسرة.", "قال ﷺ: «إن الله تجاوز لأمتي عمّا حدّثت به أنفسها ما لم تعمل أو تتكلم» (متفق عليه) — الخاطر العابر لا تُحاسب عليه، لكن لا تستسلم له ولا تتمادَ معه.", "دعاء نبوي: «اللهم إني أعوذ بك من شر سمعي، ومن شر بصري، ومن شر لساني، ومن شر قلبي، ومن شر منيّي» (أبو داود والترمذي) — احفظه وردّده.", "دعاء نبوي: «اللهم إني أسألك الهدى والتقى والعفاف والغنى» (مسلم) — اطلب العفاف صراحةً من الله.", "دعاء نبوي: «يا مقلّب القلوب ثبّت قلبي على دينك» (الترمذي) — كرره في السجود وبعد كل صلاة.", "قال ﷺ: «لا حول ولا قوة إلا بالله كنز من كنوز الجنة» (متفق عليه) — قلها في لحظة الضعف، فهي إعلان تبرؤ من حولك وقوتك إلى حول الله.", "قصة الثلاثة أصحاب الغار (متفق عليه): أحدهم ترك الفاحشة خوفًا من الله بعد القدرة عليها، ففرّج الله عنهم؛ فاذكر عملك الصالح وأنت تدعو.", "قصة يوسف عليه السلام: ﴿قَالَ مَعَاذَ اللَّهِ﴾ — هرب إلى الباب وقال معاذ الله، فتعلّم أن الهروب من الفتنة قوة لا ضعف.", "صلّ الفجر في وقته؛ البدايات النظيفة تصنع أيامًا نظيفة.", "حافظ على أذكار الصباح والمساء؛ فهي حصن يومي لا تفرّط فيه.", "اجعل لك وردًا ثابتًا من القرآن ولو صفحة واحدة بعد الفجر.", "صلِّ الضحى ولو ركعتين، والتزم بالسنن الرواتب.", "إذا هاجمتك الرغبة فتوضأ فورًا؛ الماء يغيّر حالتك، والوضوء يعيدك إلى الله.", "قم صلِّ ركعتين لله ولو كانت الرغبة قوية؛ اجعل الرغبة سببًا للقرب لا للبعد.", "صُم الاثنين والخميس؛ تدريب عملي على ضبط الشهوة، (إن سمحت صحتك).", "قيام الليل ولو ركعتين؛ وقت الأسحار أقرب أوقات الإجابة، فاسأل الله فيه العفاف.", "ادعُ في سجودك: «اللهم أعنّي على نفسي» فالسجود أقرب ما يكون العبد من ربه.", "تذكّر أن الملائكة الكرام الكاتبين معك في خلوتك؛ فاستحِ منهم.", "اجعل خلوتك أحسن من جلوتك؛ فهي علامة الصدق مع الله.", "تصدّق كل يوم بشيء ولو يسيرًا؛ فالصدقة تطفئ الخطيئة وتحفظ من الفتن.", "أكثر من الاستغفار؛ فإنه فرج من كل ضيق ومخرج من كل هم.", "اقرأ سورة الملك قبل النوم؛ لينام قلبك على نور.", "اقرأ آية الكرسي قبل النوم؛ تحفظك بإذن الله.", "التوبة النصوح: إقلاع عن الذنب، وندم عليه، وعزم صادق ألا تعود؛ فاجمعها كلها.", "عظّم نظر الله إليك أكثر من نظر الناس إليك.", "كلما ازداد قربك من الله ضعفت قبضة العادة عليك؛ فاقترب.", "ما تتركه خوفًا من الله ستجد عوضه في قلبك سكينةً وفي حياتك بركة.", "الاحتلام لا اختيار فيه ولا تُحاسب عليه؛ يلزمك الغسل فقط إن وُجد الماء، فلا تعدّه زلة ولا تيأس.", "استشعر أنك تُعبد الله بالترك كما تعبده بالفعل؛ فكل رغبة تتركها لله عبادة.", "في الجنة ما لا عين رأت ولا أذن سمعت؛ فهل تبيع ذلك بلحظة تنقضي؟", "اجعل لكل صلاة نية جديدة: «يا رب أعنّي على نفسي في الساعات القادمة».", "ازرع في قلبك حب الله قبل الخوف منه؛ فالحب أقوى وقودًا من الخوف."]}, "nafs": {"n": "نفسية وفهم النفس", "t": ["النفس الأمارة لا تُقتل بل تُروَّض؛ والترويض تدريب يومي لا ضربة واحدة.", "الرغبة شعور وليست أمرًا؛ تستطيع أن تشعر بها دون أن تنفّذها.", "الرغبة كالموجة: ترتفع وتبلغ ذروتها ثم تنخفض خلال دقائق؛ اركبها ولا تغرق فيها.", "لاحظ الرغبة وسمِّها: «هذه رغبة وستمرّ»، ثم راقبها كأنك مشاهد من بعيد.", "اسأل نفسك: ما الشعور الذي أهرب منه الآن؟ ملل؟ وحدة؟ توتر؟ غضب؟ خوف؟", "غالبًا لا تريد العادة نفسها، بل الراحة من شعور مؤلم؛ فعالج الشعور مباشرة.", "الإدمان صفقة: متعة قصيرة مقابل ثمن طويل؛ اكتب الثمن الحقيقي وانظر إليه.", "النفس تقول «مرة واحدة فقط» وهي تعرف أنها لن تكون مرة واحدة؛ لا تصدّق وعدها.", "من حيل النفس: «أنا متعب وأستحق مكافأة»؛ والمكافأة الحقيقية ما لا تعقبه حسرة.", "من حيل النفس: «سأتوب بعدها»؛ التوبة المؤجلة فخ، فلا تجعل الخطأ مخططًا له.", "من حيل النفس: «لقد فسد يومي أصلًا»؛ لا يوجد يوم فاسد، بل قرار صغير تالٍ تختاره.", "من حيل النفس: «لا أحد يراني»؛ والله يراك، وأنت ترى نفسك، وستواجه ذاتك بعد قليل.", "من حيل النفس: «سأنظر قليلًا فقط»؛ لا تفاوض، فالمفاوضة بداية السقوط.", "لا تتفاوض مع الرغبة؛ كل «ربما» نصف استسلام. قل «لا» ثم تحرّك فورًا.", "اسأل نفسك: كيف سأشعر بعد ربع ساعة من الفعل؟ تذكّر ما بعد الفعل لا ما قبله.", "اكتب كيف تشعر بعد كل مرة (فراغ، ذنب، ضعف)، واقرأ ما كتبته وقت الرغبة.", "الذنب يقول «فعلتُ خطأً» وهو مفيد؛ والعار يقول «أنا خطأ» وهو مدمّر. اجعل حديثك مع نفسك من النوع الأول.", "لا تقل «أنا مدمن فاشل»، قل «أنا إنسان يتعافى من عادة».", "هويتك أقوى من عادتك؛ قل «أنا شخص يحفظ نفسه» لا «أنا شخص يحاول ألا يفعل».", "تغيير الهوية يسبق تغيير السلوك: تصرّف كما يتصرف الرجل الذي تريد أن تكونه.", "النفس تحب الراحة العاجلة؛ درّبها على لذة الإنجاز الآجلة.", "الدماغ يتعلّم بالتكرار؛ كل مرة تقاوم فيها تُضعف المسار القديم وتقوّي مسارًا جديدًا.", "الاشتهاء قبل الفعل أكبر من المتعة أثناءه؛ هو الذي يخدعك ويبيعك الوهم.", "المحفّز ثم الفكرة ثم الفعل: حلقة؛ اقطعها عند أول حلقة تلاحظها.", "أقوى وقت للمقاومة هو أول عشر ثوانٍ؛ تحرّك فورًا.", "لا تنتظر أن تشعر بالرغبة في الالتزام؛ الالتزام قرار قبل أن يكون شعورًا.", "الإرادة عضلة تتعب؛ لا تعتمد عليها وحدها، بل صمّم بيئة تحميك.", "أنت لا تحارب في لحظة الرغبة فقط، بل قبلها: بالأبواب المغلقة والقواعد المكتوبة.", "اعرف علامات الإنذار المبكر: توتر، سهر، تصفح بلا هدف، وحدة؛ وتحرّك عندها لا عند الذروة.", "التصفح بلا هدف هو الباب الخلفي للانتكاسة؛ ضع له سقفًا زمنيًا.", "الملل أكبر محفّز خفي؛ جهّز قائمة أنشطة قبل أن تحتاجها.", "الوحدة تكلّفك أكثر مما تظن؛ تواصل مع صديق حقيقي.", "الغضب والإحباط يدفعان إلى الهروب؛ أخرج غضبك بالمشي أو الكتابة أو الرياضة.", "التعب والسهر يضعفان القرار؛ النوم الجيد جزء من العلاج.", "الجوع والعطش يزيدان الهشاشة؛ كُل واشرب قبل أن تتخذ أي قرار.", "الضغط النفسي يرفع الرغبة؛ تعلّم تنفسًا بطيئًا: شهيق 4 ثوانٍ وزفير 6.", "تدرّب على التنفس البطيء كل يوم حتى يصبح جاهزًا وقت الحاجة.", "أنت لست رغباتك؛ أنت من يراقبها.", "سامح نفسك على الماضي، لكن لا تبرّر المستقبل.", "لا تقارن يومك الأول بيوم غيرك المائة؛ قارن نفسك بنفسك أمس.", "التقدم ليس خطًا مستقيمًا؛ قد يتقلب مزاجك ثم تصعد أقوى.", "قد تأتي موجات رغبة بعد أيام من الترك؛ لا تعني أنك تفشل، بل أن الدماغ يتأقلم.", "دوّن ما تتعلمه عن نفسك كل أسبوع؛ فمن يعرف نفسه يصعب خداعه.", "اسأل: ما الذي كان قبل آخر مرة؟ المكان؟ الوقت؟ الشعور؟ الجهاز؟ ثم أغلق ذلك الباب.", "كل زلة تعطيك معلومة عن محفّز لم تغلقه؛ استخرجها ولا تكتفِ بالندم.", "خاطب نفسك باسمك: «يا فلان، هذه الرغبة ستمرّ»؛ فهذا يخفّف الانفعال ويمنحك مسافة.", "حين تقول «لا أستطيع» استبدلها بـ«لا أفعل هذا»؛ الأولى عجز والثانية هوية.", "لا تجعل الترك حربًا مع جسدك، بل مشروعًا لبناء حياتك.", "ركّز على «ما أريد أن أصبح» أكثر من «ما أريد أن أتجنب».", "الخوف وحده لا يكفي؛ زوّد نفسك بمعنى وهدف أكبر من مجرد الترك.", "اسأل: ماذا سأفعل بالطاقة التي توفرها؟ حوّلها إلى مشروع.", "الشهوة طاقة؛ يمكن توجيهها إلى العمل والدراسة والرياضة.", "المشاهدة والعادة السرية مرتبطتان ببعضهما؛ قطع إحداهما يسهّل قطع الأخرى.", "لا تخسر «متعة» بالترك؛ بل تستعيد حساسيتك وتركيزك وطاقتك.", "المقاومة المتكررة تبني ثقة «أنا قادر»، وهي أغلى من أي لحظة متعة.", "لا تنتظر الحماس؛ الحماس يأتي بعد البدء لا قبله.", "إذا شعرت باليأس فاعلم أنه صوت النفس لا صوت الحقيقة.", "كثيرون تعافوا بعد سنوات من الإدمان؛ فاليأس كذبة.", "اسمح لنفسك بالضعف في المشاعر، لا في الأفعال.", "الحاجة العاطفية لا تُشبع بالصور المزيّفة؛ ابحث عن الاتصال الحقيقي: أهل وأصدقاء وعمل نافع.", "العادات تتغير بالتكرار خلال أشهر؛ فلا تتعجل النتائج.", "كل مرة تحوّل فيها انتباهك تُحدث تغييرًا في دماغك؛ فلا تستهن بالصغائر.", "اعقد جلسة محاسبة مع نفسك مساءً: ماذا فعلت؟ ماذا تعلمت؟ ماذا أحسّن غدًا؟", "تذكّر قاعدة HALT: هل أنا جائع؟ غاضب؟ وحيد؟ متعب؟ عالجها قبل أي قرار.", "الصبر ليس غياب الرغبة، بل التصرف الصحيح معها.", "من الحكمة أن تخاف من نفسك قليلًا وتحتاط، فلا تقل «أنا قوي، لا أحتاج حذرًا».", "الغرور بعد أيام نظيفة من أول أسباب السقوط؛ حافظ على الروتين والحذر.", "لا تختبر نفسك؛ لا تقترب من المواقف الخطرة لتثبت قوتك.", "افرح بكل يوم نظيف؛ فالفرح يرسّخ المسار الجديد في الدماغ."]}, "practical": {"n": "عملية وبيئة", "t": ["فعّل فلتر DNS عائلي (مثل CleanBrowsing أو AdGuard Family) على الجوال والراوتر؛ إغلاق الأبواب أهم من قوة الإرادة.", "فعّل البحث الآمن (SafeSearch) في محركات البحث ويوتيوب وغيرها.", "ثبّت تطبيق حجب مواقع وضع له رقمًا سريًا يحتفظ به شخص آخر.", "أعطِ كلمة سر الفلتر لشخص موثوق ولا تحتفظ بها لنفسك.", "احذف الحسابات والتطبيقات المحفّزة، بما فيها حسابات التواصل التي تُظهر محتوى مثيرًا.", "ألغِ متابعة الحسابات التي تثيرك حتى لو كانت تبدو «عادية».", "فعّل القيود الأبوية على المتصفح والمتجر على جهازك.", "استخدم الوضع الرمادي (Grayscale) على الهاتف؛ يقلل جاذبيته كثيرًا.", "اترك الهاتف خارج السرير وخارج الحمام؛ واشترِ منبّهًا بسيطًا.", "اشحن الهاتف في غرفة أخرى أو في الصالة ليلًا.", "لا تستخدم الهاتف أو الحاسوب في غرفة مغلقة؛ اجعل الباب مفتوحًا واجلس في مكان مشترك.", "ضع الحاسوب في مكان يراه الآخرون.", "حدّد وقتًا لإغلاق الأجهزة ليلًا (قبل النوم بساعة مثلًا) والتزم به.", "لا تدخل الفراش إلا عند النعاس الحقيقي؛ فالسرير للنوم فقط.", "إذا لم تنم خلال 20 دقيقة فانهض واقرأ كتابًا أو اذكر الله حتى تنعس.", "افتح الستائر وأضئ الغرفة؛ الظلام والعزلة بيئة مثالية للانتكاسة.", "غيّر ترتيب غرفتك: بدّل مكان السرير والمكتب لتكسر الارتباطات القديمة.", "أنشئ «منطقة آمنة» في البيت تجلس فيها عند الشدة.", "ضع جدولًا ليومك؛ فالفراغ هو العدو الأول.", "املأ أوقات الخطر بنشاط مجدول: رياضة، دراسة، زيارة، ورد.", "حدّد أخطر ثلاثة أوقات لك واكتب خطة لكل واحد منها.", "جهّز «حقيبة الطوارئ»: ماء، سماعات، مصحف، حذاء رياضي جاهز عند الباب.", "ضع على شاشة هاتفك صورة تذكّرك بسببك أو آية.", "اكتب أسبابك على ورقة وألصقها في غرفتك.", "استخدم أدوات حدود الاستخدام (Screen Time / Digital Wellbeing) وحدّد مدة التطبيقات.", "أغلق الإشعارات المثيرة، وألغِ اشتراك القوائم البريدية المشبوهة.", "لا تدخل مواقع التواصل بعد منتصف الليل.", "عطّل التصفح الخفي (Incognito) أو امنعه؛ فالإخفاء يغريك بالفعل.", "لا تبحث عن شيء «عادي» على الإنترنت وأنت متعب أو وحيد أو ملول.", "قاعدة الثواني العشر: عند أول فكرة خاطئة قف وغيّر مكانك خلال عشر ثوانٍ.", "خصّص للهاتف مكانًا ثابتًا في البيت، مثل علبة عند الباب.", "إن كنت في سكن مشترك فاتفق مع زميلك على قواعد مشتركة وتشجيع متبادل.", "تجنّب الجلوس الطويل وحدك في الحمام؛ ادخل لحاجتك ثم اخرج، بلا هاتف.", "اجعل الحمام سريعًا ومحدد الوقت وبلا أجهزة.", "رتّب فراشك وملابسك؛ فالنظام الخارجي يسند النظام الداخلي.", "جهّز قائمة مهام صغيرة للوقت الفارغ: ترتيب، قراءة، اتصال، دراسة.", "خصّص ساعة يوميًا لمشروع تحبه: برمجة، ميكاترونيكس، تعلم لغة.", "ابدأ هواية جديدة بيديك: نجارة، رسم، صيانة، إلكترونيات.", "سجّل في نادٍ رياضي أو مارس رياضة جماعية.", "تطوّع في عمل خيري؛ فالخدمة تملأ القلب بالمعنى وتشغل الوقت.", "اضبط منبّه الفجر بعيدًا عن سريرك.", "نم واستيقظ في أوقات ثابتة؛ الانتظام يخفض الرغبة.", "حضّر وجباتك مبكرًا حتى لا يضغط عليك الجوع.", "احذف من هاتفك كل صور أو ملفات قديمة مرتبطة بالعادة؛ احذفها اليوم.", "احذف الأرقام والحسابات التي تقودك إلى السقوط.", "اجعل الجلوس في الأماكن المكشوفة (مقهى، مكتبة) بديلًا عن البقاء في غرفتك.", "عند الدراسة أو العمل أغلق التطبيقات غير المتعلقة بالمهمة.", "فعّل خاصية القفل التلقائي للشاشة ليلًا.", "اجعل الصفحة الرئيسية للمتصفح صفحة مفيدة: مهام، تقويم، قرآن.", "ضع تذكيرًا يوميًا لتسجيل يومك في هذا التطبيق.", "قسّم هدفك: لا تفكر بسنة؛ فكّر في اليوم، والليلة، والساعة القادمة.", "اكتب «خطة الليلة» كل مساء: متى أنام؟ أين الهاتف؟ ما برنامجي؟", "اترك الباب مفتوحًا عند الدراسة.", "شارك جدولك أو موقعك مع شخص موثوق في أوقات الضعف.", "اعمل نسخة احتياطية من هذا التطبيق أسبوعيًا.", "ضع حدًّا لاستخدام يوتيوب وإنستغرام وتيك توك؛ فالتمرير بلا نهاية يفتح الأبواب.", "اختر مجموعات وأصدقاء يدعمون هدفك، وابتعد عن مجموعات تنشر المقاطع الفاسدة.", "غادر المجموعات التي تتبادل المحتوى المحرّم دون تردد.", "جهّز جملة جاهزة لرفض أي مقطع يرسله أحد: «لا أشاهد هذه الأشياء».", "لا تحمل الهاتف إلى المكان الذي ستكون فيه وحدك لفترة طويلة.", "لا تدخل بيتًا فارغًا بعد العمل أو الدراسة بلا خطة لما بعد الدخول.", "إن كان لديك فراغ بعد الظهر فحدّد نشاطًا جاهزًا له كل يوم.", "اعتمد قاعدة 24 ساعة: لا تفتح أي شيء مشكوك فيه قبل أن تفكّر فيه يومًا كاملًا.", "اشترِ كتابًا ورقيًا تقرؤه بدل الهاتف قبل النوم.", "بدّل مكان جلوسك في الجامعة أو البيت ليكون وجهك نحو الناس.", "استمع إلى محاضرة أو بودكاست أثناء الأعمال اليدوية.", "اجعل لنفسك مهمة صباحية قوية، مثل تمرين 10 دقائق، لتبدأ يومك بنصر.", "كل ما يصلك من مقاطع مشبوهة احذفه فورًا ولا تفتحه.", "ضع خطة بديلة إذا فشل الفلتر؛ لا تعتمد على أداة واحدة."]}, "quit": {"n": "طريقة الترك", "t": ["ابدأ الآن: اكتب تاريخ بدايتك في العدّاد؛ فالبداية الصادقة نصف الطريق.", "حدّد هدفًا قريبًا: 7 أيام، ثم 14، ثم 30، ثم 90؛ لا تفكر بسنة كاملة اليوم.", "اليوم الأول والأسبوع الأول هما الأصعب؛ جهّز نفسك لهما بخطة مكتوبة.", "قاعدة اليوم الواحد: «لن أفعلها اليوم»، وغدًا نجدّد القرار.", "اعتبر الأشهر الأولى فترة إعادة تدريب لدماغك لا فترة عقاب لك.", "اكتب قائمة بأضرار العادة على دينك وصحتك وتركيزك ونفسيتك وعلاقاتك، واقرأها يوميًا.", "اكتب قائمة بالفوائد التي تريدها: قرب من الله، ثقة، تركيز، طاقة، سكينة.", "اقطع الإباحية فورًا وبشكل كامل؛ فهي الوقود الأكبر للعادة كلها.", "ابدأ بقطع «المقدمات»: النظر، التصفح، الخيالات؛ فهي بداية السلسلة.", "لا تجرّب «مرة أخيرة» وداعًا؛ لا توجد مرة أخيرة جميلة.", "استعد لأعراض الانسحاب: عصبية، أرق، شعور بالفراغ، رغبة أقوى؛ وهي مؤقتة وتزول.", "سجّل كل يوم: هل التزمت؟ ما أصعب لحظة؟ ماذا ساعدني؟", "احتفل بالأيام النظيفة ولو برسالة شكر لنفسك.", "استخدم نظام الجوائز: اكتب لكل هدف جائزة تحبها ولكل زلة عقوبة بنّاءة.", "اجعل الجائزة قريبة وحقيقية؛ فالدماغ يحب المكافأة العاجلة.", "اجعل العقوبة بنّاءة: صدقة، ختمة، صيام؛ ولا تؤذِ نفسك أو تكرهها.", "اكتب «رسالة إلى نفسي المستقبلية» وافتحها بعد 30 يومًا.", "أخبر شخصًا موثوقًا بمسيرتك وليسألك أسبوعيًا؛ فالمصارحة تضاعف قوتك.", "اختر ناصحًا لا فاضحًا؛ لا تخبر من لا يؤتمن.", "راجع محفّزاتك أسبوعيًا وأضف قاعدة جديدة عند كل ثغرة.", "أعد تعريف النجاح: ليس «غياب الرغبة» بل «عدم الاستجابة لها».", "ركّز على الاستمرار لا الكمال؛ وبعد كل عثرة قم فورًا.", "تجنّب قاعدة الصفر: سقوط واحد لا يعني فشل الأيام السابقة؛ فهي تبقى لك أجرًا وخبرة.", "احسب الأيام النظيفة الكلية لا السلسلة وحدها؛ فالتقدم تراكمي.", "اعلم أن التعافي قد يستغرق أشهرًا وربما سنة، فاصبر على نفسك.", "اجعل الأسبوع الأول أسبوع حرب: برنامج مزدحم، وقواعد صارمة، ومراقبة.", "استبدل العادة بعادة؛ فالفراغ يعيدها. اختر بدائل جاهزة.", "غيّر روتين الصباح والمساء كاملًا؛ فالروتين القديم مرتبط بالعادة.", "خطّط لليالي نهاية الأسبوع خصوصًا؛ فهي من أخطر الأوقات.", "لا تضع قاعدة «لن أشعر بالرغبة أبدًا»؛ بل «سأتصرف بحكمة عندما أشعر بها».", "اقرأ كتابًا أو استمع إلى محاضرة عن التعافي من الإدمان؛ فالعلم يقوّي العزيمة.", "تعلّم كيف تعمل المكافأة في الدماغ: كلما قلّ التعرض للمحفزات عادت حساسيتك للأشياء الجميلة.", "اكتب قصة تعافيك كما تريدها بعد سنة، ثم سِر نحوها.", "استعن بدعاء الاستخارة والتوفيق في بداية كل أسبوع.", "خصّص يومًا أسبوعيًا للحساب: تراجع فيه التقدم وتجدد العهد.", "إن كنت تستخدم أكثر من جهاز فطبّق القواعد على كل الأجهزة.", "استبعد من حياتك مناطق الرمادي: الصور الجريئة، المشاهد المثيرة، الإعلانات المحرّضة.", "قاعدة الـ10 دقائق: أجّل الفعل 10 دقائق، ثم 10 أخرى؛ غالبًا تزول الرغبة.", "أضف عائقًا بين الرغبة والفعل: كلمة سر طويلة، جهاز بعيد، باب مفتوح.", "اجعل السلوك الجيد سهلًا والسلوك السيئ صعبًا.", "لا تستخدم الهاتف وأنت مستلقٍ؛ استخدمه جالسًا فقط.", "وزّع المسؤولية: أخبر شخصًا عندما تحس بالخطر.", "اكتب خططًا بصيغة «إذا… فإنني…» مسبقًا لكل محفّز.", "حدّد أول فعل تقوم به عند الرغبة: أقف، أتوضأ، أخرج.", "خذ وقتًا كل شهر لمراجعة الخطة وتحسينها.", "تتبّع علامات الإنذار المبكر وسجّلها في دفتر محفّزاتك.", "اعلم أن الذكريات والخيالات ستأتي؛ لا تحاربها بل أزحها بلطف وانشغل بشيء آخر.", "لا تحاول «ألّا تفكر» في الشيء؛ فكّر في بديله بتركيز.", "اقطع التفكير الاسترجاعي في مشاهد قديمة بتغيير النشاط فورًا.", "حين يزورك مشهد قديم قل: «أعوذ بالله» ثم تحرّك بجسمك.", "اجعل مكافأة الأسبوع الأول شيئًا حقيقيًا وموعودًا.", "اجعل لكل شهر هدفًا شخصيًا إضافيًا: حفظ جزء، دورة، رياضة.", "حسّن مهاراتك؛ فكل إنجاز جديد يقلل جاذبية العادة.", "استبدل «لا أستطيع» بـ«كيف أستطيع؟».", "تتبّع عدد المرات التي تجاوزت فيها الرغبة؛ فهي أدلة على قدرتك.", "اكتب في دفترك كل مرة تجاوزت فيها الرغبة وماذا فعلت.", "الصمود في أصعب ليلة يمنحك سلامًا يدوم أيامًا.", "صبرك يزداد كل أسبوع؛ فواصل.", "اسأل الله التوفيق بعد كل صلاة: «اللهم أعنّي على نفسي».", "اجعل لكل زلة بروتوكولًا ثابتًا: قطع، استغفار، تحليل، قاعدة، عودة.", "تحمّل مسؤولية قراراتك دون جلد؛ فالمسؤولية قوة والجلد ضعف.", "تعاهد مع صديق على التزام مشترك لمدة شهر.", "إن طال ضعفك وتكرر رغم كل المحاولات فاستعن بمختص نفسي؛ فالعلاج المعرفي السلوكي أداة فعّالة وليس عيبًا.", "كل صباح اقرأ هدفك وسبب تركك قبل أن تلمس هاتفك."]}, "urge": {"n": "وقت الرغبة", "t": ["قف الآن وغيّر مكانك فورًا.", "اخرج من الغرفة حالًا.", "ضع الهاتف بعيدًا واخرج من البيت إن أمكن.", "توضأ الآن؛ فالماء يطفئ الاشتعال.", "صلِّ ركعتين الآن.", "اشرب كوب ماء كبيرًا ببطء.", "اغسل وجهك وانظر في المرآة وقل: «أنا أعرف ما تفعلين يا نفس».", "تنفّس: شهيق 4 ثوانٍ، حبس 2، زفير 6، كرّرها عشر مرات.", "شغّل مؤقّت الرغبة (20 دقيقة) في هذا التطبيق وانتظر.", "اتصل بصديق أو أخ أو أحد الأهل؛ لا تبقَ وحدك.", "اخرج للمشي السريع 15 دقيقة.", "اضغط 20 مرة (تمارين الضغط) أو اركض في المكان دقيقتين.", "اقرأ صفحة من القرآن بصوت مسموع.", "كرّر: «لا حول ولا قوة إلا بالله» 33 مرة.", "أكثر من الاستغفار الآن.", "قل: «اللهم اصرف عني السوء والفحشاء».", "اقرأ الأسباب التي كتبتها لترك العادة.", "اقرأ ما كتبته عن شعورك بعد الزلة.", "تذكّر أن الرغبة ستزول بعد دقائق سواء فعلت أم لم تفعل.", "قل لنفسك: «أشعر برغبة، وهذا لا يعني أنني سأنفّذها».", "اكتب كل ما يدور في رأسك لمدة خمس دقائق.", "استمع إلى تلاوة هادئة بصوت مرتفع.", "افتح النافذة ودع الهواء يدخل.", "اجلس في الصالة بين أهلك.", "اذهب إلى المسجد إن كان قريبًا.", "اعمل شيئًا بيديك: رتّب غرفة، اغسل الأطباق، نظّم مكتبك.", "ابدأ مهمة صغيرة جدًا لمدة خمس دقائق.", "حضّر شايًا أو شرابًا دافئًا واجلس معه بهدوء.", "استحم بماء معتدل بنية الطهارة دون إطالة وانفراد.", "أطفئ الشاشة وابتعد عنها حالًا.", "سمِّ شعورك الآن: ملل، وحدة، توتر، غضب، جوع، تعب.", "عالج الشعور لا الرغبة: جائع فكُل، تعبان فنم، وحيد فاتصل، غاضب فامشِ.", "اقرأ نصيحة جديدة من هذا التطبيق.", "انظر إلى عدّادك وتذكّر كم تعبت لتصل إليه.", "تخيّل شعورك بعد عشر دقائق إن صمدت: فخر وسكينة.", "تخيّل شعورك بعد عشر دقائق إن سقطت: ضيق وحسرة؛ فاختر الأول.", "لا تدخل الحمام هروبًا؛ ادخل لحاجة فقط وبدون هاتف.", "إن كنت في السرير فانهض وغيّر الغرفة فورًا.", "قل: «قراري أقوى من رغبتي».", "اضغط زر الطوارئ هنا بدل أن تفتح أي تطبيق آخر.", "أرسل رسالة لصديقك: «أمرّ بوقت صعب، ادعُ لي».", "اتصل بمن يدعمك ولا تخجل؛ فطلب العون قوة.", "ضع يدك على صدرك وقل: «هذه الموجة ستمرّ».", "قل: «أختار الله وأختار الأيام القادمة».", "افتح قائمة بدائلك واختر الأول دون تفكير.", "حرّك جسمك: قفز، تمدد، صعود سلالم؛ أي شيء لمدة خمس دقائق.", "شاهد شيئًا مفيدًا (محاضرة، وثائقي) بصوت عالٍ في الصالة.", "إذا شعرت بالتردد فاسأل: هل هذا ما أريد أن أكونه؟", "أجّل القرار: «لن أقرر الآن؛ سأقرر بعد 20 دقيقة».", "إن كنت على وشك السقوط فاخرج من البيت بملابسك العادية ودون هاتف.", "تذكّر آخر مرة صمدت فيها وكم كان شعورك جميلًا بعدها.", "تخيّل أنك تتحدث مع شخص تحترمه؛ هل ستفعل أمامه؟", "اذكر نعم الله عليك: عافيتك، أهلك، عقلك.", "اقرأ أذكار الصباح أو المساء الآن.", "اكتب على ورقة «لن أفعلها اليوم» ووقّع عليها.", "اغسل أسنانك؛ فتغيير الحال سريع وفعّال.", "حدّق في الأفق خارج النافذة وتنفّس بعمق.", "ردّد: ﴿وَمَن يَتَّقِ اللَّهَ يَجْعَل لَّهُ مَخْرَجًا﴾ حتى تهدأ.", "اضغط زر «تجاوزتها» بعد أن تمر الموجة؛ فهو يعزز ثقتك بنفسك.", "تذكّر أن كل مرة تقاوم فيها تضعف العادة وتقوى أنت.", "قل: «هذه ليست أنا؛ هذه عادة قديمة تتكلم».", "إذا كانت الرغبة قوية جدًا فاخرج من البيت بلا هاتف لمدة ساعة على الأقل.", "اكتب ما ستنجزه اليوم بعد أن تمر هذه الرغبة.", "أعد ترتيب جدولك بحيث لا تبقى وحدك طويلًا اليوم.", "ابدأ بما أجّلته من واجبات؛ فالإنجاز يمنحك شعورًا صحيًا بالرضا."]}, "body": {"n": "جسد ونوم", "t": ["نم 7 إلى 8 ساعات؛ فقلة النوم من أقوى أسباب الانتكاسة.", "ثبّت موعد النوم والاستيقاظ حتى في العطل.", "مارس رياضة 30 دقيقة معظم أيام الأسبوع؛ تخفف التوتر وترفع المزاج.", "تمارين المقاومة (الأثقال) تصرّف الطاقة وتبني الثقة بالنفس.", "المشي اليومي 30 إلى 40 دقيقة يهدّئ الأعصاب.", "تعرّض لضوء الشمس صباحًا؛ فهو يضبط الساعة البيولوجية والمزاج.", "اشرب ماءً كافيًا خلال اليوم.", "ابدأ يومك بوجبة فيها بروتين.", "قلّل الكافيين بعد الظهر لأنه يفسد النوم.", "تجنّب التدخين والمنبهات؛ فهي ترفع التوتر والاندفاع.", "تجنّب السهر؛ فأغلب الزلات تقع بين منتصف الليل والفجر.", "استحم قبل النوم ثم اقرأ شيئًا هادئًا.", "تجنّب الأطعمة المنبّهة قبل النوم.", "تناول عشاءً خفيفًا قبل النوم بساعتين.", "اتبع سنن النوم: وضوء، أذكار، قراءة، والنوم على الشق الأيمن.", "احتفظ بالهاتف بعيدًا عن السرير واستخدم منبّهًا عاديًا.", "خذ فترات حركة كل ساعة إذا كنت تجلس طويلًا.", "تمارين التمدد والتنفس مساءً تساعد على الاسترخاء.", "اعتنِ بنظافتك ومظهرك؛ فاحترام الذات يبدأ من الجسد.", "أجرِ فحوصات دورية إن شعرت بتعب أو قلق دائم؛ فللجسد حقوق.", "تناول أطعمة غنية بالأوميغا 3 والخضار؛ فالدماغ يحتاج غذاءً جيدًا.", "قلّل السكر المصنّع لأنه يسبب تقلبات في المزاج.", "جرّب الصيام النافل؛ ففيه ضبط وهدوء، إن كانت صحتك تسمح.", "استشر طبيبك قبل أي صيام أو رياضة مكثفة إن كان لديك مرض.", "تعلّم الاسترخاء العضلي التدريجي قبل النوم.", "اخرج إلى الطبيعة مرة أسبوعيًا على الأقل.", "حافظ على نظافة المكان الذي تنام فيه؛ فهو ينعكس على نفسيتك.", "تذكّر أن الجسد أمانة؛ فكل عادة سيئة تضعف هذه الأمانة.", "وزّع طاقتك الجسدية على عمل ورياضة فلا يبقى منها ما يشتعل ليلًا.", "تمرّن في الوقت الذي تأتيك فيه الرغبة غالبًا، مثل المساء.", "لا تجهد نفسك لدرجة الإنهاك؛ فالتعب الشديد يضعف المقاومة.", "خذ قيلولة قصيرة نهارًا (20 دقيقة) إن احتجت.", "عالج الأرق بالروتين وليس بالمنشطات.", "تجنّب الجلوس المتواصل أمام الشاشات ليلًا.", "قلّل الضوء الأزرق مساءً بوضع القراءة.", "بعد الأسابيع الأولى ستلاحظ تحسنًا في التركيز والطاقة؛ راقبه وسجّله.", "سجّل مزاجك ونومك يوميًا في التطبيق، وستتعرف على علاقتهما بالرغبة.", "خصّص يومًا للراحة؛ فالراحة ليست كسلًا.", "لا تهمل الأكل؛ فالجوع يضعف السيطرة.", "احتفظ بفواكه ومكسّرات كوجبات خفيفة جاهزة.", "اجعل صلاتك بخشوع؛ فحركات الصلاة تمنحك هدوءًا جسديًا ونفسيًا.", "حافظ على الوضوء؛ فهو نظافة وهدوء.", "تحدّث إلى طبيب إن وجدت قلقًا أو اكتئابًا مستمرًا مع ترك العادة.", "وازن يومك: عمل، رياضة، راحة، عبادة؛ فالتوازن يحميك.", "ابدأ بتمارين بسيطة إن لم تكن رياضيًا: 10 دقائق يوميًا تكفي للبداية.", "تمارين الكارديو بعد الظهر تخفف التوتر قبل الليل.", "اشرب ماءً دافئًا قبل النوم بدل المنبهات.", "احرص على نوم كافٍ قبل الامتحانات والمشاريع؛ فالسهر الدراسي يفتح الباب.", "الجسد المتعب والنفس المهملة أسهل فريسة؛ فاعتنِ بالأساسيات أولًا."]}, "social": {"n": "اجتماعية", "t": ["لا تواجه المعركة وحدك؛ شارك شخصًا تثق به.", "اختر صديقًا صالحًا يسألك عنك أسبوعيًا.", "ابتعد عن رفقة السوء والمجالس التي تهوّن الأمر.", "صاحب من يذكّرك بالله إذا نسيت ويعينك إذا ذكرت.", "اقضِ وقتًا أكثر مع أسرتك؛ فالجلسات العائلية تحميك.", "شارك في أنشطة المسجد أو حلقات القرآن.", "اطلب من أخ أو صديق أن تتصلا ببعضكما يوميًا لمدة أسبوعين.", "تحدّث مع أب أو أخ أكبر حكيم إن أمكن.", "لا تخجل من طلب المساعدة؛ فكلنا بشر.", "انضم إلى مجموعة تعافٍ جادة بأسماء مستعارة إن احتجت دعمًا من أناس مرّوا بتجربتك.", "الزواج بالحلال طريق محترم، وقد يكون جزءًا من العلاج لمن استطاعه.", "لا تعلّق قلبك بعلاقة محرمة كبديل؛ فهي استبدال إدمان بإدمان.", "احذر العلاقات المثيرة عبر الإنترنت؛ تبدو بريئة وتنتهي بالمحظور.", "اجعل علاقاتك واضحة وعلنية لا خفية.", "ساعد غيرك؛ فالتعافي يقوى حين تنفع الآخرين.", "إن رأيت أخًا يعاني فشجّعه بلطف ودون فضح.", "لا تتحدث عن تفاصيل الموضوع مع الأصدقاء؛ يكفي أن تقول «أمرّ بتحدٍّ وأطلب دعاءك».", "أخبر المقربين أنك تتغيّر وتحتاج بيئة داعمة.", "ابنِ علاقات جديدة في أماكن نافعة: نادٍ، جامعة، عمل تطوعي.", "ضع حدودًا لطيفة مع من يفرض عليك مشاهدة محتوى غير لائق.", "اتفق مع أصدقائك على سهرات بلا هواتف.", "شارك في فريق أو مشروع جماعي يحتاج التزامك.", "إن كنت بعيدًا عن أهلك (غربة) فكوّن لك دائرة أصدقاء صالحين؛ فالغربة والوحدة بيئة خطرة.", "اتصل بأهلك بانتظام؛ فالاتصال بالجذور يقوّي الثبات.", "اجعل لك أخًا في الله تتصارحان معه.", "لا تدخل نقاشات مثيرة على مواقع التواصل.", "اترك الخصومات؛ فالغضب بعد الخلافات يدفع إلى الهروب.", "تعلّم مهارات التواصل والتعبير عن مشاعرك بدل كتمها.", "تدرّب على قول «لا» بلطف وحزم.", "شارك لحظات فرحك مع الناس؛ فالمتعة الاجتماعية تعوّض الفراغ.", "اعتذر لمن أخطأت في حقه؛ فراحة الضمير تعين على الثبات.", "اجعل لك دورًا في مجتمعك، فالمعنى يحميك من الفراغ.", "اجلس في الأماكن العامة بدل العزلة.", "احضر دروس علم أسبوعية لتجديد الإيمان.", "شارك في مناسبات العائلة والأصدقاء بدل الانعزال.", "تحدّث إلى مرشد نفسي أو شيخ ناصح إن طالت المشكلة.", "لا تقارن حياتك بما تراه على الشبكات؛ فهي واجهات منتقاة.", "اعتد على زيارات قصيرة للأقارب والأصدقاء.", "اكتب رسالة شكر لشخص ساعدك؛ فالامتنان يرفع المعنويات.", "رتّب لقاءات رياضية أسبوعية مع أصدقاء.", "إن كان لك أخ أصغر أو طالب تعلّمه فاعلم أنك قدوة له؛ وهذا يحفّزك على الاستمرار.", "احذر السهر مع الأصدقاء على الأجهزة وما يتخلله من مواد لا تناسب.", "ابدأ كل لقاء اجتماعي بنية صالحة.", "اجلس مع كبار السن وتعلّم منهم؛ فالحكمة تحميك."]}, "relapse": {"n": "بعد الزلة", "t": ["وقعت؟ توقّف الآن ولا تُكمل: لا تجعل زلة واحدة تتحول إلى سلسلة.", "لا تقل «ضاع كل شيء»؛ فهذه كذبة النفس بعد الزلة.", "اغتسل وتوضأ وصلِّ ركعتين واستغفر الله.", "تذكّر: ﴿لَا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ﴾.", "التوبة تجبّ ما قبلها؛ فابدأ صفحة جديدة بصدق.", "أتبع السيئة الحسنة: صدقة أو ركعتان أو ختمة فورًا.", "سجّل الزلة بصدق في التطبيق دون تبرير.", "حلّل: ما الذي حصل قبلها؟ ما الشعور؟ ما الوقت؟ ما المكان؟", "استخرج درسًا واحدًا واضحًا من هذه الزلة.", "أضف قاعدة جديدة تمنع تكرار نفس الثغرة.", "نفّذ عقوبتك البنّاءة التي حدّدتها ولا تؤجلها.", "لا تعاقب نفسك بالحرمان من النوم أو الطعام؛ فالعقوبة بالعمل الصالح فقط.", "لا تلُم نفسك بقسوة؛ فالجلد يزيد الاندفاع ولا يشفي.", "احذر تأثير «ما دمت سقطت فلأكمل اليوم»؛ فهو أخطر من الزلة نفسها.", "حافظ على جدول يومك بعد الزلة كأن شيئًا لم يحدث.", "أخبر صديقك الموثوق فورًا إن كان ذلك يساعدك.", "غيّر مكانك واخرج من المكان الذي حدثت فيه الزلة.", "ضع هاتفك بعيدًا لساعات بعد الزلة.", "نم مبكرًا الليلة وابدأ غدًا بنية جديدة.", "صلِّ الفجر غدًا مهما كان شعورك.", "اقرأ قصص من عادوا بعد سقطات كثيرة وانتصروا.", "أيامك السابقة ليست ضائعة؛ فقد تدرّبت وتعلّمت.", "أطول سلسلة لك باقية كرقم قياسي؛ وهدفك أن تحطّمه.", "ثقتك بنفسك تعود بالأفعال لا بالكلام؛ فابدأ بيوم واحد.", "لا تتخذ قرارات كبرى وأنت نادم؛ انتظر حتى تهدأ.", "اشكر الله أنه سترك وأمهلك وفتح لك باب التوبة.", "كل سقوط تحلله يقرّبك من الانتصار.", "استغفر مع عزم صادق على عدم العودة؛ فالاستغفار باللسان وحده لا يكفي.", "اجلس مع نفسك واسأل: ما الذي أحتاجه حقًا الآن؟", "اكتب رسالة لنفسك: «حين أقع سأذكّر نفسي بـ...» واحتفظ بها.", "لا تقارن عدّادك بعدّاد غيرك؛ فلكل شخص طريقه.", "انظر إلى عدد الأيام النظيفة التي سبقت؛ فهي أكثر بكثير من يوم الزلة.", "التعافي يشبه تعلّم القيادة؛ الأخطاء جزء من التعلم لا من الفشل.", "إن تكررت الزلات في الفترة نفسها من اليوم فعدّل جدولك لتلك الفترة.", "إن تكرر السبب فعالجه جذريًا: نوم، وحدة، ضغط، أو جهاز مفتوح.", "افتح هذا التطبيق وراجع «قواعدي» وأحكمها.", "إن زادت مشاعر الذنب والحزن فتحدّث إلى مختص أو ناصح موثوق.", "لا تخف من العودة إلى الله؛ فالباب مفتوح دائمًا.", "اضبط العدّاد وابدأ بعزم جديد دون تأخير.", "اكتب في دفترك ثلاثة أشياء ستفعلها غدًا لتجعله يومًا قويًا.", "ابدأ الصباح بالرياضة والذكر لتجديد النية.", "لا تكلّم نفسك بلغة العجز، بل بلغة التخطيط: «كيف أمنع تكرارها؟».", "الشيطان يحب أن يُيئسك بعد الزلة ليكمل بك؛ فكن أذكى منه وعد فورًا.", "اجعل زلتك معلّمًا لا نهاية.", "وعد صادق: «سأعود أقوى وأهدأ وأكثر حذرًا»."]}, "future": {"n": "تحفيز ورؤية", "t": ["تخيّل حياتك بعد سنة من التحرر؛ ما الذي ستكون قد أنجزته؟", "اكتب الشخص الذي تريد أن تكونه بعد خمس سنوات ثم ابدأ اليوم.", "كل يوم نظيف استثمار في صحتك وقلبك وعقلك.", "أنت تبني بيتك القادم: زوجة وأولادًا صالحين؛ فاحمِ نفسك لأجلهم.", "اعتبر نفسك أبًا لنفسك المستقبلية؛ ماذا تريد لها؟", "أنت أكبر من هذه العادة، وقدراتك أوسع بكثير.", "كل قرار صغير الآن يصنع حياتك بعد سنوات.", "تخيّل شعور الصفاء والسكينة بعد 90 يومًا.", "اكتب لائحة بما ستفعله بالوقت والطاقة المستردّين.", "ضع هدفًا كبيرًا (مشروع، دراسة، حفظ) يجعل الترك وسيلة لا غاية.", "ما تتركه لله يعوّضك الله بأحسن منه.", "في الجنة ما لا عين رأت ولا أذن سمعت؛ فهل تبيع ذلك بلحظة تنقضي؟", "ثباتك اليوم صدقة على نفسك وعلى أهلك.", "أنت قدوة لمن حولك دون أن تدري؛ فثباتك يلهم.", "احتفل بأول أسبوع، وأول شهر، وأول 90 يومًا.", "اكتب أمنية لنفسك بعد سنة ولا تفتحها إلا حينها.", "عندما تتعب تذكّر أنك لن تحتاج هذا الجهد للأبد؛ فالعادات الجديدة تصبح تلقائية.", "ستأتي أيام تستغرب فيها كيف كانت العادة تسيطر عليك.", "القلب الصافي يستحق كل ما تتعب لأجله.", "اقرأ سير الصالحين الذين حفظوا أنفسهم في الشباب.", "تذكّر يوسف عليه السلام: صبر على الفتنة فمكّنه الله.", "خطّط لحياة فيها زواج مبكر إن استطعت؛ فهو حصن.", "أنشئ مشروعًا يخدم الناس؛ فالمعنى أقوى من اللذة.", "حدّد «لماذا» تحبه كثيرًا: أسرة، رسالة، دين، علم.", "راجع أهدافك الأسبوعية وبشّر نفسك بإنجازاتك.", "استمتع بالتقدم: أصبحت أكثر هدوءًا وتركيزًا.", "من لا ينقطع عن الطريق يصل.", "أنت اليوم أفضل من أمس إذا استمررت.", "التزامك يحوّل ضعفك إلى قوة وخبرة تنفع بها غيرك.", "ما تبنيه في السرّ يظهر في العلن عزّةً واحترامًا.", "استعد لتحمّل مسؤوليات كبيرة؛ فالعفة تهيّئك لها.", "ستكون لك قصة تعافٍ تلهم الآخرين يومًا ما.", "كلما طالت السلسلة زادت قيمتها عندك وصعب عليك التفريط بها.", "كل ثانية في عدّادك تعني أنك اخترت الله عليها.", "العدّاد يحصي ثواني نصرك؛ فتحسّن في كل لحظة.", "تخيّل نفسك تحكي لأولادك يومًا: كيف تغلّبت على نفسك.", "أنت تكتب فصلًا جديدًا؛ اجعله فصل بطولة.", "اربط الأيام النظيفة بنعمة: ماذا زاد في حياتي؟", "إن شعرت بالفتور فجدّد نيتك: «أفعلها لله ثم لنفسي».", "حدّد مكافأة كبيرة لنفسك عند 90 يومًا: رحلة، كتاب، شيء تحبه.", "ما بين سقطة ونجاح قلبٌ يستغفر ويعود.", "تحرّرك من هذه العادة سيفتح لك أبوابًا لم تكن تراها.", "اشكر الله على كل يوم نظيف؛ فالشكر يزيد النعمة.", "أنت أقوى مما تتصور.", "وكلما تعبت: ﴿إِنَّ مَعَ الْعُسْرِ يُسْرًا﴾.", "اكتب عشرة أشياء تحسّنت في حياتك بعد الترك.", "إن وصلت إلى 30 يومًا فاستمر؛ فما بعدها أخفّ وأجمل.", "لا تسأل «متى أنتهي؟» بل «ماذا أبني اليوم؟».", "اجعل ثباتك رسالة بأن الإنسان يستطيع تغيير نفسه.", "أنت على الطريق؛ استمر ولو ببطء."]}};
+/* ===== الأساس ===== */
+const $=(s,r)=>(r||document).querySelector(s),$$=(s,r)=>[].slice.call((r||document).querySelectorAll(s));
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+const pad=n=>String(n).padStart(2,'0');
+const dstr=d=>{d=new Date(d);return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())};
+const today=()=>dstr(Date.now());
+const pds=s=>{const a=s.split('-');return new Date(+a[0],+a[1]-1,+a[2])};
+const K=['porn','mast'],KN={porn:'الإباحية',mast:'العادة السرية'};
+const DEF_GOALS=[1,3,7,14,30,60,90,180,365,730,1095];
+const DAY=864e5;
+const KEY='thabat2',KSNAP='thabat2_snaps',KBOOT='thabat2_boot',KCORR='thabat2_corrupt';
+const AR_MONTHS=['كانون الثاني','شباط','آذار','نيسان','أيار','حزيران','تموز','آب','أيلول','تشرين الأول','تشرين الثاني','كانون الأول'];
+const AR_DAYS=['أحد','اثنين','ثلاثاء','أربعاء','خميس','جمعة','سبت'];
+const ICONS={
+ today:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',
+ journey:'<svg viewBox="0 0 24 24"><path d="M5 21V4M5 4h12l-2.5 4L17 12H5"/></svg>',
+ tools:'<svg viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></svg>',
+ me:'<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>',
+ sos:'<svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M12 9v5M12 16.5v.01"/></svg>',
+ lock:'<svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>',
+ set:'<svg viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg>',
+ back:'<svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>'
+};
+/* ---------- الحالة ---------- */
+function mkCounter(){return{start:null,streaks:[],goals:DEF_GOALS.map(d=>({id:uid(),days:d,reward:''})),reached:[]}}
+function defaults(){return{v:2,onboarded:false,name:'',pin:null,theme:'dark',acc:'teal',fs:100,lockAfter:60,haptic:true,
+ counters:{porn:mkCounter(),mast:mkCounter()},logs:{porn:{},mast:{}},slips:[],pending:[],earned:[],wins:[],
+ rules:[],ruleLog:{},checkins:{},diary:[],answers:{},excuses:[],weekly:{},favs:[],seen:[],
+ lists:{reasons:[],ifthen:[],alts:[],triggers:[],weak:[],warn:[],punish:[]},
+ plugins:[],ui:{k:'porn',jtab:'cal',calK:'all',calM:null,tipCat:'all',tipDay:'',tipCur:null,emEnd:0,stab:'q',rcat:'all',gk:'porn'}}}
+let S=null,locked=false,cur='today',lastCur=null;
+function merge(d,s){
+  const o=Object.assign({},d);
+  Object.keys(s||{}).forEach(k=>{
+    if(['counters','lists','ui'].indexOf(k)>=0&&s[k]&&typeof s[k]==='object')o[k]=Object.assign({},d[k],s[k]);else o[k]=s[k];
+  });
+  K.forEach(k=>{o.counters[k]=Object.assign(mkCounter(),o.counters[k]);if(!o.logs[k])o.logs[k]={}});
+  return o;
+}
+function load(){
+  let raw=null;
+  try{raw=localStorage.getItem(KEY)}catch(e){}
+  if(!raw)return defaults();
+  try{return merge(defaults(),JSON.parse(raw))}
+  catch(e){try{localStorage.setItem(KCORR,raw)}catch(_){}; setTimeout(()=>toast('تعذّرت قراءة بياناتك، حُفظت نسخة منها للإنقاذ',5000),800);return defaults()}
+}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){toast('تعذّر الحفظ: المساحة ممتلئة؟')}}
+function snaps(){try{return JSON.parse(localStorage.getItem(KSNAP)||'[]')}catch(e){return[]}}
+function snapshot(label){
+  try{
+    const a=snaps();a.unshift({t:Date.now(),label:label||'تلقائي',data:JSON.stringify(S)});
+    localStorage.setItem(KSNAP,JSON.stringify(a.slice(0,5)));
+  }catch(e){}
+}
+/* ---------- أدوات واجهة ---------- */
+function haptic(n){if(S&&S.haptic&&navigator.vibrate&&(!navigator.userActivation||navigator.userActivation.hasBeenActive))try{navigator.vibrate(n||12)}catch(e){}}
+let toastT=null;
+function toast(msg,ms){
+  const old=$('.toast');if(old)old.remove();
+  const t=document.createElement('div');t.className='toast';t.textContent=msg;t.setAttribute('role','status');document.body.appendChild(t);
+  clearTimeout(toastT);toastT=setTimeout(()=>t.remove(),ms||2600);
+}
+function sheet(html,opt){
+  const bd=document.createElement('div');bd.className='bd';
+  bd.innerHTML='<div class="sh" role="dialog" aria-modal="true"><div class="grip"></div>'+html+'</div>';
+  $('#sheets').appendChild(bd);
+  const api={el:bd.firstChild,close:()=>{bd.remove();if(opt&&opt.onClose)opt.onClose()}};
+  bd.addEventListener('click',e=>{if(e.target===bd&&!(opt&&opt.sticky))api.close()});
+  bd._api=api;return api;
+}
+function closeSheets(){$$('#sheets .bd').forEach(b=>b.remove())}
+function ask(msg,o){
+  o=o||{};
+  return new Promise(res=>{
+    const s=sheet('<h3>'+esc(o.title||'تأكيد')+'</h3><p class="mut">'+esc(msg)+'</p><div class="row mt2"><button class="btn '+(o.danger?'bad':'pri')+'" id="ask-ok">'+esc(o.ok||'نعم')+'</button><button class="btn" id="ask-no">'+esc(o.no||'إلغاء')+'</button></div>',{onClose:()=>res(false),sticky:false});
+    $('#ask-ok',s.el).onclick=()=>{s.el.parentNode.remove();res(true)};
+    $('#ask-no',s.el).onclick=()=>s.close();
+  });
+}
+const sheetClose=()=>{const b=$$('#sheets .bd').pop();if(b)b._api.close()};
+/* ---------- أحداث وإضافات ---------- */
+const EV={};
+function on(e,f,pid){(EV[e]=EV[e]||[]).push({f:f,pid:pid})}
+function emit(e,d){(EV[e]||[]).slice().forEach(x=>{try{x.f(d)}catch(err){console.error(err);if(x.pid)pluginError(x.pid,err)}})}
+const V={},BUILTIN={},COMP={},BCOMP={},ROUTES={},A={},CH={},overBy={};
+function reg(id,fn,meta){V[id]=fn;BUILTIN[id]=fn;ROUTES[id]=Object.assign({title:id,tab:'tools'},meta||{})}
+function comp(n){const a=[].slice.call(arguments,1);return COMP[n].apply(null,a)}
+function regC(n,f){COMP[n]=f;BCOMP[n]=f}
+function override(id,fn,pid){
+  if(!V[id])throw new Error('صفحة غير موجودة: '+id);
+  const orig=V[id];V[id]=(el,ctx)=>fn(el,ctx,orig);
+  (overBy[id]=overBy[id]||[]).push(pid);
+}
+function overrideComp(n,fn,pid){if(!COMP[n])throw new Error('مكوّن غير موجود: '+n);const o=COMP[n];COMP[n]=function(){return fn.apply(null,[o].concat([].slice.call(arguments)))};(overBy['c:'+n]=overBy['c:'+n]||[]).push(pid)}
+function addPage(o,pid){
+  if(!o||!o.id||!o.render)throw new Error('addPage يحتاج id و render');
+  if(V[o.id])throw new Error('المعرّف مستخدم: '+o.id);
+  V[o.id]=(el,ctx)=>o.render(el,ctx);BUILTIN[o.id]=V[o.id];
+  ROUTES[o.id]={title:o.title||o.id,icon:o.icon||'🧩',tab:'tools',parent:'tools',plugin:pid,desc:o.desc||'',extra:true};
+}
+function addTips(cat,arr){
+  if(!Array.isArray(arr))throw new Error('addTips يحتاج مصفوفة');
+  TIPS[cat]=TIPS[cat]||{n:cat,t:[]};arr.forEach(t=>TIPS[cat].t.push(String(t)));
+}
+let curPid=null;
+function pluginError(pid,err,quiet){
+  const p=S.plugins.find(x=>x.id===pid);if(!p)return;
+  p.enabled=false;p.error=String(err&&err.message||err);save();
+  Object.keys(overBy).forEach(k=>{
+    if((overBy[k]||[]).indexOf(pid)>=0){
+      if(k.indexOf('c:')===0)COMP[k.slice(2)]=BCOMP[k.slice(2)];else V[k]=BUILTIN[k];
+      overBy[k]=[];
+    }
+  });
+  if(!quiet)toast('الإضافة «'+p.name+'» سبّبت خطأ وتم إيقافها',4500);
+}
+const API_DOC=[
+'مرجع إضافات «ثبات» (الإصدار 2.0)',
+'الكود يُلصق في «الإعدادات ← الإضافات» ويُشغَّل داخل دالة يصلها المتغيّر App.',
+'',
+'— البيانات: App.state كائن حيّ. بعد التعديل: App.save() ثم App.refresh().',
+'  counters.porn|mast = {start, streaks:[{start,end}], goals:[{id,days,reward}], reached:[]}',
+'  logs.porn|mast = {"YYYY-MM-DD":"slip"|"clean"|"none"} ؛ slips=[{id,t,counter,trigger,before,lesson,punish}]',
+'  rules=[{id,text,cat,why,penalty,active}] ؛ ruleLog={"YYYY-MM-DD":{ruleId:"ok"|"broke"}} ؛ checkins={"YYYY-MM-DD":{mood,sleep,urge,note}}',
+'  lists={reasons,ifthen,alts,triggers,weak,warn,punish} ؛ diary=[{id,t,mood,text}] ؛ pending ؛ earned ؛ wins',
+'',
+'— الدوال: App.refresh() App.go(id) App.toast(msg) App.sheet(html)->{el,close} App.ask(msg)->Promise<bool>',
+'  App.elapsed("porn"|"mast")->ms ؛ App.diff(a,b)->{y,m,d,hh,mm,ss} ؛ App.recordSlip(["porn"],{trigger,before,lesson,punish}) ؛ App.esc App.uid App.dstr',
+'',
+'— الأحداث: App.on("render"|"tick"|"slip"|"goal", fn) — render يصلها معرّف الصفحة.',
+'',
+'— الصفحات: App.addPage({id,title,icon,desc,render:(el)=>{el.innerHTML="..."}}) تظهر في «أدواتي».',
+'  App.override(id,(el,ctx,orig)=>{orig(el,ctx);...}) المعرّفات: today journey tools me rules plan tips after study diary weekly settings backup plugins',
+'  App.overrideComp("ring",(orig,k)=>orig(k)+"...") يبدّل العدّاد الدائري.',
+'',
+'— التفاعل: App.act("name",(el)=>{}) يربط data-a="name". App.css("...") يحقن CSS. App.addTips(cat,[...]).',
+'  متغيرات التصميم: --bg --card --card2 --line --tx --mut --acc --acc2 --ok --bad --warn',
+'',
+'قواعد: لا تستخدم localStorage مباشرة. غلّف الكود الخطِر بـ try/catch. لا ترسل البيانات خارج الجهاز.'
+].join('\n');
+function makeApi(p){
+  return{
+    get state(){return S},save:()=>save(),refresh:()=>render(),go:i=>go(i),toast:toast,sheet:sheet,modal:sheet,ask:ask,esc:esc,uid:uid,dstr:dstr,
+    on:(e,f)=>on(e,f,p.id),override:(i,f)=>override(i,f,p.id),overrideComp:(n,f)=>overrideComp(n,f,p.id),addPage:o=>addPage(o,p.id),addTips:addTips,
+    css:t=>{const s=document.createElement('style');s.textContent=t;s.dataset.pl=p.id;document.head.appendChild(s)},
+    act:(n,f)=>{A[n]=(el,ev)=>{try{f(el,ev)}catch(e){pluginError(p.id,e)}}},
+    elapsed:k=>elapsed(k),diff:diff,recordSlip:(ks,info)=>{(ks||[]).forEach(k=>doSlip(k,info||{}));render()},exportJSON:()=>JSON.stringify(S),version:'2.0'
+  };
+}
+function loadPlugins(){
+  S.plugins.filter(p=>p.enabled).forEach(p=>{
+    try{new Function('App','"use strict";\n'+p.code)(makeApi(p));p.error=null}
+    catch(e){pluginError(p.id,e)}
+  });
+  save();
+}
+/* ---------- الوقت والعدّادات ---------- */
+function diff(a,b){
+  a=new Date(a);b=new Date(b);
+  let y=b.getFullYear()-a.getFullYear(),m=b.getMonth()-a.getMonth(),d=b.getDate()-a.getDate(),hh=b.getHours()-a.getHours(),mm=b.getMinutes()-a.getMinutes(),ss=b.getSeconds()-a.getSeconds();
+  if(ss<0){ss+=60;mm--}if(mm<0){mm+=60;hh--}if(hh<0){hh+=24;d--}
+  if(d<0){d+=new Date(b.getFullYear(),b.getMonth(),0).getDate();m--}
+  if(m<0){m+=12;y--}
+  return{y:y,m:m,d:d,hh:hh,mm:mm,ss:ss};
+}
+const C=k=>S.counters[k];
+const elapsed=k=>C(k).start?Math.max(0,Date.now()-C(k).start):0;
+const daysOf=k=>Math.floor(elapsed(k)/DAY);
+function bestMs(k){let b=elapsed(k);C(k).streaks.forEach(s=>{b=Math.max(b,s.end-s.start)});return b}
+function nextGoal(k){const e=elapsed(k);return C(k).goals.slice().sort((a,b)=>a.days-b.days).find(g=>e<g.days*DAY)||null}
+function prevGoalDays(k){const e=elapsed(k);let p=0;C(k).goals.forEach(g=>{if(e>=g.days*DAY&&g.days>p)p=g.days});return p}
+function goalName(d){if(d===1)return'يوم واحد';if(d===2)return'يومان';if(d<11)return d+' أيام';if(d%365===0){const y=d/365;return y===1?'سنة':y===2?'سنتان':y+' سنوات'}if(d%30===0&&d<365){const m=d/30;return m===1?'شهر':m===2?'شهران':m+' أشهر'}return d+' يومًا'}
+function setStart(k,ms){const c=C(k);c.start=ms;c.reached=c.goals.filter(g=>Date.now()-ms>=g.days*DAY).map(g=>g.id);save();closeSheets();render()}
+function doSlip(k,info){
+  const c=C(k),now=Date.now();
+  if(c.start)c.streaks.push({start:c.start,end:now});
+  S.logs[k][dstr(now)]='slip';
+  S.slips.push({id:uid(),t:now,counter:k,streakMs:c.start?now-c.start:0,before:info.before||'',trigger:info.trigger||'',lesson:info.lesson||'',rule:info.rule||'',punish:info.punish||''});
+  if(info.punish)S.pending.push({id:uid(),counter:k,kind:'slip',text:info.punish,t:now,done:false});
+  c.start=now;c.reached=[];
+  save();emit('slip',{counter:k,info:info});
+}
+function checkGoals(){
+  if(!S||locked)return;
+  const got=[];
+  K.forEach(k=>{
+    const c=C(k);if(!c.start)return;const e=elapsed(k);
+    c.goals.forEach(g=>{
+      if(e>=g.days*DAY&&c.reached.indexOf(g.id)<0){
+        c.reached.push(g.id);S.earned.push({id:uid(),counter:k,days:g.days,reward:g.reward||'',t:Date.now(),claimed:false});
+        got.push({k:k,g:g});emit('goal',{counter:k,goal:g});
+      }
+    });
+  });
+  if(got.length){
+    save();haptic([30,40,30]);
+    sheet('<div class="center"><div class="hero-ic">🎉</div><h3>ما شاء الله، حققت هدفًا!</h3></div>'+got.map(x=>'<div class="card flat"><b>'+esc(KN[x.k])+' — '+goalName(x.g.days)+'</b><div class="mut sm mt">'+(x.g.reward?'🎁 جائزتك: '+esc(x.g.reward):'لم تحدّد جائزة لهذا الهدف، والجائزة الكبرى عند الله.')+'</div></div>').join('')+'<button class="btn pri" data-a="close">الحمد لله</button>');
+    if(cur==='today'||cur==='journey')render();
+  }
+}
+/* حالة اليوم في التقويم */
+function firstStart(k){let m=null;C(k).streaks.forEach(s=>{if(m===null||s.start<m)m=s.start});if(C(k).start&&(m===null||C(k).start<m))m=C(k).start;return m}
+function dayStatus(k,ds){
+  const ov=S.logs[k][ds];if(ov==='slip'||ov==='none'||ov==='clean')return ov==='clean'?'clean':ov;
+  const f=firstStart(k);if(f===null)return'none';
+  const td=today();if(ds>td)return'future';
+  return ds>=dstr(f)?'clean':'none';
+}
+function dayAgg(ds){
+  const a=K.map(k=>dayStatus(k,ds));
+  if(a.indexOf('slip')>=0)return'slip';
+  if(a.every(x=>x==='future'))return'future';
+  if(a.every(x=>x==='none'||x==='future'))return'none';
+  return'clean';
+}
+/* ---------- المظهر ---------- */
+function applyTheme(){
+  const h=document.documentElement;
+  const sc=S.theme==='auto'?(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'):S.theme;
+  h.dataset.s=sc;h.dataset.acc=S.acc;h.style.fontSize=(S.fs||100)+'%';
+  const m=$('meta[name=theme-color]');if(m)m.content=sc==='light'?'#f2f6f6':'#091014';
+}
+/* ---------- التوجيه والعرض ---------- */
+const TABS=[['today','اليوم'],['journey','رحلتي'],['tools','أدواتي'],['me','نفسي']];
+function route(){const h=(location.hash||'').replace(/^#\/?/,'');return V[h]?h:'today'}
+function go(id){if(location.hash==='#/'+id){cur=id;render()}else location.hash='#/'+id;window.scrollTo(0,0)}
+function back(){const r=ROUTES[cur];go(r&&r.parent?r.parent:'today')}
+function renderShell(){
+  const r=ROUTES[cur]||{};const main=['today','journey','tools','me'].indexOf(cur)>=0;
+  let ttl;
+  if(cur==='today'){
+    ttl='<div class="ttl"><b>السلام عليكم'+(S.name?' يا '+esc(S.name):'')+'</b><small>'+dateLine()+'</small></div>';
+  }else if(main)ttl='<div class="ttl"><b>'+esc(r.title)+'</b></div>';
+  else ttl='<button class="ib" data-a="back" aria-label="رجوع">'+ICONS.back+'</button><div class="ttl"><b>'+esc(r.title)+'</b></div>';
+  $('#top').innerHTML=ttl+'<button class="ib" data-a="lockNow" aria-label="قفل">'+ICONS.lock+'</button><button class="ib" data-a="goset" aria-label="الإعدادات">'+ICONS.set+'</button>';
+  const tab=r.tab||'today';
+  const nv=t=>'<button class="nv '+(tab===t[0]?'on':'')+'" data-a="tab" data-t="'+t[0]+'" aria-label="'+t[1]+'">'+ICONS[t[0]]+'<span>'+t[1]+'</span></button>';
+  $('#nav').innerHTML=nv(TABS[0])+nv(TABS[1])+'<div class="sos"><button data-a="emerg" aria-label="طوارئ">'+ICONS.sos+'</button><span>طوارئ</span></div>'+nv(TABS[2])+nv(TABS[3]);
+}
+function dateLine(){
+  const d=new Date();let h='';
+  try{h=new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura',{day:'numeric',month:'long'}).format(d)}catch(e){}
+  return AR_DAYS[d.getDay()]+' '+d.getDate()+' '+AR_MONTHS[d.getMonth()]+(h?' · '+h:'');
+}
+function render(){
+  if(!S||locked)return;
+  const v=$('#view');cur=route();
+  renderShell();
+  const el=document.createElement('div');el.className=(cur!==lastCur?'pg':'');lastCur=cur;
+  try{V[cur](el,{page:cur})}
+  catch(e){
+    console.error(e);
+    const ps=(overBy[cur]||[]).filter(Boolean);
+    if(ps.length){ps.forEach(pid=>pluginError(pid,e,true));el.innerHTML='';try{V[cur]=BUILTIN[cur];V[cur](el,{page:cur});toast('خطأ في إضافة غيّرت هذه الصفحة، رجعت للأصل',4500)}catch(e2){el.innerHTML='<div class="card bad">حدث خطأ: '+esc(e2.message)+'</div>'}}
+    else if(ROUTES[cur]&&ROUTES[cur].plugin){pluginError(ROUTES[cur].plugin,e,true);el.innerHTML='<div class="card bad">خطأ في صفحة الإضافة: '+esc(e.message)+'</div>'}
+    else el.innerHTML='<div class="card bad">حدث خطأ: '+esc(e.message)+'</div>';
+  }
+  v.innerHTML='';v.appendChild(el);
+  emit('render',cur);tick();
+}
+window.addEventListener('hashchange',()=>{closeSheets();if(S&&!locked)render()});
+/* تفويض الأحداث */
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-a]');if(!t)return;
+  const f=A[t.dataset.a];
+  if(f){try{f(t,e)}catch(err){console.error(err);toast('خطأ: '+err.message)}}
+});
+document.addEventListener('change',e=>{const t=e.target.closest('[data-c]');if(t&&CH[t.dataset.c]){try{CH[t.dataset.c](t,e)}catch(err){console.error(err);toast('خطأ: '+err.message)}}});
+A.close=()=>closeSheets();
+A.back=()=>back();
+A.tab=el=>{haptic(8);go(el.dataset.t)};
+A.go=el=>{haptic(6);go(el.dataset.p)};
+A.goset=()=>go('settings');
+/* نبضة كل ثانية */
+function tick(){
+  if(!S||locked)return;
+  $$('[data-ring]').forEach(updRing);
+  emit('tick');
+}
+
+/* ===== العدّاد الدائري ===== */
+const CIRC=2*Math.PI*90;
+const UNITS=[['y','سنة'],['m','شهر'],['d','يوم'],['hh','ساعة'],['mm','دقيقة'],['ss','ثانية']];
+regC('ring',k=>{
+  const started=!!C(k).start;
+  return '<div class="ringbox" data-ring="'+k+'"><svg viewBox="0 0 200 200" aria-hidden="true"><defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--acc)"/><stop offset="1" style="stop-color:var(--acc2)"/></linearGradient></defs><circle class="bg" cx="100" cy="100" r="90"/><circle class="fg" cx="100" cy="100" r="90" stroke-dasharray="'+CIRC.toFixed(1)+'" stroke-dashoffset="'+CIRC.toFixed(1)+'"/></svg>'+
+  '<div class="mid"><div class="big">'+(started?'0':'—')+'</div><div class="lab">'+(started?'يوم نظيف':'لم يبدأ بعد')+'</div><div class="sub2"></div></div></div>'+
+  (started?'<div class="units" data-units="'+k+'">'+UNITS.map(u=>'<div><b data-u="'+u[0]+'">0</b><small>'+u[1]+'</small></div>').join('')+'</div>':'');
+});
+function updRing(el){
+  const k=el.dataset.ring,c=C(k);if(!c.start)return;
+  const e=elapsed(k),d=diff(c.start,Date.now()),days=Math.floor(e/DAY);
+  const big=$('.big',el),sub=$('.sub2',el),fg=$('.fg',el);
+  const t=String(days);if(big.textContent!==t)big.textContent=t;
+  sub.textContent=pad(d.hh)+':'+pad(d.mm)+':'+pad(d.ss);
+  const ng=nextGoal(k);let f=1;
+  if(ng){const p=prevGoalDays(k)*DAY;f=Math.max(0,Math.min(1,(e-p)/(ng.days*DAY-p)))}
+  fg.setAttribute('stroke-dashoffset',(CIRC*(1-f)).toFixed(1));
+  const u=$('[data-units="'+k+'"]');
+  if(u)UNITS.forEach(x=>{const b=$('[data-u="'+x[0]+'"]',u);const v=String(d[x[0]]);if(b&&b.textContent!==v)b.textContent=v});
+}
+const toLocalInput=ms=>{const d=new Date(ms);return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+'T'+pad(d.getHours())+':'+pad(d.getMinutes())};
+/* ===== اليوم ===== */
+function pickTip(cat){
+  const pool=[];
+  Object.keys(TIPS).forEach(c=>{if(cat==='all'||cat===c)TIPS[c].t.forEach(t=>pool.push({t:t,c:c}))});
+  if(cat==='fav')S.favs.forEach(t=>pool.push({t:t,c:'fav'}));
+  if(!pool.length)return null;
+  const seen=S.seen||[];let cand=pool.filter(x=>seen.indexOf(x.t)<0);
+  if(!cand.length){S.seen=[];cand=pool}
+  const p=cand[Math.floor(Math.random()*cand.length)];
+  S.seen.push(p.t);if(S.seen.length>400)S.seen.shift();
+  return p;
+}
+function tipCard(){
+  if(S.ui.tipDay!==today()||!S.ui.tipCur){S.ui.tipCur=pickTip('all');S.ui.tipDay=today();save()}
+  const t=S.ui.tipCur;if(!t)return'';
+  const fav=S.favs.indexOf(t.t)>=0;
+  return '<div class="sec"><h3>💡 نصيحة اليوم</h3><span class="chip">'+esc((TIPS[t.c]&&TIPS[t.c].n)||'')+'</span></div><div class="card"><div class="tipbox">'+esc(t.t)+'</div><div class="row mt"><button class="btn sm" data-a="tipnext" data-here="today">نصيحة أخرى</button><button class="btn sm ghost" data-a="tipfav" aria-label="مفضلة">'+(fav?'❤️':'🤍')+'</button></div></div>';
+}
+A.tipnext=el=>{
+  const cat=el.dataset.here==='today'?'all':S.ui.tipCat;
+  const p=pickTip(cat);
+  if(!p){toast('لا نصائح في هذا القسم بعد');return}
+  S.ui.tipCur=p;S.ui.tipDay=today();save();haptic(8);render();
+};
+A.tipfav=()=>{
+  const t=S.ui.tipCur;if(!t)return;
+  const i=S.favs.indexOf(t.t);if(i>=0)S.favs.splice(i,1);else S.favs.push(t.t);
+  save();haptic(10);render();
+};
+function pendingCards(){
+  let h='';
+  const np=S.pending.filter(p=>!p.done).length,ne=S.earned.filter(e=>!e.claimed).length;
+  if(np)h+='<button class="card bad row" style="width:100%;text-align:start" data-a="goach"><span style="font-size:24px">⚖️</span><div class="grow"><b>'+np+' عقوبة بنّاءة بانتظار التنفيذ</b><div class="mut sm">نفّذها لتُغلق الصفحة وتبدأ صافيًا</div></div></button>';
+  if(ne)h+='<button class="card acc row" style="width:100%;text-align:start" data-a="goach"><span style="font-size:24px">🎁</span><div class="grow"><b>'+ne+' جائزة لم تستلمها</b><div class="mut sm">استحققتها بجهدك، استلمها</div></div></button>';
+  return h;
+}
+A.goach=()=>{S.ui.jtab='ach';save();go('journey')};
+function ruleVal(r,ds){return(S.ruleLog[ds]||{})[r.id]}
+function tasksCard(){
+  const td=today(),ci=S.checkins[td],rules=S.rules.filter(r=>r.active);
+  let total=1+rules.length,done=(ci?1:0)+rules.filter(r=>ruleVal(r,td)==='ok').length;
+  let rows='<div class="task '+(ci?'done':'')+'"><button class="ck '+(ci?'ok':'')+'" data-a="checkin" aria-label="تسجيل اليوم">'+(ci?'✓':'')+'</button><div class="t">سجّل يومك<small>'+(ci?'مزاجك '+MOODS[ci.mood-1]+' · رغبة '+ci.urge+'/5':'مزاج، نوم، وقوة الرغبة — دقيقة واحدة')+'</small></div><button class="link" data-a="checkin">'+(ci?'تعديل':'سجّل')+'</button></div>';
+  rules.slice(0,6).forEach(r=>{
+    const v=ruleVal(r,td);
+    rows+='<div class="task '+(v==='ok'?'done':'')+'"><button class="ck '+(v==='ok'?'ok':v==='broke'?'no':'')+'" data-a="rulec" data-id="'+r.id+'" data-v="ok" aria-label="التزمت">'+(v==='ok'?'✓':v==='broke'?'✗':'')+'</button><div class="t">'+esc(r.text)+'<small>'+esc(r.cat)+'</small></div><div class="mini"><button class="'+(v==='ok'?'ok':'')+'" data-a="rulec" data-id="'+r.id+'" data-v="ok">✓</button><button class="'+(v==='broke'?'no':'')+'" data-a="rulec" data-id="'+r.id+'" data-v="broke">✗</button></div></div>';
+  });
+  if(rules.length>6)rows+='<div class="center mt"><button class="link" data-a="go" data-p="rules">عرض كل القواعد ('+rules.length+')</button></div>';
+  if(!rules.length)rows+='<div class="center mt"><button class="link" data-a="go" data-p="rules">＋ أضف قواعدك لتظهر هنا</button></div>';
+  const pct=Math.round(done*100/total);
+  return '<div class="sec"><h3>مهام اليوم</h3><small>'+done+' من '+total+'</small></div><div class="card"><div class="bar" style="margin-bottom:6px"><i style="width:'+pct+'%"></i></div>'+rows+'</div>';
+}
+A.rulec=el=>{
+  const id=el.dataset.id,v=el.dataset.v,td=today(),r=S.rules.find(x=>x.id===id);if(!r)return;
+  const lg=S.ruleLog[td]=S.ruleLog[td]||{};const prev=lg[id];
+  S.pending=S.pending.filter(p=>!(p.ruleKey===id+'|'+td&&!p.done));
+  if(prev===v)delete lg[id];else{
+    lg[id]=v;
+    if(v==='broke'&&r.penalty){S.pending.push({id:uid(),kind:'rule',ruleKey:id+'|'+td,text:r.penalty,t:Date.now(),done:false});toast('سُجّلت عقوبتك: '+r.penalty,3200)}
+  }
+  save();haptic(10);render();
+};
+function hero(k){
+  const c=C(k);
+  const seg='<div class="seg" role="tablist">'+K.map(x=>'<button class="'+(x===k?'on':'')+'" data-a="ktab" data-k="'+x+'" role="tab">'+KN[x]+'<small>'+(C(x).start?daysOf(x)+' يوم':'لم يبدأ')+'</small></button>').join('')+'</div>';
+  let body;
+  if(!c.start){
+    body='<div class="card acc center">'+comp('ring',k)+'<p class="mut mt">ابدأ عدّاد «'+KN[k]+'» لتبدأ رحلتك. يمكنك اختيار تاريخ سابق إن كنت صامدًا من قبل.</p><button class="btn pri big" data-a="startnow" data-k="'+k+'">ابدأ العدّاد الآن</button><button class="btn ghost" data-a="startat" data-k="'+k+'">اختيار تاريخ ووقت آخر</button></div>';
+  }else{
+    const ng=nextGoal(k),e=elapsed(k);
+    let gl='<div class="mut sm center">🏆 حققت كل أهدافك، أضف أهدافًا أكبر من «رحلتي»</div>';
+    if(ng){const rem=ng.days*DAY-e;const rd=Math.floor(rem/DAY),rh=Math.floor(rem%DAY/36e5);
+      gl='<div class="row sm"><span class="grow"><b>الهدف القادم: '+goalName(ng.days)+'</b></span><span class="mut">باقي '+(rd?rd+' يوم ':'')+rh+' ساعة</span></div><div class="bar mt"><i data-gbar="'+k+'" style="width:0"></i></div>'+(ng.reward?'<div class="sm mt">🎁 '+esc(ng.reward)+'</div>':'<button class="link mt" data-a="goach">حدّد جائزة لهذا الهدف</button>');}
+    body='<div class="card acc">'+comp('ring',k)+'<div class="mt2">'+gl+'</div><div class="row mt2"><button class="btn bad grow" style="margin:0" data-a="slip" data-k="'+k+'">سجّلت زلة</button><button class="btn grow" style="margin:0" data-a="editstart" data-k="'+k+'">تعديل البداية</button></div><div class="mut xs center mt">أفضل سلسلة لك: '+Math.floor(bestMs(k)/DAY)+' يوم — لا تضيع بالزلة، تبقى سجلًّا لك</div></div>';
+  }
+  return '<div style="margin-top:6px">'+seg+'</div>'+body;
+}
+A.ktab=el=>{S.ui.k=el.dataset.k;save();haptic(6);render()};
+A.startnow=el=>{setStart(el.dataset.k,Date.now());toast('انطلق العدّاد، بالتوفيق 🌙');haptic([20,30,20])};
+A.startat=el=>{
+  const k=el.dataset.k;
+  sheet('<h3>متى بدأت «'+KN[k]+'» نظيفًا؟</h3><p class="mut sm">اختر تاريخ آخر مرة كانت فيها الزلة، ويبدأ العدّاد منها.</p><input type="datetime-local" id="st-v" value="'+toLocalInput(Date.now())+'"><button class="btn pri mt" data-a="savestart" data-k="'+k+'">حفظ</button>');
+};
+A.editstart=el=>{
+  const k=el.dataset.k;
+  sheet('<h3>تعديل تاريخ بدء «'+KN[k]+'»</h3><p class="mut sm">يعدّل بداية السلسلة الحالية فقط، ولا يسجّل زلة.</p><input type="datetime-local" id="st-v" value="'+toLocalInput(C(k).start)+'"><button class="btn pri mt" data-a="savestart" data-k="'+k+'">حفظ</button>');
+};
+A.savestart=el=>{
+  const ms=new Date($('#st-v').value).getTime();
+  if(isNaN(ms)||ms>Date.now()+60000){toast('تاريخ غير صالح');return}
+  setStart(el.dataset.k,ms);toast('تم الحفظ');
+};
+function nightBanner(){
+  const h=new Date().getHours();
+  if(h>=22||h<4)return'<div class="banner">🌙 الليل أخطر الأوقات: ضع الهاتف خارج السرير، ولا تبقَ وحدك مع شاشة. إن شعرت بالموجة اضغط «طوارئ».</div>';
+  return'';
+}
+reg('today',el=>{
+  const k=S.ui.k;
+  el.innerHTML=pendingCards()+hero(k)+nightBanner()+tasksCard()+tipCard();
+  const ng=nextGoal(k);
+  if(ng&&C(k).start){
+    const bar=$('[data-gbar]',el);
+    if(bar){const e=elapsed(k),p=prevGoalDays(k)*DAY;setTimeout(()=>{bar.style.width=Math.round(Math.max(0,Math.min(1,(e-p)/(ng.days*DAY-p)))*100)+'%'},60)}
+  }
+  $$('[data-ring]',el).forEach(updRing);
+},{title:'اليوم',tab:'today'});
+/* ===== تسجيل اليوم ===== */
+const MOODS=['😞','😕','😐','🙂','😄'];
+A.checkin=()=>{
+  const td=today(),c=S.checkins[td]||{mood:3,sleep:7,urge:0,note:''};
+  const chips=(name,opts,val)=>'<div class="chips" data-grp="'+name+'">'+opts.map(o=>'<button class="chip '+(String(o[0])===String(val)?'on':'')+'" data-a="ckpick" data-g="'+name+'" data-v="'+o[0]+'">'+o[1]+'</button>').join('')+'</div>';
+  sheet('<h3>كيف يومك؟</h3><label class="lbl">المزاج</label>'+chips('mood',MOODS.map((m,i)=>[i+1,m]),c.mood)+
+  '<label class="lbl">النوم البارحة</label>'+chips('sleep',[[4,'أقل من 5 س'],[6,'5–6 س'],[7,'7–8 س'],[9,'9+ س']],c.sleep)+
+  '<label class="lbl">قوة الرغبة اليوم (0 لا شيء — 5 شديدة)</label>'+chips('urge',[0,1,2,3,4,5].map(n=>[n,n]),c.urge)+
+  '<label class="lbl">ملاحظة (اختياري)</label><textarea id="ck-note">'+esc(c.note||'')+'</textarea><button class="btn pri mt" data-a="cksave">حفظ</button>');
+  window._ck={mood:c.mood,sleep:c.sleep,urge:c.urge};
+};
+A.ckpick=el=>{
+  window._ck[el.dataset.g]=+el.dataset.v;
+  $$('[data-grp="'+el.dataset.g+'"] .chip',el.closest('.sh')).forEach(b=>b.classList.toggle('on',b===el));haptic(6);
+};
+A.cksave=()=>{
+  S.checkins[today()]={mood:window._ck.mood,sleep:window._ck.sleep,urge:window._ck.urge,note:$('#ck-note').value.trim()};
+  save();closeSheets();toast('تم تسجيل يومك ✓');haptic(12);render();
+};
+/* ===== تسجيل زلة ===== */
+const TRIG_SUGG=['الملل','الوحدة','السهر','التعب','الغضب','التوتر','الجوع','الهاتف في السرير','التصفح بلا هدف'];
+A.slip=el=>slipSheet(el.dataset.k);
+function slipSheet(k0){
+  const rules=S.rules.filter(r=>r.active);
+  const trigs=Array.from(new Set(S.lists.triggers.concat(TRIG_SUGG)));
+  sheet('<h3>سجّل الزلة بصدق</h3><p class="mut sm">لا يأس ولا جلد للذات؛ هذه خطوة لفهم نفسك والعودة أقوى. الصدق هنا هو أول الشفاء.</p>'+
+  '<label class="lbl">الزلة شملت</label><div class="chips">'+K.map(x=>'<label class="chip" style="cursor:pointer"><input type="checkbox" class="sl-c" value="'+x+'" '+(x===k0?'checked':'')+' style="width:auto;margin-inline-end:6px"> '+KN[x]+'</label>').join('')+'</div>'+
+  '<label class="lbl">المحفّز</label><input id="sl-trig" placeholder="اختر أو اكتب"><div class="chips mt">'+trigs.map(t=>'<button class="chip" data-a="slpick" data-v="'+esc(t)+'">'+esc(t)+'</button>').join('')+'</div>'+
+  '<label class="lbl">ما الذي كان قبلها؟ (مكان، وقت، شعور)</label><textarea id="sl-before"></textarea>'+
+  (rules.length?'<label class="lbl">قاعدة انكسرت (اختياري)</label><select id="sl-rule"><option value="">— لا شيء —</option>'+rules.map(r=>'<option value="'+r.id+'">'+esc(r.text)+'</option>').join('')+'</select>':'')+
+  '<label class="lbl">ما الدرس الذي تعلمته؟</label><textarea id="sl-lesson"></textarea>'+
+  '<label class="lbl">عقوبتي البنّاءة</label>'+(S.lists.punish.length?'<select id="sl-pun-sel" data-c="slpun"><option value="">— اختر من قائمتي —</option>'+S.lists.punish.map(t=>'<option>'+esc(t)+'</option>').join('')+'</select><button class="btn sm mt" data-a="slrand">اختيار عشوائي</button>':'')+'<input id="sl-pun" class="mt" placeholder="أو اكتب عقوبة (صدقة، ختمة، صلاة، صيام…)">'+
+  '<button class="btn bad mt2" data-a="slipconfirm">تسجيل الزلة</button><button class="btn ghost" data-a="close">إلغاء</button>');
+}
+A.slpick=el=>{$('#sl-trig').value=el.dataset.v;haptic(6)};
+CH.slpun=el=>{$('#sl-pun').value=el.value};
+A.slrand=()=>{const l=S.lists.punish;if(!l.length)return;const v=l[Math.floor(Math.random()*l.length)];$('#sl-pun').value=v;const s=$('#sl-pun-sel');if(s)s.value=v;haptic(8)};
+A.slipconfirm=()=>{
+  const ks=$$('.sl-c').filter(c=>c.checked).map(c=>c.value);
+  if(!ks.length){toast('اختر ما شملته الزلة');return}
+  const info={trigger:$('#sl-trig').value.trim(),before:$('#sl-before').value.trim(),lesson:$('#sl-lesson').value.trim(),punish:$('#sl-pun').value.trim(),rule:($('#sl-rule')||{}).value||''};
+  if(info.rule){const lg=S.ruleLog[today()]=S.ruleLog[today()]||{};lg[info.rule]='broke'}
+  if(info.trigger&&S.lists.triggers.indexOf(info.trigger)<0)S.lists.triggers.push(info.trigger);
+  ks.forEach((k,i)=>doSlip(k,i?Object.assign({},info,{punish:''}):info));
+  closeSheets();haptic([40,60]);render();afterSheet(info.punish);
+};
+function afterSheet(pun){
+  sheet('<div class="center"><div class="hero-ic">🌱</div><h3>الوقوع ليس النهاية</h3></div><p class="mut center">الله يحب التوّابين. ما فات سجلٌّ تتعلم منه، وأفضل سلسلة لك محفوظة. المهم ما تفعله الآن.</p>'+
+  '<div class="card flat mt2"><div class="step"><i>1</i><div>توضّأ وصلِّ ركعتين، واستغفر بصدق</div></div><div class="step"><i>2</i><div>غيّر مكانك فورًا، واخرج من الغرفة</div></div>'+(pun?'<div class="step"><i>3</i><div>نفّذ عقوبتك: <b>'+esc(pun)+'</b></div></div>':'')+'<div class="step"><i>'+(pun?4:3)+'</i><div>عد لروتينك ولا تجلد نفسك</div></div></div>'+
+  '<button class="btn pri" data-a="go" data-p="after">صفحة «بعد الزلة»</button><button class="btn" data-a="close">أغلق</button>');
+}
+A.go=el=>{closeSheets();haptic(6);go(el.dataset.p)};
+/* ===== طوارئ ===== */
+let emInt=null;
+function emergency(){
+  if($('#emerg'))return;
+  if(S.ui.emEnd<Date.now()){S.ui.emEnd=Date.now()+20*60000;save()}
+  const urge=(TIPS.urge&&TIPS.urge.t)||[];
+  const sh=a=>a.slice().sort(()=>Math.random()-.5);
+  const reasons=sh(S.lists.reasons).slice(0,3),alts=sh(S.lists.alts).slice(0,6),it=sh(S.lists.ifthen).slice(0,3);
+  const d=document.createElement('div');d.id='emerg';d.setAttribute('role','dialog');
+  d.innerHTML='<div class="in"><div class="row"><button class="ib" data-a="emclose" aria-label="إغلاق">'+ICONS.back.replace('M9 5l7 7-7 7','M6 6l12 12M18 6L6 18')+'</button><div class="grow center"><b style="font-size:20px">اهدأ… الموجة تمرّ</b></div><span style="width:42px"></span></div>'+
+  '<div class="breath" id="em-b"><b id="em-bt">استعد</b></div><div class="timer" id="em-t">20:00</div><div class="mut center sm">أغلب الموجات تهدأ خلال دقائق إن لم تغذِّها</div>'+
+  '<div class="card mt2"><b>افعل الآن:</b><div class="step"><i>1</i><div>قم من مكانك، واخرج من الغرفة أو من البيت</div></div><div class="step"><i>2</i><div>ضع الهاتف بعيدًا أو اتركه خارج الغرفة</div></div><div class="step"><i>3</i><div>توضّأ وصلِّ ركعتين، أو اتصل بصديق صالح</div></div></div>'+
+  (urge.length?'<div class="card acc"><div class="tipbox" id="em-tip">'+esc(urge[Math.floor(Math.random()*urge.length)])+'</div><button class="btn sm" data-a="emtip">أخرى</button></div>':'')+
+  '<div class="card"><b>لماذا أريد التغيير:</b>'+(reasons.length?reasons.map(r=>'<div class="mt">• '+esc(r)+'</div>').join(''):'<div class="mut sm mt">أضف أسبابك في «أدواتي ← خطتي» لتظهر هنا وقت الحاجة.</div>')+'</div>'+
+  (it.length?'<div class="card"><b>خطتي المسبقة:</b>'+it.map(r=>'<div class="mt">• '+esc(r)+'</div>').join('')+'</div>':'')+
+  (alts.length?'<div class="card"><b>بدائل أفعلها الآن:</b><div class="chips mt">'+alts.map(r=>'<span class="chip on">'+esc(r)+'</span>').join('')+'</div></div>':'')+
+  '<button class="btn ok big" data-a="emwin">نجوت من هذه الموجة 💪</button><button class="btn ghost bad" data-a="emslip">زلّت قدمي</button></div>';
+  document.body.appendChild(d);document.body.style.overflow='hidden';
+  const t0=Date.now();
+  const phases=[['شهيق',4,1.25],['احبس',4,1.25],['زفير',6,.85]],total=14;
+  function step(){
+    const rem=Math.max(0,S.ui.emEnd-Date.now());const m=Math.floor(rem/60000),s=Math.floor(rem%60000/1000);
+    const te=$('#em-t');if(!te){clearInterval(emInt);return}
+    te.textContent=pad(m)+':'+pad(s);
+    const x=((Date.now()-t0)/1000)%total;let acc=0,ph=phases[0],ps=0;
+    for(let i=0;i<phases.length;i++){if(x<acc+phases[i][1]){ph=phases[i];ps=acc;break}acc+=phases[i][1]}
+    const b=$('#em-b'),bt=$('#em-bt');
+    if(bt.textContent!==ph[0]){bt.textContent=ph[0];b.style.transitionDuration=ph[1]+'s';b.style.transform='scale('+ph[2]+')'}
+  }
+  clearInterval(emInt);emInt=setInterval(step,500);step();haptic(20);
+}
+function emClose(){clearInterval(emInt);const e=$('#emerg');if(e)e.remove();document.body.style.overflow=''}
+A.emerg=()=>emergency();
+A.emclose=()=>emClose();
+A.emtip=()=>{const u=TIPS.urge.t;$('#em-tip').textContent=u[Math.floor(Math.random()*u.length)];haptic(6)};
+A.emwin=()=>{S.wins.push({t:Date.now(),k:S.ui.k});S.ui.emEnd=0;save();emClose();haptic([30,40,30]);toast('ما شاء الله! انتصرت على موجة جديدة 💪 ('+S.wins.length+' انتصار)',3500);render()};
+A.emslip=()=>{emClose();slipSheet(S.ui.k)};
+
+/* ===== رحلتي ===== */
+reg('journey',el=>{
+  const t=S.ui.jtab||'cal';
+  const nb=S.pending.filter(p=>!p.done).length+S.earned.filter(e=>!e.claimed).length;
+  el.innerHTML='<div class="seg" style="margin-top:6px">'+[['cal','التقويم'],['ach','الإنجازات'+(nb?' ('+nb+')':'')],['stats','الإحصاءات']].map(x=>'<button class="'+(t===x[0]?'on':'')+'" data-a="jtab" data-t="'+x[0]+'">'+x[1]+'</button>').join('')+'</div><div id="jbody"></div>';
+  ({cal:calView,ach:achView,stats:statsView})[t]($('#jbody',el));
+},{title:'رحلتي',tab:'journey'});
+A.jtab=el=>{S.ui.jtab=el.dataset.t;save();haptic(6);render()};
+/* --- التقويم --- */
+function calView(el){
+  const now=new Date();let ym=S.ui.calM||(now.getFullYear()+'-'+pad(now.getMonth()+1));
+  const y=+ym.slice(0,4),m=+ym.slice(5,7)-1;
+  const first=new Date(y,m,1),dim=new Date(y,m+1,0).getDate(),off=(first.getDay()+1)%7;
+  const fk=S.ui.calK||'all',td=today();
+  let cl=0,sl=0,cells='';
+  ['سبت','أحد','اثنين','ثلاثاء','أربعاء','خميس','جمعة'].forEach(n=>cells+='<div class="dh">'+n+'</div>');
+  for(let i=0;i<off;i++)cells+='<div class="day empty"></div>';
+  for(let d=1;d<=dim;d++){
+    const ds=y+'-'+pad(m+1)+'-'+pad(d);
+    const st=fk==='all'?dayAgg(ds):dayStatus(fk,ds);
+    if(st==='clean')cl++;if(st==='slip')sl++;
+    const mark=S.checkins[ds]||S.wins.some(w=>dstr(w.t)===ds)||S.diary.some(x=>dstr(x.t)===ds);
+    cells+='<button class="day '+st+(ds===td?' today':'')+'" data-a="dayopen" data-d="'+ds+'" aria-label="'+d+'">'+d+(mark?'<i></i>':'')+'</button>';
+  }
+  const pm=new Date(y,m-1,1),nm=new Date(y,m+1,1);
+  el.innerHTML='<div class="tabs mt">'+[['all','الكل'],['porn',KN.porn],['mast',KN.mast]].map(x=>'<button class="'+(fk===x[0]?'on':'')+'" data-a="calk" data-k="'+x[0]+'">'+x[1]+'</button>').join('')+'</div>'+
+  '<div class="card"><div class="row" style="justify-content:space-between;margin-bottom:12px"><button class="ib" data-a="calm" data-m="'+pm.getFullYear()+'-'+pad(pm.getMonth()+1)+'" aria-label="الشهر السابق">'+ICONS.back+'</button><b style="font-size:17px">'+AR_MONTHS[m]+' '+y+'</b><button class="ib" data-a="calm" data-m="'+nm.getFullYear()+'-'+pad(nm.getMonth()+1)+'" aria-label="الشهر التالي" style="transform:scaleX(-1)">'+ICONS.back+'</button></div><div class="cal">'+cells+'</div>'+
+  '<div class="legend"><span><i style="background:var(--ok)"></i>نظيف</span><span><i style="background:var(--bad)"></i>زلة</span><span><i style="background:var(--acc)"></i>سجّلت يومي</span></div></div>'+
+  '<div class="stat"><div><b style="color:var(--ok)">'+cl+'</b><small>يوم نظيف</small></div><div><b style="color:var(--bad)">'+sl+'</b><small>يوم زلة</small></div><div><b>'+(cl+sl?Math.round(cl*100/(cl+sl)):0)+'%</b><small>نسبة الصفاء</small></div></div>'+
+  '<p class="mut xs center mt">الأيام النظيفة تُحسب تلقائيًا من تاريخ البدء، والزلات تسجّلها أنت. اضغط أي يوم لتعديله.</p>';
+}
+A.calk=el=>{S.ui.calK=el.dataset.k;save();render()};
+A.calm=el=>{S.ui.calM=el.dataset.m;save();render()};
+A.dayopen=el=>dayModal(el.dataset.d);
+function dayModal(ds){
+  const d=pds(ds),fut=ds>today();
+  const stl={clean:'نظيف ✅',slip:'زلة ❌',none:'غير محسوب',future:'قادم'};
+  let h='<h3>'+d.getDate()+' '+AR_MONTHS[d.getMonth()]+' '+d.getFullYear()+'</h3>';
+  K.forEach(k=>{
+    const st=dayStatus(k,ds),ov=S.logs[k][ds];
+    h+='<div class="card flat"><div class="row"><b class="grow">'+KN[k]+'</b><span class="chip '+(st==='clean'?'on':'')+'">'+stl[st]+'</span></div>'+
+    (fut?'':'<div class="chips mt">'+[['clean','نظيف'],['slip','زلة'],['none','بلا حساب'],['auto','تلقائي']].map(o=>'<button class="chip '+((o[0]==='auto'&&!ov)||ov===o[0]?'on':'')+'" data-a="dayset" data-k="'+k+'" data-d="'+ds+'" data-v="'+o[0]+'">'+o[1]+'</button>').join('')+'</div>')+'</div>';
+  });
+  const sl=S.slips.filter(s=>dstr(s.t)===ds);
+  sl.forEach(s=>{h+='<div class="card flat"><b>زلة '+KN[s.counter]+'</b>'+(s.trigger?'<div class="sm">المحفّز: '+esc(s.trigger)+'</div>':'')+(s.lesson?'<div class="sm mut">الدرس: '+esc(s.lesson)+'</div>':'')+'</div>'});
+  const ci=S.checkins[ds];
+  if(ci)h+='<div class="card flat"><b>يومي</b> '+MOODS[ci.mood-1]+' <span class="mut sm">نوم '+(ci.sleep>=9?'9+':ci.sleep)+' س · رغبة '+ci.urge+'/5</span>'+(ci.note?'<div class="sm mt">'+esc(ci.note)+'</div>':'')+'</div>';
+  const w=S.wins.filter(x=>dstr(x.t)===ds).length;if(w)h+='<div class="card flat">💪 انتصرت على '+w+' موجة هذا اليوم</div>';
+  h+='<p class="mut xs">تعديل اليوم يدويًا لا يغيّر العدّاد الجاري، هو لتصحيح السجل فقط.</p><button class="btn" data-a="close">إغلاق</button>';
+  sheet(h);
+}
+A.dayset=el=>{
+  const k=el.dataset.k,ds=el.dataset.d,v=el.dataset.v;
+  if(v==='auto')delete S.logs[k][ds];else S.logs[k][ds]=v;
+  save();closeSheets();haptic(8);render();dayModal(ds);
+};
+/* --- الإنجازات --- */
+function achView(el){
+  const gk=S.ui.gk||'porn';
+  const pend=S.pending.filter(p=>!p.done),earned=S.earned.filter(e=>!e.claimed);
+  let h='';
+  if(pend.length||earned.length){
+    h+='<div class="sec"><h3>بانتظارك</h3></div>';
+    earned.forEach(e=>{h+='<div class="card acc"><div class="row"><span style="font-size:26px">🎁</span><div class="grow"><b>'+esc(KN[e.counter])+' — '+goalName(e.days)+'</b><div class="sm">'+(e.reward?esc(e.reward):'جائزتك عند الله، وأكرِم نفسك بما تحب')+'</div></div><button class="btn sm ok" data-a="claim" data-id="'+e.id+'">استلمت</button></div></div>'});
+    pend.forEach(p=>{h+='<div class="card bad"><div class="row"><span style="font-size:26px">⚖️</span><div class="grow"><b>'+esc(p.text)+'</b><div class="mut xs">'+(p.counter?esc(KN[p.counter])+' · ':'')+new Date(p.t).toLocaleDateString('ar')+'</div></div><button class="btn sm ok" data-a="pdone" data-id="'+p.id+'">نفّذتها</button></div></div>'});
+  }
+  const goals=C(gk).goals.slice().sort((a,b)=>a.days-b.days),e=elapsed(gk);
+  h+='<div class="sec"><h3>أهدافي وجوائزي</h3></div><div class="seg">'+K.map(x=>'<button class="'+(x===gk?'on':'')+'" data-a="gk" data-k="'+x+'">'+KN[x]+'</button>').join('')+'</div><div class="list mt">'+
+  goals.map(g=>{const ok=C(gk).start&&e>=g.days*DAY;return '<button class="li" data-a="goaledit" data-id="'+g.id+'"><span class="ic">'+(ok?'✅':'🎯')+'</span><span class="grow"><b>'+goalName(g.days)+'</b><span class="sub">'+(g.reward?'🎁 '+esc(g.reward):'اضغط لتحديد جائزة')+'</span></span></button>'}).join('')+'</div><button class="btn mt" data-a="goaladd">＋ هدف جديد</button>';
+  h+='<div class="sec"><h3>عقوباتي البنّاءة</h3></div>'+listEditor('punish','عقوبات أضعها لنفسي عند الزلة','صدقة، ختمة، صلاة، صيام… شيء ينفعك ويقرّبك لله',['ختمة قرآن كاملة','صدقة جارية بمبلغ أحدّده','صيام يوم الاثنين','صلاة ركعتين قيام الليل أسبوعًا','تعليم أو مساعدة شخص اليوم']);
+  const done=S.pending.filter(p=>p.done).length,cl=S.earned.filter(x=>x.claimed).length;
+  h+='<p class="mut xs center mt2">عقوبات نُفّذت: '+done+' · جوائز استُلمت: '+cl+'</p>';
+  el.innerHTML=h;
+}
+A.gk=el=>{S.ui.gk=el.dataset.k;save();render()};
+A.claim=el=>{const e=S.earned.find(x=>x.id===el.dataset.id);if(e){e.claimed=true;save();haptic(15);toast('هنيئًا لك 🎁');render()}};
+A.pdone=el=>{const p=S.pending.find(x=>x.id===el.dataset.id);if(p){p.done=true;p.doneAt=Date.now();save();haptic(15);toast('تقبّل الله منك 🤍');render()}};
+A.goaledit=el=>{
+  const g=C(S.ui.gk).goals.find(x=>x.id===el.dataset.id);if(!g)return;
+  sheet('<h3>'+goalName(g.days)+'</h3><label class="lbl">جائزتي عند تحقيق هذا الهدف</label><input id="ge-r" value="'+esc(g.reward)+'" placeholder="مثلًا: وجبة أحبها، كتاب، رحلة قصيرة"><button class="btn pri mt" data-a="gesave" data-id="'+g.id+'">حفظ</button><button class="btn bad" data-a="gedel" data-id="'+g.id+'">حذف الهدف</button>');
+};
+A.gesave=el=>{const g=C(S.ui.gk).goals.find(x=>x.id===el.dataset.id);g.reward=$('#ge-r').value.trim();save();closeSheets();render()};
+A.gedel=async el=>{if(await ask('حذف هذا الهدف؟',{danger:true,ok:'حذف'})){const c=C(S.ui.gk);c.goals=c.goals.filter(x=>x.id!==el.dataset.id);save();closeSheets();render()}};
+A.goaladd=()=>sheet('<h3>هدف جديد</h3><label class="lbl">عدد الأيام</label><input id="ga-d" type="number" min="1" inputmode="numeric" placeholder="مثلًا 45"><label class="lbl">الجائزة (اختياري)</label><input id="ga-r"><button class="btn pri mt" data-a="gasave">إضافة</button>');
+A.gasave=()=>{const d=Math.floor(+$('#ga-d').value);if(!(d>0)){toast('أدخل عدد أيام صحيح');return}const c=C(S.ui.gk);if(c.goals.some(g=>g.days===d)){toast('هذا الهدف موجود');return}c.goals.push({id:uid(),days:d,reward:$('#ga-r').value.trim()});c.reached=c.goals.filter(g=>elapsed(S.ui.gk)>=g.days*DAY).map(g=>g.id);save();closeSheets();render()};
+/* --- محرّر القوائم العام --- */
+function listEditor(key,title,hint,sugg){
+  const l=S.lists[key];
+  return '<div class="card"><b>'+esc(title)+'</b>'+(hint?'<div class="mut sm">'+esc(hint)+'</div>':'')+
+  (l.length?'<div class="mt">'+l.map((t,i)=>'<div class="task"><div class="t">'+esc(t)+'</div><button class="ib" style="width:34px;height:34px" data-a="ldel" data-key="'+key+'" data-i="'+i+'" aria-label="حذف">✕</button></div>').join('')+'</div>':'<div class="ph">لا شيء بعد</div>')+
+  '<div class="row mt"><input id="la-'+key+'" placeholder="أضف…" style="flex:1"><button class="btn pri sm" data-a="ladd" data-key="'+key+'">إضافة</button></div>'+
+  (sugg&&sugg.length?'<div class="chips mt">'+sugg.filter(x=>l.indexOf(x)<0).map(x=>'<button class="chip" data-a="lsug" data-key="'+key+'" data-v="'+esc(x)+'">＋ '+esc(x)+'</button>').join('')+'</div>':'')+'</div>';
+}
+A.ladd=el=>{const k=el.dataset.key,i=$('#la-'+k),v=i.value.trim();if(!v)return;S.lists[k].push(v);save();haptic(8);render();setTimeout(()=>{const n=$('#la-'+k);if(n)n.focus()},50)};
+A.lsug=el=>{S.lists[el.dataset.key].push(el.dataset.v);save();haptic(8);render()};
+A.ldel=el=>{S.lists[el.dataset.key].splice(+el.dataset.i,1);save();render()};
+/* --- الإحصاءات --- */
+function bars(map,max){
+  const e=Object.keys(map).sort((a,b)=>map[b]-map[a]).slice(0,6);
+  if(!e.length)return'<div class="ph">لا بيانات بعد</div>';
+  const m=max||Math.max.apply(null,e.map(k=>map[k]));
+  return e.map(k=>'<div class="hb"><span>'+esc(k)+'</span><div class="bar"><i style="width:'+Math.round(map[k]*100/m)+'%"></i></div><b>'+map[k]+'</b></div>').join('');
+}
+function statsView(el){
+  let h='';
+  K.forEach(k=>{
+    const n=S.slips.filter(s=>s.counter===k).length;
+    h+='<div class="sec"><h3>'+KN[k]+'</h3></div><div class="stat"><div><b>'+daysOf(k)+'</b><small>يوم حاليًا</small></div><div><b>'+Math.floor(bestMs(k)/DAY)+'</b><small>أفضل سلسلة</small></div><div><b>'+n+'</b><small>زلة</small></div></div>';
+  });
+  const tr={},hr={};
+  const bucket=h=>h<4?'بعد منتصف الليل':h<6?'قبل الفجر':h<12?'صباحًا':h<16?'ظهرًا':h<19?'عصرًا':h<22?'مساءً':'ليلًا';
+  S.slips.forEach(s=>{const t=s.trigger||'غير محدد';tr[t]=(tr[t]||0)+1;const b=bucket(new Date(s.t).getHours());hr[b]=(hr[b]||0)+1});
+  h+='<div class="sec"><h3>ما الذي يوقعني؟</h3></div><div class="card"><b class="sm">أكثر المحفّزات</b><div class="mt">'+bars(tr)+'</div></div><div class="card"><b class="sm">أخطر الأوقات</b><div class="mt">'+bars(hr)+'</div></div>';
+  const days=[];for(let i=13;i>=0;i--)days.push(dstr(Date.now()-i*DAY));
+  const ci=days.map(d=>S.checkins[d]);
+  if(ci.some(Boolean)){
+    h+='<div class="sec"><h3>مزاجي ورغبتي (14 يومًا)</h3></div><div class="card"><div style="display:flex;gap:4px;align-items:flex-end;height:96px">'+ci.map((c,i)=>'<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:2px;height:100%" title="'+days[i]+'">'+(c?'<div style="height:'+Math.max(4,c.urge*17)+'px;background:var(--bad);border-radius:5px;opacity:.85"></div><div style="height:'+Math.max(4,c.mood*11)+'px;background:var(--ok);border-radius:5px;opacity:.85"></div>':'<div style="height:4px;background:var(--card3);border-radius:5px"></div>')+'</div>').join('')+'</div><div class="legend"><span><i style="background:var(--ok)"></i>المزاج</span><span><i style="background:var(--bad)"></i>الرغبة</span></div></div>';
+  }
+  const act=S.rules.filter(r=>r.active);let ok=0,tot=0;
+  act.forEach(r=>{for(let i=0;i<7;i++){const v=ruleVal(r,dstr(Date.now()-i*DAY));if(v){tot++;if(v==='ok')ok++}}});
+  h+='<div class="sec"><h3>عامّة</h3></div><div class="stat"><div><b>'+(tot?Math.round(ok*100/tot)+'%':'—')+'</b><small>التزام القواعد</small></div><div><b>'+S.wins.length+'</b><small>موجة تجاوزتها</small></div><div><b>'+Object.keys(S.checkins).length+'</b><small>يوم سجّلته</small></div></div>';
+  el.innerHTML=h;
+}
+
+/* ===== أدواتي ===== */
+reg('tools',el=>{
+  const act=S.rules.filter(r=>r.active).length;
+  const extra=Object.keys(ROUTES).filter(i=>ROUTES[i].extra);
+  el.innerHTML='<div class="grid2" style="margin-top:8px"><button class="tile wide sosT" data-a="emerg"><span class="ic">🆘</span><div><b>زر الطوارئ</b><br><span>اضغطه حين تشعر بالرغبة: تنفّس، مؤقّت، أسبابك وبدائلك</span></div></button>'+
+  tile('rules','📜','قواعدي',act?act+' قاعدة نشطة':'قواعد أضعها لنفسي')+tile('plan','🛡️','خطتي','أسبابي، إذا-فعندها، البدائل')+tile('tips','💡','نصائح','نصيحة جديدة بكل ضغطة')+tile('after','🌱','بعد الزلة','عودة بلا يأس')+
+  extra.map(i=>tile(i,ROUTES[i].icon,ROUTES[i].title,ROUTES[i].desc)).join('')+'</div>';
+},{title:'أدواتي',tab:'tools'});
+function tile(id,ic,t,d){return '<button class="tile" data-a="go" data-p="'+id+'"><span class="ic">'+ic+'</span><b>'+esc(t)+'</b><span>'+esc(d||'')+'</span></button>'}
+/* ===== القواعد ===== */
+const RULE_TPL=[
+ {text:'الهاتف خارج السرير وخارج الحمام',cat:'الهاتف',why:'أغلب زلاتي تبدأ والهاتف في يدي وأنا وحدي'},
+ {text:'لا هاتف بعد الساعة 11 ليلًا، يُشحن في الصالة',cat:'الهاتف',why:'السهر مع الهاتف أخطر وقت عندي'},
+ {text:'لا أدخل السرير إلا عند النعاس الحقيقي',cat:'السرير',why:'السرير للنوم فقط'},
+ {text:'أستيقظ مع الفجر ولا أعود للنوم',cat:'السرير',why:'الاستلقاء الطويل صباحًا بوابة للأفكار'},
+ {text:'لا أدخل الحمام بالهاتف',cat:'الحمام',why:'الحمام مكان انفراد خطر'},
+ {text:'أستحم بسرعة ودون إطالة',cat:'الحمام',why:'الإطالة تفتح باب الخواطر'},
+ {text:'لا أبقى وحدي في غرفة مغلقة أكثر من ساعتين دون مهمة',cat:'الأوقات',why:'الفراغ والعزلة مع الجهاز يضعفانني'},
+ {text:'لا أتصفّح الإنترنت بلا هدف محدد',cat:'الإنترنت',why:'التصفح العشوائي طريق الانتكاسة'},
+ {text:'لا أستخدم التصفح الخفي أبدًا',cat:'الإنترنت',why:'الإخفاء يشجّعني على الفعل'},
+ {text:'لا أسهر مع صديق على جهاز مفتوح دون هدف',cat:'الأشخاص',why:'السهر الجماعي يخفّض حذري'}
+];
+const RCATS=['الهاتف','السرير','الحمام','الأوقات','الإنترنت','الأشخاص','أخرى'];
+reg('rules',el=>{
+  const cat=S.ui.rcat||'all',cats=Array.from(new Set(RCATS.concat(S.rules.map(r=>r.cat))));
+  const shown=S.rules.filter(r=>cat==='all'||r.cat===cat),td=today();
+  const days=[];for(let i=6;i>=0;i--)days.push(dstr(Date.now()-i*DAY));
+  const act=S.rules.filter(r=>r.active);let ok=0,tot=0;
+  act.forEach(r=>days.forEach(d=>{const v=ruleVal(r,d);if(v){tot++;if(v==='ok')ok++}}));
+  el.innerHTML='<p class="mut sm" style="margin-top:6px">قواعد أكتبها الآن وأنا هادئ، حتى لا أقرّر وقت الضعف.</p>'+
+  '<div class="card acc row"><div class="grow"><b>التزامي آخر 7 أيام</b><div class="mut sm">'+act.length+' قاعدة نشطة</div></div><b style="font-size:28px">'+(tot?Math.round(ok*100/tot)+'%':'—')+'</b></div>'+
+  '<div class="tabs"><button class="'+(cat==='all'?'on':'')+'" data-a="rcat" data-c="all">الكل</button>'+cats.filter(c=>S.rules.some(r=>r.cat===c)).map(c=>'<button class="'+(c===cat?'on':'')+'" data-a="rcat" data-c="'+esc(c)+'">'+esc(c)+'</button>').join('')+'</div>'+
+  (shown.length?shown.map(r=>{
+    const v=ruleVal(r,td);
+    return '<div class="card" style="'+(r.active?'':'opacity:.55')+'"><b>'+esc(r.text)+'</b> <span class="chip">'+esc(r.cat)+'</span>'+(r.why?'<div class="mut sm mt">ليش؟ '+esc(r.why)+'</div>':'')+(r.penalty?'<div class="sm">⚖️ إن كسرتها: '+esc(r.penalty)+'</div>':'')+
+    '<div class="sm mt">آخر 7 أيام: <span class="dots7">'+days.map(d=>'<i class="'+(ruleVal(r,d)||'')+'"></i>').join('')+'</span></div>'+
+    (r.active?'<div class="row mt"><button class="btn sm ok grow" data-a="rulec" data-id="'+r.id+'" data-v="ok" style="'+(v==='ok'?'outline:2px solid var(--ok)':'')+'">التزمت اليوم ✓</button><button class="btn sm bad grow" data-a="rulec" data-id="'+r.id+'" data-v="broke" style="'+(v==='broke'?'outline:2px solid var(--bad)':'')+'">كسرتها ✗</button></div>':'')+
+    '<div class="row mt"><button class="link" data-a="ruleedit" data-id="'+r.id+'">تعديل</button><button class="link" data-a="ruletog" data-id="'+r.id+'">'+(r.active?'إيقاف':'تفعيل')+'</button><button class="link" style="color:var(--bad)" data-a="ruledel" data-id="'+r.id+'">حذف</button></div></div>';
+  }).join(''):'<div class="card ph">لا قواعد هنا بعد. ابدأ بقاعدة أو اختر من الأمثلة.</div>')+
+  '<button class="btn pri" data-a="ruleedit">＋ قاعدة جديدة</button><button class="btn" data-a="ruletpl">📋 أمثلة جاهزة أختار منها</button>';
+},{title:'قواعدي',tab:'tools',parent:'tools'});
+A.rcat=el=>{S.ui.rcat=el.dataset.c;save();render()};
+A.ruleedit=el=>{
+  const r=el.dataset.id?S.rules.find(x=>x.id===el.dataset.id):{text:'',cat:'الهاتف',why:'',penalty:''};
+  const cats=Array.from(new Set(RCATS.concat(S.rules.map(x=>x.cat))));
+  sheet('<h3>'+(r.id?'تعديل القاعدة':'قاعدة جديدة')+'</h3><label class="lbl">القاعدة</label><input id="rl-t" value="'+esc(r.text)+'" placeholder="مثلًا: لا هاتف في السرير"><label class="lbl">التصنيف</label><select id="rl-c">'+cats.map(c=>'<option '+(c===r.cat?'selected':'')+'>'+esc(c)+'</option>').join('')+'</select>'+
+  '<label class="lbl">لماذا أضعها؟ (تذكّرني وقت الضعف)</label><textarea id="rl-w" style="min-height:70px">'+esc(r.why||'')+'</textarea><label class="lbl">عقوبة بسيطة إن كسرتها (اختياري)</label><input id="rl-p" value="'+esc(r.penalty||'')+'" placeholder="مثلًا: صدقة 10 ليرات"><button class="btn pri mt" data-a="rulesave" data-id="'+(r.id||'')+'">حفظ</button>');
+};
+A.rulesave=el=>{
+  const t=$('#rl-t').value.trim();if(!t){toast('اكتب القاعدة');return}
+  const o={text:t,cat:$('#rl-c').value,why:$('#rl-w').value.trim(),penalty:$('#rl-p').value.trim()};
+  if(el.dataset.id)Object.assign(S.rules.find(x=>x.id===el.dataset.id),o);else S.rules.push(Object.assign({id:uid(),active:true},o));
+  save();closeSheets();haptic(10);render();
+};
+A.ruletog=el=>{const r=S.rules.find(x=>x.id===el.dataset.id);r.active=!r.active;save();render()};
+A.ruledel=async el=>{if(await ask('حذف هذه القاعدة؟',{danger:true,ok:'حذف'})){S.rules=S.rules.filter(x=>x.id!==el.dataset.id);save();render()}};
+A.ruletpl=()=>sheet('<h3>أمثلة جاهزة</h3><p class="mut sm">اضغط لإضافة ما يناسبك، وعدّله لاحقًا.</p>'+RULE_TPL.map((t,i)=>{const has=S.rules.some(r=>r.text===t.text);return '<button class="li card flat" style="margin:8px 0" data-a="tpladd" data-i="'+i+'" '+(has?'disabled style="opacity:.4"':'')+'><span class="grow"><b>'+esc(t.text)+'</b><span class="sub">'+esc(t.cat)+' · '+esc(t.why)+'</span></span><span>'+(has?'✓':'＋')+'</span></button>'}).join('')+'<button class="btn" data-a="close">تم</button>');
+A.tpladd=el=>{const t=RULE_TPL[+el.dataset.i];if(S.rules.some(r=>r.text===t.text))return;S.rules.push(Object.assign({id:uid(),active:true,penalty:''},t));save();haptic(8);el.disabled=true;el.style.opacity=.4;el.lastChild.textContent='✓';render()};
+/* ===== خطتي ===== */
+const PLAN_TABS=[
+ ['reasons','أسبابي','أسباب تغييري','اكتب ما يهمّك: ديني، أهلي، مستقبلي، كرامتي','لأرضي ربي وأعيش بقلب طاهر','لأكون قدوة لإخوتي وأهلي','لأحمي تركيزي وإنجازاتي'],
+ ['ifthen','إذا-فعندها','خطط مسبقة (إذا حدث كذا، فعندها أفعل كذا)','كلما كانت محدّدة كانت أقوى','إذا شعرت بالملل فعندها أخرج للمشي','إذا وجدت نفسي وحيدًا بالهاتف فعندها أخرج للصالة','إذا خطرت الفكرة فعندها أتوضأ فورًا'],
+ ['alts','بدائلي','أفعال أفعلها بدل الزلة','أشياء سهلة وممتعة ومتاحة دائمًا','مشي سريع 15 دقيقة','اتصال بصديق','قراءة صفحات من كتاب','تمارين ضغط'],
+ ['triggers','محفّزاتي','ما الذي يدفعني نحو الزلة؟','','الملل','السهر','الوحدة','التوتر'],
+ ['weak','أوقات ضعفي','متى أكون أضعف؟','','بعد منتصف الليل','بعد الاستحمام','نهاية الأسبوع'],
+ ['warn','علامات الإنذار','إشارات تسبق السقوط','حين أراها أتحرّك فورًا','أبدأ أتصفح بلا هدف','أسهر بلا سبب','أهمل الصلاة أو الورد']
+];
+reg('plan',el=>{
+  const t=S.ui.ptab||'reasons',p=PLAN_TABS.find(x=>x[0]===t)||PLAN_TABS[0];
+  el.innerHTML='<div class="tabs" style="margin-top:6px">'+PLAN_TABS.map(x=>'<button class="'+(x[0]===t?'on':'')+'" data-a="ptab" data-t="'+x[0]+'">'+x[1]+'</button>').join('')+'</div>'+listEditor(p[0],p[2],p[3],p.slice(4));
+},{title:'خطتي',tab:'tools',parent:'tools'});
+A.ptab=el=>{S.ui.ptab=el.dataset.t;save();render()};
+/* ===== النصائح ===== */
+reg('tips',el=>{
+  const cat=S.ui.tipCat||'all',t=S.ui.tipCur,cats=Object.keys(TIPS);
+  const fav=t&&S.favs.indexOf(t.t)>=0;
+  el.innerHTML='<div class="tabs" style="margin-top:6px"><button class="'+(cat==='all'?'on':'')+'" data-a="tipcat" data-c="all">الكل</button><button class="'+(cat==='fav'?'on':'')+'" data-a="tipcat" data-c="fav">❤️ المفضلة ('+S.favs.length+')</button>'+cats.map(c=>'<button class="'+(cat===c?'on':'')+'" data-a="tipcat" data-c="'+c+'">'+esc(TIPS[c].n)+'</button>').join('')+'</div>'+
+  '<div class="card acc center" style="min-height:190px;display:flex;flex-direction:column;justify-content:center">'+(t?'<div class="tipbox">'+esc(t.t)+'</div><div class="mt"><span class="chip">'+esc((TIPS[t.c]&&TIPS[t.c].n)||'مفضلة')+'</span></div>':'<div class="ph">اضغط الزر بالأسفل لتظهر لك نصيحة.<br>مئات النصائح مخفية، وتظهر لك واحدة في كل مرة.</div>')+'</div>'+
+  '<button class="btn pri big" data-a="tipnext">'+(t?'نصيحة جديدة':'أظهر لي نصيحة')+'</button>'+
+  (t?'<div class="row"><button class="btn grow" data-a="tipfav">'+(fav?'❤️ في المفضلة':'🤍 أضف للمفضلة')+'</button><button class="btn grow" data-a="tipshare">نسخ / مشاركة</button></div>':'');
+},{title:'نصائح',tab:'tools',parent:'tools'});
+A.tipcat=el=>{S.ui.tipCat=el.dataset.c;save();render()};
+A.tipshare=async()=>{
+  const t=S.ui.tipCur;if(!t)return;
+  try{if(navigator.share){await navigator.share({text:t.t});return}}catch(e){}
+  try{await navigator.clipboard.writeText(t.t);toast('تم النسخ')}catch(e){toast('تعذّر النسخ')}
+};
+/* ===== بعد الزلة ===== */
+reg('after',el=>{
+  const rel=(TIPS.relapse&&TIPS.relapse.t)||[],tip=rel[Math.floor(Math.random()*rel.length)]||'';
+  el.innerHTML='<div class="card acc center" style="margin-top:8px"><div class="hero-ic">🌱</div><h3>الوقوع ليس النهاية</h3><p class="mut mt">﴿إِنَّ اللَّهَ يُحِبُّ التَّوَّابِينَ﴾. ما حدث درسٌ تتعلم منه، وأفضل سلسلة لك محفوظة ولن تضيع.</p></div>'+
+  '<div class="sec"><h3>خطوات العودة</h3></div><div class="card">'+[
+   'توضّأ وصلِّ ركعتين، واستغفر بصدق وبقلب حاضر','غيّر مكانك فورًا، واخرج من الغرفة أو البيت','اكتب ما حدث بصدق: ما المحفّز؟ ما الدرس؟ (زر «سجّلت زلة» في اليوم)','نفّذ عقوبتك البنّاءة إن وضعتها، ثم اطوِ الصفحة','عدّل قاعدة أو خطة تمنع تكرار السبب','عد لروتينك: نوم، ورد، عمل، رياضة — بلا جلد للذات'
+  ].map((s,i)=>'<div class="step"><i>'+(i+1)+'</i><div>'+esc(s)+'</div></div>').join('')+'</div>'+
+  (tip?'<div class="card"><div class="tipbox">'+esc(tip)+'</div></div>':'')+
+  '<button class="btn bad" data-a="slip" data-k="'+S.ui.k+'">سجّل ما حدث الآن</button><button class="btn" data-a="goach">عقوباتي المعلّقة</button>';
+},{title:'بعد الزلة',tab:'tools',parent:'tools'});
+
+/* ===== نفسي ===== */
+const SELF_Q=['متى بدأت هذه العادة؟ وكيف كانت بدايتها؟','ما أصعب الأوقات عندي: متى ولماذا؟','ما الشعور الذي أهرب منه غالبًا قبل الزلة؟','ماذا تقول لي نفسي الأمارة قبل أن أقع؟ وبأي أسلوب تقنعني؟','كيف أشعر مباشرة بعد الزلة، وبعد ساعة، وفي اليوم التالي؟','ما الذي خسرته بسبب هذه العادة (دين، وقت، تركيز، ثقة، علاقات)؟','ما الأماكن والأجهزة التي تقودني إلى الزلة؟','من الأشخاص الذين يقوّونني ومن الذين يضعفونني؟','ما الذي نجح معي سابقًا حين صمدت أطول مدة؟','ما أكثر شيء أخافه لو استمررت على هذه الحال؟','من أكون لو تعافيت تمامًا؟ صف نفسك بعد سنة.','ما الأشياء التي أحبها وأبرع فيها وأهملتها؟','ما الأمور التي تشعرني بالفخر فعلًا؟','متى أشعر بالقوة والسكينة ولماذا؟','ما الذي أحتاجه فعلًا ولا أطلبه من أحد (حب، تقدير، راحة، صحبة)؟','ما أصغر خطوة أستطيع فعلها اليوم لأحمي نفسي؟'];
+const WEEK_Q=['ما أقوى محفّز مرّ عليّ هذا الأسبوع؟','أي قاعدة انكسرت أكثر؟','ما الذي نجح معي؟','ما أصعب وقت وكيف تعاملت معه؟','أين ضعفت نفسي الأمارة وكيف خدعتني؟','ما الذي سأغيّره الأسبوع القادم؟','ما الذي أنا ممتن له؟','ما هدفي للأسبوع القادم؟'];
+const EXC_SUGG=['مرة واحدة فقط وأتوقف','أنا متعب وأستحق مكافأة','لا أحد يراني','سأتوب بعدها','لقد فسد يومي أصلًا','هذه المرة الأخيرة','لن أستطيع المقاومة أصلًا'];
+function insights(){
+  const tr={},hr={};
+  const bucket=h=>h<4?'بعد منتصف الليل':h<6?'قبل الفجر':h<12?'صباحًا':h<16?'ظهرًا':h<19?'عصرًا':h<22?'مساءً':'ليلًا';
+  S.slips.forEach(s=>{if(s.trigger)tr[s.trigger]=(tr[s.trigger]||0)+1;const b=bucket(new Date(s.t).getHours());hr[b]=(hr[b]||0)+1});
+  const top=m=>Object.keys(m).sort((a,b)=>m[b]-m[a])[0];
+  return{trig:top(tr),time:top(hr),n:S.slips.length};
+}
+reg('me',el=>{
+  const ins=insights(),nAns=Object.keys(S.answers).filter(k=>S.answers[k]).length;
+  el.innerHTML=(ins.n?'<div class="card acc" style="margin-top:8px"><b>ما تعلّمته عن نفسي</b><div class="sm mt">'+(ins.trig?'أكثر محفّز يوقعني: <b>'+esc(ins.trig)+'</b><br>':'')+(ins.time?'أخطر وقت: <b>'+esc(ins.time)+'</b>':'')+'</div><div class="mut xs mt">من '+ins.n+' زلة سجّلتها. اعرف عدوّك لتهزمه.</div></div>':'<div class="card acc" style="margin-top:8px"><b>النفس الأمّارة تُهزم بمعرفتها</b><div class="mut sm mt">كل ما تكتبه هنا يقرّبك من فهم نفسك، وكل ما تسجّله يصير خريطة تحميك.</div></div>')+
+  '<div class="grid2"><button class="tile" data-a="go" data-p="study"><span class="ic">🧭</span><b>دراسة نفسي</b><span>'+nAns+' من '+SELF_Q.length+' أسئلة أجبتها</span></button><button class="tile" data-a="go" data-p="diary"><span class="ic">📓</span><b>يومياتي</b><span>'+S.diary.length+' تدوينة</span></button><button class="tile" data-a="go" data-p="weekly"><span class="ic">🗓️</span><b>مراجعة الأسبوع</b><span>وقفة أسبوعية صادقة</span></button><button class="tile" data-a="go" data-p="settings"><span class="ic">⚙️</span><b>الإعدادات</b><span>المظهر، القفل، النسخ</span></button></div>';
+},{title:'نفسي',tab:'me'});
+/* --- دراسة النفس --- */
+reg('study',el=>{
+  const t=S.ui.stab||'q';
+  let body='';
+  if(t==='q'){
+    body=SELF_Q.map((q,i)=>'<div class="card"><b>'+(i+1)+'. '+esc(q)+'</b><textarea class="mt" data-c="ans" data-i="'+i+'" placeholder="اكتب بصدق… لا يراك أحد">'+esc(S.answers[i]||'')+'</textarea></div>').join('');
+  }else if(t==='exc'){
+    body='<p class="mut sm mt">النفس الأمّارة تقنعك بأعذار قبل السقوط. اكتب عذرها، ثم اكتب ردّك عليها وأنت هادئ، لتقرأه وقت الضعف.</p>'+
+    S.excuses.map(x=>'<div class="card"><div class="row"><b class="grow">«'+esc(x.t)+'»</b><button class="ib" style="width:34px;height:34px" data-a="exdel" data-id="'+x.id+'" aria-label="حذف">✕</button></div><label class="lbl">ردّي عليها</label><textarea data-c="excr" data-id="'+x.id+'" style="min-height:70px">'+esc(x.r||'')+'</textarea></div>').join('')+
+    '<div class="card"><div class="row"><input id="ex-t" placeholder="عذر تقوله نفسي…" style="flex:1"><button class="btn pri sm" data-a="exadd">إضافة</button></div><div class="chips mt">'+EXC_SUGG.filter(x=>!S.excuses.some(e=>e.t===x)).map(x=>'<button class="chip" data-a="exsug" data-v="'+esc(x)+'">＋ '+esc(x)+'</button>').join('')+'</div></div>';
+  }else{
+    const ins=insights();
+    body='<div class="card"><b>ملفّي كما رسمتُه</b>'+[['reasons','أسبابي'],['triggers','محفّزاتي'],['weak','أوقات ضعفي'],['warn','علامات إنذاري']].map(x=>'<div class="mt"><span class="mut sm">'+x[1]+':</span> '+(S.lists[x[0]].length?S.lists[x[0]].map(v=>'<span class="chip">'+esc(v)+'</span>').join(' '):'<button class="link" data-a="go" data-p="plan">أضفها من خطتي</button>')+'</div>').join('')+'</div>'+
+    '<div class="card"><b>من سجلّ الزلات</b><div class="sm mt">'+(ins.n?'أكثر محفّز: <b>'+esc(ins.trig||'—')+'</b><br>أخطر وقت: <b>'+esc(ins.time||'—')+'</b><br>عدد الزلات المسجّلة: '+ins.n:'لا زلات مسجّلة، وهذا جيّد.')+'</div></div>';
+  }
+  el.innerHTML='<div class="seg" style="margin-top:6px">'+[['q','أسئلة'],['exc','نفسي الأمّارة'],['prof','ملفّي']].map(x=>'<button class="'+(t===x[0]?'on':'')+'" data-a="stab" data-t="'+x[0]+'">'+x[1]+'</button>').join('')+'</div>'+body;
+},{title:'دراسة نفسي',tab:'me',parent:'me'});
+A.stab=el=>{S.ui.stab=el.dataset.t;save();render()};
+CH.ans=el=>{S.answers[el.dataset.i]=el.value.trim();save();toast('حُفظ',900)};
+CH.excr=el=>{const x=S.excuses.find(e=>e.id===el.dataset.id);if(x){x.r=el.value.trim();save();toast('حُفظ',900)}};
+A.exadd=()=>{const v=$('#ex-t').value.trim();if(!v)return;S.excuses.push({id:uid(),t:v,r:''});save();render()};
+A.exsug=el=>{S.excuses.push({id:uid(),t:el.dataset.v,r:''});save();haptic(8);render()};
+A.exdel=el=>{S.excuses=S.excuses.filter(e=>e.id!==el.dataset.id);save();render()};
+/* --- اليوميات --- */
+let dMood=3;
+reg('diary',el=>{
+  el.innerHTML='<div class="card" style="margin-top:8px"><div class="chips">'+MOODS.map((m,i)=>'<button class="chip '+(dMood===i+1?'on':'')+'" style="font-size:20px" data-a="dmood" data-v="'+(i+1)+'">'+m+'</button>').join('')+'</div><textarea id="dy-t" class="mt" placeholder="ماذا يدور في نفسك اليوم؟ مشاعر، أفكار، امتنان…"></textarea><button class="btn pri mt" data-a="dysave">حفظ التدوينة</button></div>'+
+  (S.diary.length?S.diary.slice().reverse().map(d=>'<div class="card"><div class="row"><span style="font-size:22px">'+MOODS[d.mood-1]+'</span><span class="grow mut xs">'+new Date(d.t).toLocaleString('ar',{dateStyle:'medium',timeStyle:'short'})+'</span><button class="link" style="color:var(--bad)" data-a="dydel" data-id="'+d.id+'">حذف</button></div><div class="mt" style="white-space:pre-wrap">'+esc(d.text)+'</div></div>').join(''):'<div class="ph">لا تدوينات بعد. الكتابة تفرّغ الصدر وتكشف النفس.</div>');
+},{title:'يومياتي',tab:'me',parent:'me'});
+A.dmood=el=>{dMood=+el.dataset.v;$$('[data-a=dmood]').forEach(b=>b.classList.toggle('on',b===el))};
+A.dysave=()=>{const t=$('#dy-t').value.trim();if(!t){toast('اكتب شيئًا');return}S.diary.push({id:uid(),t:Date.now(),mood:dMood,text:t});save();haptic(10);toast('حُفظت التدوينة');render()};
+A.dydel=async el=>{if(await ask('حذف هذه التدوينة؟',{danger:true,ok:'حذف'})){S.diary=S.diary.filter(d=>d.id!==el.dataset.id);save();render()}};
+/* --- المراجعة الأسبوعية --- */
+function weekKey(d){d=d?new Date(d):new Date();const b=(d.getDay()+1)%7;return dstr(new Date(d.getFullYear(),d.getMonth(),d.getDate()-b))}
+reg('weekly',el=>{
+  const wk=weekKey(),cur=S.weekly[wk]||{},past=Object.keys(S.weekly).filter(k=>k!==wk).sort().reverse();
+  el.innerHTML='<p class="mut sm" style="margin-top:6px">وقفة صادقة كل أسبوع تبني الوعي. أسبوع يبدأ من '+wk+'.</p>'+WEEK_Q.map((q,i)=>'<div class="card"><b>'+esc(q)+'</b><textarea class="mt" data-c="wans" data-i="'+i+'" style="min-height:72px">'+esc(cur[i]||'')+'</textarea></div>').join('')+
+  (past.length?'<div class="sec"><h3>مراجعات سابقة</h3></div><div class="list">'+past.map(k=>'<button class="li" data-a="wview" data-k="'+k+'"><span class="grow">أسبوع '+k+'<span class="sub">'+Object.keys(S.weekly[k]).filter(i=>S.weekly[k][i]).length+' إجابة</span></span><span class="arr">'+ICONS.back+'</span></button>').join('')+'</div>':'');
+},{title:'مراجعة الأسبوع',tab:'me',parent:'me'});
+CH.wans=el=>{const wk=weekKey();(S.weekly[wk]=S.weekly[wk]||{})[el.dataset.i]=el.value.trim();save();toast('حُفظ',900)};
+A.wview=el=>{const w=S.weekly[el.dataset.k];sheet('<h3>أسبوع '+el.dataset.k+'</h3>'+WEEK_Q.map((q,i)=>w[i]?'<div class="card flat"><b class="sm">'+esc(q)+'</b><div class="mt" style="white-space:pre-wrap">'+esc(w[i])+'</div></div>':'').join('')+'<button class="btn" data-a="close">إغلاق</button>')};
+/* ===== الإعدادات ===== */
+let deferredInstall=null;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredInstall=e});
+const isStandalone=()=>matchMedia('(display-mode: standalone)').matches||navigator.standalone;
+reg('settings',el=>{
+  const sg=(key,opts,val)=>'<div class="seg">'+opts.map(o=>'<button class="'+(String(val)===String(o[0])?'on':'')+'" data-a="setopt" data-key="'+key+'" data-v="'+o[0]+'">'+o[1]+'</button>').join('')+'</div>';
+  el.innerHTML='<div class="sec"><h3>عنّي</h3></div><div class="card"><label class="lbl" style="margin-top:0">اسمي</label><input data-c="name" value="'+esc(S.name)+'" placeholder="يظهر في التحية"></div>'+
+  '<div class="sec"><h3>المظهر</h3></div><div class="card"><label class="lbl" style="margin-top:0">السمة</label>'+sg('theme',[['dark','داكن'],['light','فاتح'],['auto','تلقائي']],S.theme)+
+  '<label class="lbl">اللون</label><div class="swatch">'+['teal','gold','sky','violet'].map(c=>'<button class="sw-'+c+' '+(S.acc===c?'on':'')+'" data-a="setopt" data-key="acc" data-v="'+c+'" aria-label="'+c+'"></button>').join('')+'</div>'+
+  '<label class="lbl">حجم الخط</label>'+sg('fs',[[90,'صغير'],[100,'عادي'],[112,'كبير']],S.fs)+'</div>'+
+  '<div class="sec"><h3>الأمان والخصوصية</h3></div><div class="list">'+
+  '<button class="li" data-a="pinset"><span class="ic">🔐</span><span class="grow"><b>'+(S.pin?'تغيير الرقم السري':'وضع رقم سري')+'</b><span class="sub">'+(S.pin?'القفل مفعّل':'يحمي تطبيقك من أي شخص يمسك هاتفك')+'</span></span></button>'+
+  (S.pin?'<div class="li"><span class="ic">⏱️</span><span class="grow"><b>القفل التلقائي</b></span><select data-c="lockafter" style="width:auto">'+[[0,'فورًا'],[30,'30 ثانية'],[60,'دقيقة'],[300,'5 دقائق']].map(o=>'<option value="'+o[0]+'" '+(S.lockAfter===o[0]?'selected':'')+'>'+o[1]+'</option>').join('')+'</select></div><button class="li" data-a="pinoff"><span class="ic">🔓</span><span class="grow"><b style="color:var(--bad)">إزالة الرقم السري</b></span></button>':'')+
+  '<div class="li"><span class="ic">📳</span><span class="grow"><b>اهتزاز خفيف</b></span><label class="sw"><input type="checkbox" data-c="haptic" '+(S.haptic?'checked':'')+'><span></span></label></div></div>'+
+  '<div class="sec"><h3>البيانات والإضافات</h3></div><div class="list"><button class="li" data-a="go" data-p="backup"><span class="ic">💾</span><span class="grow"><b>نسخ احتياطي واستعادة</b><span class="sub">تصدير بياناتك أو استيرادها</span></span><span class="arr">'+ICONS.back+'</span></button><button class="li" data-a="go" data-p="plugins"><span class="ic">🧩</span><span class="grow"><b>الإضافات</b><span class="sub">عدّل التطبيق بالكود</span></span><span class="arr">'+ICONS.back+'</span></button></div>'+
+  '<div class="sec"><h3>عن التطبيق</h3></div><div class="list">'+(isStandalone()?'':'<button class="li" data-a="install"><span class="ic">📲</span><span class="grow"><b>تثبيت كتطبيق</b><span class="sub">'+(deferredInstall?'اضغط للتثبيت':'من قائمة المتصفح ⋮ ← تثبيت التطبيق')+'</span></span></button>')+'<div class="li"><span class="ic">🌙</span><span class="grow"><b>ثبات 2.0</b><span class="sub">بياناتك محفوظة على جهازك فقط ولا تُرسل لأي مكان</span></span></div></div>';
+},{title:'الإعدادات',tab:'me',parent:'me'});
+CH.name=el=>{S.name=el.value.trim();save();renderShell()};
+CH.haptic=el=>{S.haptic=el.checked;save();if(S.haptic)haptic(20)};
+CH.lockafter=el=>{S.lockAfter=+el.value;save()};
+A.setopt=el=>{
+  const k=el.dataset.key,v=el.dataset.v;S[k]=(k==='fs')?+v:v;save();applyTheme();haptic(6);render();
+};
+A.install=async()=>{if(deferredInstall){deferredInstall.prompt();deferredInstall=null}else toast('افتح قائمة المتصفح ⋮ ثم «تثبيت التطبيق»',4000)};
+/* ===== النسخ الاحتياطي ===== */
+reg('backup',el=>{
+  const sn=snaps();
+  el.innerHTML='<p class="mut sm" style="margin-top:6px">بياناتك على هذا الجهاز وهذا الرابط فقط. خذ نسخة دورية، خاصة قبل تغيير الهاتف أو مسح بيانات المتصفح.</p>'+
+  '<div class="card"><button class="btn pri" data-a="bkexport">⬇️ تصدير نسخة (ملف)</button><button class="btn" data-a="bkcopy">📋 نسخ البيانات كنص</button><button class="btn" data-a="bkfile">⬆️ استيراد من ملف</button><input type="file" id="bk-file" accept=".json,application/json" hidden data-c="bkfile"><button class="btn" data-a="bkpaste">📝 استيراد من نص ملصوق</button></div>'+
+  '<div class="sec"><h3>نسخ تلقائية على الجهاز</h3></div>'+(sn.length?'<div class="list">'+sn.map((s,i)=>'<button class="li" data-a="snaprest" data-i="'+i+'"><span class="ic">🕘</span><span class="grow"><b>'+new Date(s.t).toLocaleString('ar',{dateStyle:'medium',timeStyle:'short'})+'</b><span class="sub">'+esc(s.label)+' · اضغط للاستعادة</span></span></button>').join('')+'</div>':'<div class="card ph">لا نسخ بعد</div>')+
+  '<div class="sec"><h3>منطقة الخطر</h3></div><button class="btn bad" data-a="wipe">🗑️ مسح كل البيانات والبدء من جديد</button>';
+},{title:'نسخ احتياطي',tab:'me',parent:'settings'});
+A.bkexport=()=>{
+  const b=new Blob([JSON.stringify(S)],{type:'application/json'}),a=document.createElement('a');
+  a.href=URL.createObjectURL(b);a.download='thabat-backup-'+today()+'.json';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);toast('تم تصدير النسخة');
+};
+A.bkcopy=async()=>{try{await navigator.clipboard.writeText(JSON.stringify(S));toast('نُسخت البيانات، الصقها في مكان آمن')}catch(e){toast('تعذّر النسخ، استخدم التصدير')}};
+A.bkfile=()=>$('#bk-file').click();
+CH.bkfile=el=>{const f=el.files[0];if(!f)return;const r=new FileReader();r.onload=()=>importData(String(r.result));r.readAsText(f)};
+A.bkpaste=()=>sheet('<h3>استيراد من نص</h3><textarea id="bk-t" placeholder="الصق نسخة البيانات هنا" style="min-height:140px"></textarea><button class="btn pri mt" data-a="bkdo">استيراد</button>');
+A.bkdo=()=>importData($('#bk-t').value);
+async function importData(txt){
+  let o;try{o=JSON.parse(txt)}catch(e){toast('الملف غير صالح');return}
+  if(!o||!o.counters||!o.counters.porn){toast('ليست نسخة من «ثبات»');return}
+  if(!await ask('سيحلّ هذا محل بياناتك الحالية (تُحفظ نسخة منها تلقائيًا). متابعة؟',{ok:'استيراد',title:'استيراد النسخة'}))return;
+  snapshot('قبل الاستيراد');S=merge(defaults(),o);S.onboarded=true;save();toast('تم الاستيراد');setTimeout(()=>location.reload(),600);
+}
+A.snaprest=async el=>{const s=snaps()[+el.dataset.i];if(!s)return;if(await ask('استعادة هذه النسخة؟ ستُحفظ نسخة من وضعك الحالي أولًا.',{ok:'استعادة'})){const d=s.data;snapshot('قبل الاستعادة');S=merge(defaults(),JSON.parse(d));save();location.reload()}};
+A.wipe=async()=>{
+  if(!await ask('سيُمسح كل شيء: العدّادات، السجلات، القواعد، اليوميات. لا يمكن التراجع (إلا بنسخة احتياطية).',{danger:true,ok:'امسح كل شيء',title:'متأكد؟'}))return;
+  if(!await ask('تأكيد أخير: مسح كل بياناتك نهائيًا؟',{danger:true,ok:'نعم، امسح'}))return;
+  try{localStorage.removeItem(KEY);localStorage.removeItem(KSNAP)}catch(e){}location.hash='';location.reload();
+};
+/* ===== الإضافات ===== */
+let editingPl=null;
+reg('plugins',el=>{
+  const ed=editingPl?S.plugins.find(p=>p.id===editingPl):null;
+  el.innerHTML='<p class="mut sm" style="margin-top:6px">أضف كودًا يعدّل أي جزء من التطبيق. الكود الخاطئ يُعطَّل تلقائيًا، وتُحفظ نسخة من بياناتك قبل التفعيل.</p>'+
+  (S.plugins.length?'<div class="list">'+S.plugins.map(p=>'<div class="li" style="flex-wrap:wrap"><span class="grow"><b>'+esc(p.name)+'</b><span class="sub">'+(p.error?'<span style="color:var(--bad)">متوقّفة: '+esc(p.error)+'</span>':p.enabled?'مفعّلة':'معطّلة')+'</span></span><button class="btn sm" data-a="pltog" data-id="'+p.id+'">'+(p.enabled?'إيقاف':'تفعيل')+'</button><button class="btn sm" data-a="pledit" data-id="'+p.id+'">تعديل</button><button class="btn sm bad" data-a="pldel" data-id="'+p.id+'">حذف</button></div>').join('')+'</div>':'<div class="card ph">لا إضافات بعد</div>')+
+  '<div class="sec"><h3>'+(ed?'تعديل «'+esc(ed.name)+'»':'إضافة جديدة')+'</h3></div><div class="card"><label class="lbl" style="margin-top:0">الاسم</label><input id="pl-name" value="'+esc(ed?ed.name:'')+'" placeholder="مثلًا: ترتيب الصفحة"><label class="lbl">الكود</label><textarea id="pl-code" dir="ltr" style="min-height:200px;font-family:ui-monospace,monospace;font-size:13px" placeholder="الصق الكود هنا">'+esc(ed?ed.code:'')+'</textarea><div class="row"><button class="btn sm" data-a="plpaste">لصق من الحافظة</button><button class="btn sm" data-a="pldoc">📖 مرجع الإضافات</button></div><button class="btn pri mt" data-a="plsave">'+(ed?'حفظ التعديل':'حفظ وتفعيل')+'</button>'+(ed?'<button class="btn" data-a="plcancel">إلغاء التعديل</button>':'')+'</div>';
+},{title:'الإضافات',tab:'me',parent:'settings'});
+A.plpaste=async()=>{try{$('#pl-code').value=await navigator.clipboard.readText()}catch(e){toast('اسمح بالوصول للحافظة أو الصق يدويًا')}};
+A.pldoc=()=>sheet('<h3>مرجع الإضافات</h3><textarea readonly dir="rtl" style="min-height:300px;font-size:13px">'+esc(API_DOC)+'</textarea><button class="btn pri mt" data-a="pldoccopy">نسخ المرجع</button>');
+A.pldoccopy=async()=>{try{await navigator.clipboard.writeText(API_DOC);toast('نُسخ')}catch(e){toast('حدّد النص وانسخه')}};
+A.plsave=()=>{
+  const name=$('#pl-name').value.trim()||'إضافة',code=$('#pl-code').value;
+  if(!code.trim()){toast('الصق الكود أولًا');return}
+  try{new Function('App','"use strict";\n'+code)}catch(e){toast('خطأ في صياغة الكود: '+e.message,5000);return}
+  snapshot('قبل إضافة: '+name);
+  if(editingPl){const p=S.plugins.find(x=>x.id===editingPl);p.hist=(p.hist||[]).concat([{t:Date.now(),code:p.code}]).slice(-5);p.name=name;p.code=code;p.enabled=true;p.error=null;editingPl=null}
+  else S.plugins.push({id:uid(),name:name,code:code,enabled:true,error:null,hist:[]});
+  save();toast('تم الحفظ، جارٍ إعادة التشغيل…');setTimeout(()=>location.reload(),700);
+};
+A.plcancel=()=>{editingPl=null;render()};
+A.pledit=el=>{editingPl=el.dataset.id;render();window.scrollTo(0,document.body.scrollHeight)};
+A.pltog=el=>{const p=S.plugins.find(x=>x.id===el.dataset.id);p.enabled=!p.enabled;p.error=null;save();setTimeout(()=>location.reload(),200)};
+A.pldel=async el=>{if(await ask('حذف هذه الإضافة؟',{danger:true,ok:'حذف'})){S.plugins=S.plugins.filter(x=>x.id!==el.dataset.id);save();setTimeout(()=>location.reload(),200)}};
+A.retryplugins=()=>{try{localStorage.removeItem(KBOOT)}catch(e){}location.reload()};
+
+/* ===== القفل ===== */
+function cyrb(s){let h1=0xdeadbeef,h2=0x41c6ce57;for(let i=0;i<s.length;i++){const c=s.charCodeAt(i);h1=Math.imul(h1^c,2654435761);h2=Math.imul(h2^c,1597334677)}h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);return(4294967296*(2097151&h2)+(h1>>>0)).toString(36)}
+function hashPin(pin,salt){let h=pin+'|'+salt;for(let i=0;i<4000;i++)h=cyrb(h+i+salt);return h}
+let lkFail=0,lkUntil=0,hiddenAt=0;
+function lockUI(o){
+  const L=$('#lock');L.hidden=false;
+  let buf='',first=null,len=o.mode==='enter'?S.pin.len:6;
+  const title={enter:'أدخل الرقم السري',new:'اختر رقمًا سريًا (4–6 أرقام)',confirm:'أعد إدخال الرقم للتأكيد'};
+  let mode=o.mode;
+  function draw(msg){
+    const ln=mode==='enter'?len:6;
+    L.innerHTML='<div class="lk-ic">'+(mode==='enter'?'🌙':'🔐')+'</div><h2 style="margin-top:10px">'+(mode==='enter'?'ثبات':'الرقم السري')+'</h2><div class="mut sm center" id="lk-m">'+(msg||title[mode])+'</div><div class="lk-dots" id="lk-d">'+Array.from({length:ln},(_,i)=>'<i class="'+(i<buf.length?'f':'')+'"></i>').join('')+'</div>'+
+    '<div class="pad">'+[1,2,3,4,5,6,7,8,9].map(n=>'<button data-lk="'+n+'">'+n+'</button>').join('')+'<button class="ghost" data-lk="x">'+(mode==='enter'?'نسيت؟':'إلغاء')+'</button><button data-lk="0">0</button><button class="ghost" data-lk="b" aria-label="حذف">⌫</button></div>'+(mode!=='enter'?'<button class="btn pri mt2" style="max-width:240px" data-lk="ok" '+(buf.length<4?'disabled':'')+'>تأكيد</button>':'');
+  }
+  function err(m){const d=$('#lk-d');if(d){d.classList.remove('shake');void d.offsetWidth;d.classList.add('shake')}haptic([40,50,40]);buf='';setTimeout(()=>draw(m),420)}
+  function submit(){
+    if(mode==='enter'){
+      if(Date.now()<lkUntil){err('انتظر '+Math.ceil((lkUntil-Date.now())/1000)+' ثانية');return}
+      if(hashPin(buf,S.pin.salt)===S.pin.hash){lkFail=0;L.hidden=true;L.innerHTML='';o.onOk()}
+      else{lkFail++;if(lkFail>=5){lkUntil=Date.now()+30000*Math.pow(2,Math.min(4,lkFail-5));err('محاولات كثيرة، انتظر قليلًا')}else err('رقم خاطئ')}
+    }else if(mode==='new'){first=buf;buf='';mode='confirm';draw()}
+    else{if(buf===first){const salt=uid();S.pin={salt:salt,hash:hashPin(buf,salt),len:buf.length};save();L.hidden=true;L.innerHTML='';o.onOk(true)}else{first=null;mode='new';err('الرقمان غير متطابقين')}}
+  }
+  L.onclick=e=>{
+    const b=e.target.closest('[data-lk]');if(!b)return;const v=b.dataset.lk;haptic(8);
+    if(v==='b'){buf=buf.slice(0,-1);draw()}
+    else if(v==='x'){
+      if(mode==='enter')forgotSheet();else{L.hidden=true;L.innerHTML='';if(o.onCancel)o.onCancel()}
+    }
+    else if(v==='ok'){if(buf.length>=4)submit()}
+    else if(buf.length<(mode==='enter'?len:6)){buf+=v;draw();if(mode==='enter'&&buf.length===len)setTimeout(submit,120)}
+  };
+  draw();
+}
+function forgotSheet(){
+  sheet('<h3>نسيت الرقم؟</h3><p class="mut">لحماية خصوصيتك لا توجد طريقة لاسترجاع الرقم. يمكنك مسح التطبيق والبدء من جديد، ثم استيراد نسخة احتياطية إن كانت عندك.</p><button class="btn bad" data-a="forgotwipe">مسح كل شيء والبدء من جديد</button><button class="btn" data-a="close">رجوع</button>',{});
+  $('#sheets').style.position='relative';$('#sheets').style.zIndex=120;
+}
+A.forgotwipe=async()=>{if(await ask('سيُمسح كل شيء نهائيًا. متأكد؟',{danger:true,ok:'امسح',title:'تأكيد'})){try{localStorage.removeItem(KEY);localStorage.removeItem(KSNAP)}catch(e){}location.hash='';location.reload()}};
+function lockNow(){
+  if(!S.pin){toast('لم تضع رقمًا سريًا بعد، اضبطه من الإعدادات');return}
+  locked=true;closeSheets();emClose();$('#shell').hidden=true;$('#nav').hidden=true;
+  lockUI({mode:'enter',onOk:unlock});
+}
+function unlock(){locked=false;$('#shell').hidden=false;$('#nav').hidden=false;render();checkGoals()}
+A.lockNow=lockNow;
+A.pinset=()=>{
+  const run=()=>lockUI({mode:'new',onOk:()=>{toast('تم ضبط الرقم السري 🔐');render()},onCancel:()=>{}});
+  if(S.pin){ // التحقق من القديم أولًا
+    lockUI({mode:'enter',onOk:run});
+  }else run();
+};
+A.pinoff=async()=>{if(await ask('إزالة الرقم السري؟ سيصبح تطبيقك مفتوحًا.',{danger:true,ok:'إزالة'})){S.pin=null;save();render();toast('أُزيل القفل')}};
+document.addEventListener('visibilitychange',()=>{
+  if(!S||!S.pin||!S.onboarded)return;
+  if(document.hidden){hiddenAt=Date.now();if(S.lockAfter===0&&!locked)lockNow()}
+  else if(!locked&&hiddenAt&&(Date.now()-hiddenAt)/1000>=S.lockAfter)lockNow();
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if($('#sheets .bd'))sheetClose();else if($('#emerg'))emClose()}});
+/* ===== الترحيب ===== */
+function onboard(){
+  const ob=$('#ob');ob.hidden=false;$('#shell').hidden=true;$('#nav').hidden=true;
+  const st={step:0,name:'',m:{porn:'later',mast:'later'},d:{porn:toLocalInput(Date.now()),mast:toLocalInput(Date.now())},pin:false};
+  const dots=n=>'<div class="pdots">'+[0,1,2,3].map(i=>'<i class="'+(i<=n?'on':'')+'"></i>').join('')+'</div>';
+  function draw(){
+    let b='';const s=st.step;
+    if(s===0)b=dots(0)+'<div class="hero-ic">🌙</div><div class="big-t">ثبات</div><p class="mut center mt">رفيقك لبناء قلب طاهر وحياة أنقى. خصوصيتك أولًا: كل بياناتك تبقى على جهازك ولا تُرسل لأحد.</p><div class="card flat mt2"><div class="step"><i>✓</i><div>عدّاد دقيق يعدّ كل ثانية</div></div><div class="step"><i>✓</i><div>خطة وقواعد وأدوات لحظة الرغبة</div></div><div class="step"><i>✓</i><div>فهم نفسك وتسجيل رحلتك بصدق</div></div></div><div style="flex:1"></div><button class="btn pri big" data-ob="next">لنبدأ</button>';
+    else if(s===1)b=dots(1)+'<div class="hero-ic">🤍</div><div class="big-t">كيف أناديك؟</div><p class="mut center mt">اختياري، يظهر في التحية فقط.</p><input id="ob-n" class="mt2" value="'+esc(st.name)+'" placeholder="الاسم"><div style="flex:1"></div><button class="btn pri big" data-ob="next">التالي</button><button class="btn ghost" data-ob="back">رجوع</button>';
+    else if(s===2){
+      b=dots(2)+'<div class="big-t">متى تبدأ؟</div><p class="mut center mt">اختر لكل عدّاد، ويمكنك التعديل لاحقًا.</p>'+K.map(k=>'<div class="card"><b>'+KN[k]+'</b><div class="seg mt">'+[['now','الآن'],['date','تاريخ سابق'],['later','لاحقًا']].map(o=>'<button class="'+(st.m[k]===o[0]?'on':'')+'" data-ob="m" data-k="'+k+'" data-v="'+o[0]+'">'+o[1]+'</button>').join('')+'</div>'+(st.m[k]==='date'?'<input type="datetime-local" class="mt" data-obd="'+k+'" value="'+st.d[k]+'">':'')+'</div>').join('')+'<div style="flex:1"></div><button class="btn pri big" data-ob="next">التالي</button><button class="btn ghost" data-ob="back">رجوع</button>';
+    }else b=dots(3)+'<div class="hero-ic">🔐</div><div class="big-t">رقم سري يحميك</div><p class="mut center mt">اختياري لكنه موصى به: لا يفتح التطبيق إلا من يعرف الرقم.</p>'+(st.pin?'<div class="card ok center mt2">✅ تم ضبط الرقم السري</div>':'<button class="btn big mt2" data-ob="pin">ضع رقمًا سريًا</button>')+'<div style="flex:1"></div><button class="btn pri big" data-ob="done">'+(st.pin?'ابدأ رحلتي':'ابدأ بدون رقم')+'</button><button class="btn ghost" data-ob="back">رجوع</button>';
+    ob.innerHTML='<div class="in">'+b+'</div>';
+  }
+  ob.onclick=e=>{
+    const t=e.target.closest('[data-ob]');if(!t)return;const a=t.dataset.ob;haptic(8);
+    const n=$('#ob-n');if(n)st.name=n.value.trim();
+    if(a==='next'){st.step++;draw()}
+    else if(a==='back'){st.step--;draw()}
+    else if(a==='m'){st.m[t.dataset.k]=t.dataset.v;draw()}
+    else if(a==='pin'){ob.hidden=true;lockUI({mode:'new',onOk:()=>{st.pin=true;ob.hidden=false;draw()},onCancel:()=>{ob.hidden=false;draw()}})}
+    else if(a==='done'){
+      S.name=st.name;S.onboarded=true;
+      K.forEach(k=>{if(st.m[k]==='now')C(k).start=Date.now();else if(st.m[k]==='date'){const ms=new Date(st.d[k]).getTime();if(!isNaN(ms)&&ms<=Date.now())C(k).start=ms;else C(k).start=Date.now()}C(k).reached=C(k).start?C(k).goals.filter(g=>Date.now()-C(k).start>=g.days*DAY).map(g=>g.id):[]});
+      save();ob.hidden=true;ob.innerHTML='';$('#shell').hidden=false;$('#nav').hidden=false;location.hash='#/today';render();toast('بسم الله، بالتوفيق 🌙');
+    }
+  };
+  ob.oninput=e=>{const t=e.target.closest('[data-obd]');if(t)st.d[t.dataset.obd]=t.value};
+  draw();
+}
+/* ===== الإقلاع ===== */
+let safeMode=false;
+(function boot(){
+  S=load();applyTheme();
+  matchMedia('(prefers-color-scheme: light)').addEventListener&&matchMedia('(prefers-color-scheme: light)').addEventListener('change',()=>{if(S.theme==='auto')applyTheme()});
+  let crashed=false;try{crashed=!!localStorage.getItem(KBOOT);localStorage.setItem(KBOOT,String(Date.now()))}catch(e){}
+  if(crashed&&S.plugins.some(p=>p.enabled))safeMode=true;else loadPlugins();
+  const _render=render;
+  render=function(){_render();if(safeMode&&!locked){const v=$('#view');v.insertAdjacentHTML('afterbegin','<div class="banner">🛡️ التطبيق يعمل بالوضع الآمن لأن آخر تشغيل لم يكتمل. الإضافات متوقفة مؤقتًا. <button class="link" data-a="retryplugins">إعادة تشغيل الإضافات</button></div>')}};
+  if(!S.onboarded){onboard()}
+  else if(S.pin){locked=true;$('#shell').hidden=true;$('#nav').hidden=true;lockUI({mode:'enter',onOk:unlock})}
+  else{$('#shell').hidden=false;$('#nav').hidden=false;render();setTimeout(checkGoals,500)}
+  setInterval(()=>{if(S&&!locked&&S.onboarded){tick();checkGoals()}},1000);
+  try{localStorage.removeItem(KBOOT)}catch(e){}
+  if(S.onboarded){const a=snaps(),last=a[0];if(!last||Date.now()-last.t>DAY)snapshot('يومي تلقائي')}
+  if('serviceWorker' in navigator&&location.protocol.indexOf('http')===0)window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+})();
+
+})();
+</script>
+</body>
+</html>
