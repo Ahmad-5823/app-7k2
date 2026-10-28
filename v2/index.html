@@ -283,7 +283,7 @@ button.day:active{transform:scale(.92)}
 .medals{display:grid;grid-template-columns:repeat(5,1fr);gap:12px 6px}
 .md{text-align:center;font-size:11px;color:var(--mut);line-height:1.3}
 .md small{display:block}
-.md .c{width:54px;height:54px;margin:0 auto 5px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:18px;color:#2b1805;border:3px solid rgba(255,255,255,.35);box-shadow:inset 0 -5px 9px rgba(0,0,0,.16),0 5px 14px rgba(0,0,0,.25)}
+.md .c{width:100%;max-width:54px;aspect-ratio:1;margin:0 auto 5px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:18px;color:#2b1805;border:3px solid rgba(255,255,255,.35);box-shadow:inset 0 -5px 9px rgba(0,0,0,.16),0 5px 14px rgba(0,0,0,.25)}
 .md.t1 .c{background:radial-gradient(circle at 30% 25%,#f6d2b0,#b9733c)}
 .md.t2 .c{background:radial-gradient(circle at 30% 25%,#ffffff,#a9b6ba)}
 .md.t3 .c{background:radial-gradient(circle at 30% 25%,#fff0b3,#e0a62c)}
@@ -307,10 +307,10 @@ button.day:active{transform:scale(.92)}
 .fln{fill:none;stroke:var(--bg);stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round;opacity:.5}
 .fln circle{fill:var(--acc);stroke:none;opacity:.9}
 .fc{transition:transform 1.2s var(--ease)}
-.ctiles{display:flex;gap:10px;overflow-x:auto;padding:4px 2px 8px;scrollbar-width:none}
+.ctiles{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:10px 0 2px}
 .ctiles::-webkit-scrollbar{display:none}
-.ctile{flex:none;width:78px;padding:8px 4px 6px;border-radius:16px;background:var(--card2);border:2px solid transparent;text-align:center;font-size:12px;font-weight:700;color:var(--mut);transition:all .2s}
-.ctile svg{width:56px;height:56px;display:block;margin:0 auto 4px;overflow:visible}
+.ctile{min-width:0;padding:8px 2px 6px;border-radius:16px;background:var(--card2);border:2px solid transparent;text-align:center;font-size:12px;font-weight:700;color:var(--mut);transition:all .2s}
+.ctile svg{width:100%;max-width:56px;height:auto;display:block;margin:0 auto 4px;overflow:visible}
 .ctile.on{border-color:var(--acc);color:var(--tx);background:color-mix(in srgb,var(--acc) 12%,var(--card2))}
 .ctile .fln{stroke-width:5}
 .ctile .fdim{stroke-width:4}
@@ -350,6 +350,66 @@ button.day:active{transform:scale(.92)}
 .hm.cl .d{fill:var(--ok)}
 .hm.cl .m{fill:var(--bad)}
 .jl small.jnxt{color:var(--acc);font-weight:700}
+/* ===== مخططات ===== */
+.bc{display:flex;gap:5px;align-items:stretch;height:170px}
+.bc.dense{gap:2px}
+.bcol{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:3px}
+.bcol b{height:14px;line-height:14px;color:var(--mut);font-variant-numeric:tabular-nums}
+.bcol .bw{flex:1;width:100%;display:flex;align-items:flex-end}
+.bcol i{display:block;width:100%;border-radius:6px 6px 2px 2px;background:color-mix(in srgb,var(--acc) 62%,var(--card3));min-height:3px;transition:height .6s var(--ease)}
+.bcol i.full{background:var(--acc)}
+.bcol i.low{background:color-mix(in srgb,var(--bad) 55%,var(--card3))}
+.bcol i.nn{background:var(--card3)}
+.bcol small{height:14px;font-size:10.5px;color:var(--mut);white-space:nowrap;overflow:visible;font-variant-numeric:tabular-nums}
+.bc.dense .bcol small{font-size:8px;letter-spacing:-.3px}
+.bc.dense .bcol i{border-radius:3px 3px 1px 1px}
+.bcol.cur small{color:var(--acc);font-weight:800}
+.bcol.cur i{box-shadow:0 0 0 2px color-mix(in srgb,var(--acc) 40%,transparent)}
+.lc{width:100%;height:auto;display:block;overflow:visible}
+.lgl{stroke:var(--line);stroke-width:1;stroke-dasharray:3 4}
+.lt{fill:var(--mut);font-size:9.5px;font-variant-numeric:tabular-nums}
+.lt.lv{fill:var(--acc);font-size:11px;font-weight:800}
+.lln{fill:none;stroke:var(--acc);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.ldt{fill:var(--bg2);stroke:var(--acc);stroke-width:2}
+.ldl{fill:var(--acc);stroke:var(--bg);stroke-width:2.5}
+button.hb{padding:0;background:none}
+
+.bcs{overflow-x:auto;margin:0 -6px;padding:0 6px;scrollbar-width:thin}
+.bcs .bc{gap:3px}
+.bcol small .wd{display:block;font-size:9px;opacity:.8;margin-bottom:-2px}
+.bc .bcol small{height:auto;line-height:1.25;text-align:center}
+.bcol .bw{min-height:70px}
+.rr{display:flex;align-items:center;gap:8px;margin:9px 0;width:100%;text-align:start;font-size:13.5px}
+.rr .ri{flex:none;width:24px;text-align:center;font-size:17px}
+.rr .rn{flex:0 0 104px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rr .bar{flex:1}
+.rr b{flex:none;width:42px;text-align:end;font-variant-numeric:tabular-nums}
+
+/* محاور المعركة v2.2 */
+.wtypes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0 4px}
+.wt{display:flex;flex-direction:column;align-items:center;gap:2px;padding:14px 8px;border-radius:18px;background:var(--card2);border:1.5px solid var(--line);text-align:center;transition:all .2s}
+.wt span{font-size:28px}.wt b{font-size:15.5px}.wt small{font-size:11.5px;color:var(--mut);line-height:1.4}
+.wt.on{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,var(--card));box-shadow:0 0 0 3px color-mix(in srgb,var(--bad) 16%,transparent)}
+.whero .stat div{background:color-mix(in srgb,var(--bg) 40%,var(--card))}
+.wcmp{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.wcmp>div{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 10px;text-align:center}
+.wcmp b.big{display:block;font-size:26px;font-variant-numeric:tabular-nums}
+.rr .rn{flex-basis:112px}
+
+/* النوم */
+.wk7{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;text-align:center}
+.wk7 .w{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 0;border-radius:14px;background:var(--card2);color:var(--mut);font-variant-numeric:tabular-nums}
+.wk7 .w b{font-size:17px;line-height:1.2}
+.wk7 .w small{font-size:10.5px;min-height:13px}
+.wk7 .w.tdy{outline:2px solid var(--acc);outline-offset:-2px}
+.wk7 .w.s-done{background:color-mix(in srgb,var(--acc) 26%,var(--card));color:var(--acc)}
+.wk7 .w.s-part{background:color-mix(in srgb,var(--acc) 12%,var(--card));color:var(--acc)}
+.wk7 .w.s-miss{background:color-mix(in srgb,var(--bad) 20%,var(--card));color:var(--bad)}
+.wk7 .w.s-none{opacity:.5}
+.slhero .btn.big{margin-bottom:0}
+
+.tabs.t5{gap:6px;margin:0 -16px;padding-inline:16px}.tabs.t5 button{padding:8px 9px;font-size:13px}.tabs.t5{gap:5px}.stat.sm b{font-size:18px}.stat.sm small{font-size:11.5px}
+.chips.cs{gap:6px}.chips.cs button.chip{padding:6px 10px;font-size:13px}
 
 </style>
 </head>
@@ -397,7 +457,7 @@ function defaults(){return{v:2,onboarded:false,name:'',pin:null,theme:'dark',acc
  lists:{reasons:[],ifthen:[],alts:[],triggers:[],weak:[],warn:[],punish:[]},
  shield:{},shMeta:{},shCustom:[],shNotes:{},shCfg:{wird:100,quran:7,off:[],dhikr:[]},cstyle:{porn:'ring',mast:'ring'},war:[],warFronts:[],
  warPlay:[{id:'p1',when:'مريض أو مستلقٍ على الفراش',do:'أقوم من الفراش فورًا رغم المرض، وأُغلق الهاتف وأضعه في مكان بعيد'},{id:'p2',when:'سهران ولا يأتيني نوم',do:'أخرج من المنزل مباشرة وأمشي في الشارع ولو كان الليل متأخرًا'},{id:'p3',when:'متوتر وأنا أدرس',do:'أترك الدراسة ولو كان عندي امتحان، وأغيّر الفعل: حديث مع أصدقائي أو مشي نصف ساعة'}],
- plugins:[],ui:{k:'porn',jtab:'cal',calK:'all',calM:null,tipCat:'all',tipDay:'',tipCur:null,emEnd:0,stab:'q',rcat:'all',gk:'porn',shSel:'prayers',shDay:0,dyQ:'',dyMood:0,dyOpen:{},warF:'all',warTab:'all',warOpen:{},hTab:'cal',hP:'m',hO:0,hcM:null,hView:'list',hArch:false,jmap:'porn'}}}
+ plugins:[],ui:{k:'porn',jtab:'cal',calK:'all',calM:null,tipCat:'all',tipDay:'',tipCur:null,emEnd:0,stab:'q',rcat:'all',gk:'porn',shSel:'prayers',shDay:0,dyQ:'',dyMood:0,dyOpen:{},dyWk:{},warF:'all',warTab:'all',warV:'log',slT:'now',slM:null,slP:'w',slO:0,warOpen:{},hTab:'cal',hP:'m',hO:0,hcM:null,hView:'list',hArch:false,jmap:'porn'}}}
 let S=null,locked=false,cur='today',lastCur=null;
 function merge(d,s){
   const o=Object.assign({},d);
@@ -485,7 +545,7 @@ function pluginError(pid,err,quiet){
   if(!quiet)toast('الإضافة «'+p.name+'» سبّبت خطأ وتم إيقافها',4500);
 }
 const API_DOC=[
-'مرجع إضافات «ثبات» (الإصدار 2.1)',
+'مرجع إضافات «ثبات» (الإصدار 2.2)',
 'الكود يُلصق في «الإعدادات ← الإضافات» ويُشغَّل داخل دالة يصلها المتغيّر App.',
 '',
 '— البيانات: App.state كائن حيّ. بعد التعديل: App.save() ثم App.refresh().',
@@ -514,7 +574,7 @@ function makeApi(p){
     on:(e,f)=>on(e,f,p.id),override:(i,f)=>override(i,f,p.id),overrideComp:(n,f)=>overrideComp(n,f,p.id),addPage:o=>addPage(o,p.id),addTips:addTips,
     css:t=>{const s=document.createElement('style');s.textContent=t;s.dataset.pl=p.id;document.head.appendChild(s)},
     act:(n,f)=>{A[n]=(el,ev)=>{try{f(el,ev)}catch(e){pluginError(p.id,e)}}},
-    elapsed:k=>elapsed(k),diff:diff,recordSlip:(ks,info)=>{(ks||[]).forEach(k=>doSlip(k,info||{}));render()},exportJSON:()=>JSON.stringify(S),version:'2.1'
+    elapsed:k=>elapsed(k),diff:diff,recordSlip:(ks,info)=>{(ks||[]).forEach(k=>doSlip(k,info||{}));render()},exportJSON:()=>JSON.stringify(S),version:'2.2'
   };
 }
 function loadPlugins(){
@@ -709,17 +769,16 @@ function pendingCards(){
 A.goach=()=>{S.ui.jtab='ach';save();go('journey')};
 function ruleVal(r,ds){return(S.ruleLog[ds]||{})[r.id]}
 function tasksCard(){
-  const td=today(),ci=S.checkins[td],rules=S.rules.filter(r=>r.active);
-  let total=1+rules.length,done=(ci?1:0)+rules.filter(r=>ruleVal(r,td)==='ok').length;
-  let rows='<div class="task '+(ci?'done':'')+'"><button class="ck '+(ci?'ok':'')+'" data-a="checkin" aria-label="تسجيل اليوم">'+(ci?'✓':'')+'</button><div class="t">سجّل يومك<small>'+(ci?'مزاجك '+MOODS[ci.mood-1]+' · رغبة '+ci.urge+'/5':'مزاج، نوم، وقوة الرغبة — دقيقة واحدة')+'</small></div><button class="link" data-a="checkin">'+(ci?'تعديل':'سجّل')+'</button></div>';
+  const td=today(),rules=S.rules.filter(r=>r.active);
+  let rows='';
   rules.slice(0,6).forEach(r=>{
     const v=ruleVal(r,td);
     rows+='<div class="task '+(v==='ok'?'done':'')+'"><button class="ck '+(v==='ok'?'ok':v==='broke'?'no':'')+'" data-a="rulec" data-id="'+r.id+'" data-v="ok" aria-label="التزمت">'+(v==='ok'?'✓':v==='broke'?'✗':'')+'</button><div class="t">'+esc(r.text)+'<small>'+esc(r.cat)+'</small></div><div class="mini"><button class="'+(v==='ok'?'ok':'')+'" data-a="rulec" data-id="'+r.id+'" data-v="ok">✓</button><button class="'+(v==='broke'?'no':'')+'" data-a="rulec" data-id="'+r.id+'" data-v="broke">✗</button></div></div>';
   });
   if(rules.length>6)rows+='<div class="center mt"><button class="link" data-a="go" data-p="rules">عرض كل القواعد ('+rules.length+')</button></div>';
-  if(!rules.length)rows+='<div class="center mt"><button class="link" data-a="go" data-p="rules">＋ أضف قواعدك لتظهر هنا</button></div>';
-  const pct=Math.round(done*100/total);
-  return '<div class="sec"><h3>مهام اليوم</h3><small>'+done+' من '+total+'</small></div><div class="card"><div class="bar" style="margin-bottom:6px"><i style="width:'+pct+'%"></i></div>'+rows+'</div>';
+  if(!rules.length)return '<div class="sec"><h3>مهام اليوم</h3></div><div class="card ph"><button class="link" data-a="go" data-p="rules">＋ أضف قواعدك لتظهر هنا</button></div>';
+  const done=rules.filter(r=>ruleVal(r,td)==='ok').length,pct=Math.round(done*100/rules.length);
+  return '<div class="sec"><h3>مهام اليوم</h3><small>'+done+' من '+rules.length+'</small></div><div class="card"><div class="bar" style="margin-bottom:6px"><i style="width:'+pct+'%"></i></div>'+rows+'</div>';
 }
 A.rulec=el=>{
   const id=el.dataset.id,v=el.dataset.v,td=el.dataset.d||today(),r=S.rules.find(x=>x.id===id);if(!r)return;
@@ -768,7 +827,7 @@ function nightBanner(){
 }
 reg('today',el=>{
   const k=S.ui.k;
-  el.innerHTML=pendingCards()+warCard()+hero(k)+shieldCard()+nightBanner()+tasksCard()+tipCard();
+  el.innerHTML=pendingCards()+warCard()+hero(k)+shieldCard()+sleepCard()+nightBanner()+tasksCard()+tipCard();
   const ng=nextGoal(k);
   if(ng&&C(k).start){
     const bar=$('[data-gbar]',el);
@@ -846,7 +905,7 @@ function emergency(){
   '<div class="card"><b>لماذا أريد التغيير:</b>'+(reasons.length?reasons.map(r=>'<div class="mt">• '+esc(r)+'</div>').join(''):'<div class="mut sm mt">أضف أسبابك في «أدواتي ← خطتي» لتظهر هنا وقت الحاجة.</div>')+'</div>'+
   (it.length?'<div class="card"><b>خطتي المسبقة:</b>'+it.map(r=>'<div class="mt">• '+esc(r)+'</div>').join('')+'</div>':'')+
   (alts.length?'<div class="card"><b>بدائل أفعلها الآن:</b><div class="chips mt">'+alts.map(r=>'<span class="chip on">'+esc(r)+'</span>').join('')+'</div></div>':'')+
-  '<button class="btn ok big" data-a="emwin">نجوت من هذه الموجة 💪</button><button class="btn" data-a="emwar">⚔️ سجّل هذه الهجمة (محاور المعركة)</button><button class="btn ghost bad" data-a="emslip">زلّت قدمي</button></div>';
+  slEmBtn()+'<button class="btn ok big" data-a="emwin">نجوت من هذه الموجة 💪</button><button class="btn" data-a="emwar">⚔️ سجّل هذه الهجمة (محاور المعركة)</button><button class="btn ghost bad" data-a="emslip">زلّت قدمي</button></div>';
   document.body.appendChild(d);document.body.style.overflow='hidden';
   if(emRunning())emT0=Date.now();
   clearInterval(emInt);emInt=setInterval(emStep,500);emStep();haptic(20);
@@ -913,8 +972,40 @@ const CFIG={
   shapes:'<path d="M100 14L176 40V98C176 142 144 168 100 186C56 168 24 142 24 98V40Z"/>',
   lines:'<path d="M100 14V186M64 98L90 124L140 72"/>',
   cap:['درع هشّ','درع يتماسك','درع صلب','درع قوي','حصن منيع']}
+, flame:{n:'الشعلة',d:'شعلة عزيمتك تتّقد',
+  shapes:'<path d="M100 12C110 50 152 70 152 120C152 154 130 184 100 186C70 184 48 154 48 120C48 96 62 84 72 70C74 88 82 96 90 98C84 68 88 38 100 12Z"/>',
+  lines:'<path d="M100 186C86 182 78 166 84 150C90 136 100 128 100 112C112 128 122 142 116 162C113 174 108 182 100 186"/>',
+  cap:['شرارة تشتعل','لهب يثبت','نار تتّقد','عزيمة متوهّجة','شعلة لا تنطفئ']},
+ star:{n:'النجمة',d:'نجمة ثمانية تتلألأ',
+  shapes:'<path d="M100.0 8.0L122.2 46.4L165.1 34.9L153.6 77.8L192.0 100.0L153.6 122.2L165.1 165.1L122.2 153.6L100.0 192.0L77.8 153.6L34.9 165.1L46.4 122.2L8.0 100.0L46.4 77.8L34.9 34.9L77.8 46.4Z"/>',
+  lines:'<circle cx="100" cy="100" r="16"/>',
+  cap:['بريق خافت','نور يظهر','نجمة تسطع','ضياء يتّسع','نجمة ساطعة']},
+ dome:{n:'القبّة',d:'قبّة إيمانك ترتفع',
+  shapes:'<path d="M46 126C46 86 78 68 100 30C122 68 154 86 154 126Z"/><path d="M34 126H166V178H34Z"/><path d="M16 178V92L24 74L32 92V178Z"/><path d="M168 178V92L176 74L184 92V178Z"/>',
+  lines:'<path d="M88 178V152C88 136 112 136 112 152V178M100 30V16"/>',
+  cap:['أساس يُبنى','جدران ترتفع','قبّة تتشكّل','صرح يكتمل','بيت إيمان عامر']},
+ crown:{n:'التاج',d:'تاج الإرادة لمن ملك نفسه',
+  shapes:'<path d="M22 152L32 64L72 104L100 50L128 104L168 64L178 152Z"/><path d="M22 162H178V180H22Z"/>',
+  lines:'<circle cx="100" cy="128" r="7"/><circle cx="58" cy="136" r="5"/><circle cx="142" cy="136" r="5"/>',
+  cap:['طريق الملك','عزم ينمو','هيبة تظهر','سيادة على النفس','ملك نفسه']},
+ drop:{n:'القطرة',d:'نقاءٌ يتجدّد',
+  shapes:'<path d="M100 14C100 14 40 88 40 128C40 162 66 186 100 186C134 186 160 162 160 128C160 88 100 14 100 14Z"/>',
+  lines:'<path d="M70 134C70 152 82 164 98 168"/>',
+  cap:['قطرة صافية','نقاء يزداد','ماء رقراق','صفاء تام','نبع لا ينضب']},
+ gem:{n:'الجوهرة',d:'جوهرة تصقلها الأيام',
+  shapes:'<path d="M58 40H142L182 92L100 184L18 92Z"/>',
+  lines:'<path d="M18 92H182M58 40L78 92L100 184L122 92L142 40M78 92L100 40L122 92"/>',
+  cap:['حجر خام','يُصقل','يلمع','جوهرة ثمينة','ماسة نادرة']},
+ castle:{n:'الحصن',d:'حصن يحميك من الهجمات',
+  shapes:'<path d="M16 180V62H32V50H46V62H58V50H72V62H86V100H114V62H128V50H142V62H154V50H168V62H184V180Z"/>',
+  lines:'<path d="M88 180V142C88 120 112 120 112 142V180M38 100V118M162 100V118"/>',
+  cap:['أساس الحصن','جدران تعلو','أبراج تقوى','حصن منيع','قلعة لا تُقهر']},
+ book:{n:'الكتاب',d:'علم ونور يزدادان',
+  shapes:'<path d="M100 52C80 34 48 32 18 44V160C48 148 80 150 100 168C120 150 152 148 182 160V44C152 32 120 34 100 52Z"/>',
+  lines:'<path d="M100 52V168M34 72C54 68 78 72 88 82M34 98C54 94 78 98 88 108M166 72C146 68 122 72 112 82M166 98C146 94 122 98 112 108"/>',
+  cap:['صفحة بيضاء','سطور تُكتب','فصل يكتمل','علم ينير','كتاب مفتوح']}
 };
-const CFIG_ORDER=['ring','brain','muscle','tree','heart','moon','peak','shield'];
+const CFIG_ORDER=['ring','brain','muscle','tree','heart','moon','peak','shield','flame','star','dome','crown','drop','gem','castle','book'];
 const CFIG_NAMES={ring:'الحلقة'};
 function figSvg(st,uidk,f){
   const g=CFIG[st];
@@ -934,9 +1025,10 @@ regC('ring',k=>{
   '<div class="mid"><div class="big">'+(started?'0':'—')+'</div><div class="lab">'+(started?'يوم نظيف':'لم يبدأ بعد')+'</div><div class="sub2"></div></div></div>'+
   (started?'<div class="units" data-units="'+k+'">'+UNITS.map(u=>'<div><b data-u="'+u[0]+'">0</b><small>'+u[1]+'</small></div>').join('')+'</div>':'');
 });
-A.cstyle=el=>{S.cstyle[el.dataset.k]=el.dataset.v;save();haptic(8);render()};
+A.cstyle=el=>{K.forEach(k=>{S.cstyle[k]=el.dataset.v});save();haptic(8);render()};
 function cstyleSettings(){
-  return K.map(k=>'<label class="lbl">'+KN[k]+'</label><div class="ctiles">'+CFIG_ORDER.map(st=>'<button class="ctile '+((S.cstyle[k]||'ring')===st?'on':'')+'" data-a="cstyle" data-k="'+k+'" data-v="'+st+'">'+(st==='ring'?ringPreview():figSvg(st,'pv'+k+st,.6))+'<span>'+(st==='ring'?CFIG_NAMES.ring:CFIG[st].n)+'</span></button>').join('')+'</div>').join('');
+  const cur=S.cstyle.porn||'ring';
+  return '<div class="ctiles">'+CFIG_ORDER.map(st=>'<button class="ctile '+(cur===st?'on':'')+'" data-a="cstyle" data-v="'+st+'">'+(st==='ring'?ringPreview():figSvg(st,'pv'+st,.6))+'<span>'+(st==='ring'?CFIG_NAMES.ring:CFIG[st].n)+'</span></button>').join('')+'</div>';
 }
 
 /* ===== رحلتي ===== */
@@ -1157,7 +1249,7 @@ reg('tools',el=>{
   const act=S.rules.filter(r=>r.active).length;
   const extra=Object.keys(ROUTES).filter(i=>ROUTES[i].extra);
   const sa=shAll(today()),ws=warStats();
-  el.innerHTML='<div class="grid2" style="margin-top:8px"><button class="tile wide" data-a="go" data-p="shield"><div style="width:46px;flex:none">'+shShield(sa.pct,46,'tl')+'</div><div class="grow"><b>الدرع اليومي</b><br><span>'+sa.pct+'% اليوم · صلاة، أذكار، ورد…</span></div></button><button class="tile wide" data-a="go" data-p="war"><span class="ic">⚔️</span><div class="grow"><b>محاور المعركة</b><br><span>'+(ws.total?ws.total+' حالة · نصر '+ws.rate+'% · قاعدة الثلاث':'سجّل هجماتك وطريقة تغلّبك عليها')+'</span></div></button><button class="tile wide sosT" data-a="emerg"><span class="ic">🆘</span><div><b>زر الطوارئ</b><br><span>اضغطه حين تشعر بالرغبة: تنفّس، مؤقّت، أسبابك وبدائلك</span></div></button>'+
+  el.innerHTML='<div class="grid2" style="margin-top:8px"><button class="tile wide" data-a="go" data-p="shield"><div style="width:46px;flex:none">'+shShield(sa.pct,46,'tl')+'</div><div class="grow"><b>الدرع اليومي</b><br><span>'+sa.pct+'% اليوم · صلاة، أذكار، ورد…</span></div></button>'+slTile()+'<button class="tile wide" data-a="go" data-p="war"><span class="ic">⚔️</span><div class="grow"><b>محاور المعركة</b><br><span>'+(ws.total?ws.total+' حالة · نصر '+ws.rate+'% · قاعدة الثلاث':'سجّل هجماتك وطريقة تغلّبك عليها')+'</span></div></button><button class="tile wide sosT" data-a="emerg"><span class="ic">🆘</span><div><b>زر الطوارئ</b><br><span>اضغطه حين تشعر بالرغبة: تنفّس، مؤقّت، أسبابك وبدائلك</span></div></button>'+
   tile('rules','📜','قواعدي',act?act+' قاعدة نشطة':'قواعد أضعها لنفسي')+tile('plan','🛡️','خطتي','أسبابي، إذا-فعندها، البدائل')+tile('tips','💡','نصائح','نصيحة جديدة بكل ضغطة')+tile('after','🌱','بعد الزلة','عودة بلا يأس')+tile('habits','📊','كل العادات','سلاسل وإحصاءات بنود الدرع')+
   extra.map(i=>tile(i,ROUTES[i].icon,ROUTES[i].title,ROUTES[i].desc)).join('')+'</div>';
 },{title:'أدواتي',tab:'tools'});
@@ -1262,14 +1354,16 @@ const SH_BUILT=[
  {id:'food',ic:'🍽️',t:'البسملة قبل الطعام',d:'تذكّر نعمة الله ويبارك لك في رزقك',kind:'single',cat:'أذكار'},
  {id:'door',ic:'🏠',t:'دعاء الخروج والدخول',d:'حفظ عند الخروج وبركة عند الدخول',kind:'multi',cat:'أذكار',subs:[['out','دعاء الخروج من المنزل'],['in','دعاء الدخول إلى المنزل']]},
  {id:'habits',ic:'🎯',t:'تتبع العادات',d:'سجّل التزامك بكل قواعدك اليوم',kind:'auto',cat:'نفس'},
- {id:'diary',ic:'✍️',t:'كتابة اليوميات',d:'دوّن ما في صدرك قبل أن تنام',kind:'auto',cat:'نفس'}
+ {id:'diary',ic:'✍️',t:'كتابة اليوميات',d:'دوّن ما في صدرك قبل أن تنام',kind:'auto',cat:'نفس'},
+ {id:'sleepwake',ic:'⏰',t:'الاستيقاظ في موعده',d:'تستيقظ في موعدك فيبدأ يومك بانتصار',kind:'auto',cat:'نفس'},
+ {id:'sleepbed',ic:'🌙',t:'النوم في موعده',d:'نوم منتظم يحميك ويقوّي إرادتك',kind:'auto',cat:'نفس'}
 ];
 const DHIKR_SUGG=[['سبحان الله وبحمده',100],['أستغفر الله',100],['لا إله إلا الله',100],['اللهم صلِّ على محمد',100],['لا حول ولا قوة إلا بالله',100],['سبحان الله والحمد لله ولا إله إلا الله والله أكبر',100]];
 const itemsAll=()=>SH_BUILT.concat(S.shCustom.map(c=>Object.assign({custom:true},c)));
 const itemById=id=>itemsAll().find(i=>i.id===id);
 const mget=id=>S.shMeta[id]||{};
 const mset=(id,o)=>{S.shMeta[id]=Object.assign(S.shMeta[id]||{},o)};
-const isHidden=it=>S.shCfg.off.indexOf(it.id)>=0||!!mget(it.id).archived;
+const isHidden=it=>S.shCfg.off.indexOf(it.id)>=0||!!mget(it.id).archived||((it.id==='sleepwake'||it.id==='sleepbed')&&!slOn());
 const shSubs=it=>it.subsKey?(S.shCfg[it.subsKey]||[]).map(x=>[x.id,x.l+(x.n?' — '+x.n+' مرة':'')]):(it.subs||[]);
 const shGet=ds=>S.shield[ds]||{};
 const shDs=()=>dstr(Date.now()-(S.ui.shDay||0)*DAY);
@@ -1292,6 +1386,8 @@ function shFrac(it,ds){
   if(it.kind==='single')return v?1:0;
   if(it.id==='habits'){const r=S.rules.filter(x=>x.active);if(!r.length)return null;const lg=S.ruleLog[ds]||{};return r.filter(x=>lg[x.id]).length/r.length}
   if(it.id==='diary')return S.diary.some(x=>dstr(x.t)===ds)?1:0;
+  if(it.id==='sleepwake')return slFrac('wake',ds);
+  if(it.id==='sleepbed')return slFrac('bed',ds);
   return 0;
 }
 function statusOf(it,ds){
@@ -1308,7 +1404,7 @@ function shAll(ds){
   const cnt=rows.filter(r=>r.f!==null&&!r.skip&&!r.empty);
   const tw=cnt.reduce((a,r)=>a+r.w,0);
   const pct=tw?Math.round(cnt.reduce((a,r)=>a+r.w*r.f,0)*100/tw):0;
-  return{rows:rows.filter(r=>r.f!==null),pct:pct};
+  return{rows:rows.filter(r=>r.f!==null),pct:pct,n:cnt.length};
 }
 function itemStreaks(it){
   const runs=[];let run=0,start=null,last=null;
@@ -1360,6 +1456,8 @@ function shDetail(row,ds){
   }else if(it.id==='habits'){
     const r=S.rules.filter(x=>x.active),lg=S.ruleLog[ds]||{};
     h+=r.length?'<div class="mt">'+r.map(x=>'<div class="task"><div class="t">'+esc(x.text)+'</div><div class="mini"><button class="'+(lg[x.id]==='ok'?'ok':'')+'" data-a="rulec" data-id="'+x.id+'" data-v="ok" data-d="'+ds+'">✓</button><button class="'+(lg[x.id]==='broke'?'no':'')+'" data-a="rulec" data-id="'+x.id+'" data-v="broke" data-d="'+ds+'">✗</button></div></div>').join('')+'</div>':'<div class="mt sm">لم تضف قواعد بعد، ولا يُحتسب هذا البند حتى تضيفها.</div><button class="btn pri mt" data-a="go" data-p="rules">أضف قواعدك</button>';
+  }else if(it.id==='sleepwake'||it.id==='sleepbed'){
+    h+=slItemPanel(it,ds);
   }else{
     const n=S.diary.filter(x=>dstr(x.t)===ds).length;
     h+='<div class="mt sm">'+(n?'كتبتَ '+n+' تدوينة في هذا اليوم ✓':'لم تكتب في هذا اليوم بعد')+'</div><button class="btn pri mt" data-a="shdiary"'+D+'>'+(n?'إضافة تدوينة أخرى':'اكتب يومياتك الآن')+'</button>';
@@ -1380,7 +1478,7 @@ reg('shield',el=>{
   '<div class="center" style="margin-top:-6px"><span class="chip on" style="font-size:14px;padding:5px 14px">'+t[2]+' · '+doneN+' من '+a.rows.filter(r=>!r.skip).length+'</span></div>'+
   (row?'<div style="margin-top:14px">'+shDetail(row,ds)+'<button class="btn" data-a="shnext">البند التالي ←</button></div>':'<div class="card ph">لا بنود ظاهرة. أضف بندًا أو فعّل بنودك من التخصيص.</div>')+
   '<div class="sec"><h3>كل بنود اليوم</h3><small>اضغط للاختيار</small></div><div class="list">'+a.rows.map(r=>{const p=Math.round(r.f*100);return '<button class="li" data-a="shsel" data-id="'+r.it.id+'" style="'+(r.it.id===sel?'background:var(--card2)':'')+'"><span class="ic">'+r.it.ic+'</span><span class="grow" style="min-width:0"><b class="sm">'+esc(r.it.t)+'</b><div class="bar mt" style="height:5px"><i style="width:'+(r.skip?0:p)+'%"></i></div></span><span class="chip '+(r.f>=1&&!r.skip?'on':'')+'">'+(r.skip?'متخطّى':p+'%')+'</span></button>'}).join('')+'</div>'+
-  '<div class="row mt2"><button class="btn pri grow" style="margin:0" data-a="shadd">＋ بند جديد</button><button class="btn grow" style="margin:0" data-a="go" data-p="habits">📊 كل العادات</button></div><button class="btn mt" data-a="shcfg">⚙️ تخصيص الدرع</button>';
+  '<div class="row mt2"><button class="btn pri grow" style="margin:0" data-a="shadd">＋ بند جديد</button><button class="btn grow" style="margin:0" data-a="go" data-p="habits">📋 كل العادات</button></div><button class="btn mt" data-a="go" data-p="shieldstats">📊 إحصاءات الدرع (أسبوع · شهر · سنة)</button><button class="btn mt" data-a="shcfg">⚙️ تخصيص الدرع</button>';
 },{title:'الدرع اليومي',tab:'shield'});
 function shMark(ds){
   ds=ds||shDs();const a=shAll(ds);
@@ -1561,6 +1659,7 @@ reg('habit',(el,ctx)=>{
   h+=tab==='cal'?hCal(it,st):tab==='stats'?hStats(it):tab==='notes'?hNotes(it):hInfo(it);
   el.innerHTML=h;
 },{title:'العادة',tab:'shield',parent:'habits',dyn:()=>{const it=itemById(routeParam);return it?it.t:'العادة'}});
+POST.habit=chartFocus;
 A.htab=el=>{S.ui.hTab=el.dataset.t;save();render()};
 /* التقويم */
 function hCal(it,st){
@@ -1619,9 +1718,7 @@ function hStats(it){
       subs.forEach(sb=>{if(v[sb[0]]){if(it.id==='wird'){const x=S.shCfg.dhikr.find(q=>q.id===sb[0]);total+=x?x.n:1;unit='ذكر'}else{total+=1;unit='عنصر'}}})
     }else if(it.kind==='single'&&v)total+=1;
   });
-  /* اتجاه */
-  const chunk=rows.length>45?7:1,bars=[];
-  for(let i=0;i<rows.length;i+=chunk){const sl=rows.slice(i,i+chunk).filter(r=>r.f!==null&&r.st!=='none'&&r.st!=='skip'&&r.st!=='future');bars.push(sl.length?Math.round(sl.reduce((q,r)=>q+r.f,0)*100/sl.length):null)}
+  const ps=periodSeries(ds=>habPct(it,ds),p,o,itemFirst(it));
   /* أوقات الإنجاز */
   const B=[['فجر','4-7'],['صباح','7-12'],['ظهر','12-15'],['عصر','15-18'],['مساء','18-21'],['ليل','21-4']],hist=[0,0,0,0,0,0];
   rows.forEach(r=>{const at=(shGet(r.ds)._at||{})[it.id];if(at===undefined)return;const hh=+at;hist[hh>=4&&hh<7?0:hh>=7&&hh<12?1:hh>=12&&hh<15?2:hh>=15&&hh<18?3:hh>=18&&hh<21?4:5]++});
@@ -1639,7 +1736,8 @@ function hStats(it){
    '<div class="card">'+nav+'<div class="row mt" style="gap:16px"><div style="width:122px;flex:none">'+donut(c,rate)+'</div><div class="grow"><div class="sg"><i style="background:var(--acc)"></i>نجاح <b>'+c.done+'</b></div><div class="sg"><i style="background:color-mix(in srgb,var(--acc) 42%,var(--card3))"></i>جزئي <b>'+c.part+'</b></div><div class="sg"><i style="background:var(--bad)"></i>فاتني <b>'+c.miss+'</b></div><div class="sg"><i style="background:var(--warn)"></i>تخطّي <b>'+c.skip+'</b></div></div></div></div>'+
    '<div class="stat"><div><b>'+total+'</b><small>إجمالي ('+esc(unit)+')</small></div><div><b>'+(den?Math.round(total/den*10)/10:0)+'</b><small>المعدّل اليومي</small></div><div><b>'+den+'</b><small>أيام محسوبة</small></div></div>'+
    (gp.length?'<div class="sec"><h3>🎯 أهدافك الإضافية</h3></div><div class="card">'+gp.map(g=>'<div class="hb"><span style="width:100px">'+g.l+'</span><div class="bar"><i style="width:'+Math.min(100,Math.round(g.v*100/g.g))+'%"></i></div><b style="width:52px">'+g.v+'/'+g.g+'</b></div>').join('')+'</div>':'')+
-   '<div class="sec"><h3>مستوى الالتزام</h3><small>'+(chunk>1?'متوسط أسبوعي':'يومي')+'</small></div><div class="card"><div class="tb">'+bars.map(b=>'<i style="height:'+(b===null?3:Math.max(5,b))+'%" class="'+(b===null?'nn':b>=100?'full':'')+'"></i>').join('')+'</div></div>'+
+   '<div class="sec"><h3>مستوى الالتزام</h3><small>'+(p==='w'?'كل يوم':p==='m'?'أيام الشهر':'متوسط شهري')+'</small></div><div class="card">'+barChart(ps.bk)+'</div>'+
+   '<div class="sec"><h3>📈 تقدّمي</h3><small>'+trendBadge(ps.avg,ps.prev)+'</small></div><div class="card">'+lineChart(ps.bk)+'</div>'+
    '<div class="sec"><h3>⏱️ متى تُنجزه غالبًا</h3><small>'+hsum+' مرة</small></div><div class="card">'+(hsum?'<div class="tb h">'+hist.map((v,i)=>'<div class="tcol"><b class="xs">'+(v||'')+'</b><i style="height:'+(v?Math.max(8,Math.round(v*100/hmax)):3)+'%"></i><small>'+B[i][0]+'</small></div>').join('')+'</div>':'<div class="ph" style="padding:10px">تُسجَّل أوقات الإنجاز تلقائيًا من اليوم فصاعدًا عند إتمام البند.</div>')+'</div>'+br;
 }
 function goalProg(it){
@@ -1685,8 +1783,9 @@ function hInfo(it){
 function remBanner(){
   const n=new Date(),hm=pad(n.getHours())+':'+pad(n.getMinutes()),ds=today();
   const due=itemsAll().filter(it=>{const m=mget(it.id);if(!m.rem||m.rem>hm||!activeOn(it,ds)||isSkip(it,ds))return false;const f=shFrac(it,ds);return f!==null&&f<1});
-  if(!due.length)return'';
-  return '<div class="banner mt"><b>⏰ حان وقتها</b><div class="mt">'+due.map(it=>'<button class="chip" data-a="shsel" data-id="'+it.id+'" style="margin:2px">'+it.ic+' '+esc(it.t)+' · '+mget(it.id).rem+'</button>').join('')+'</div></div>';
+  const sb=slBanner();
+  if(!due.length)return sb;
+  return sb+'<div class="banner mt"><b>⏰ حان وقتها</b><div class="mt">'+due.map(it=>'<button class="chip" data-a="shsel" data-id="'+it.id+'" style="margin:2px">'+it.ic+' '+esc(it.t)+' · '+mget(it.id).rem+'</button>').join('')+'</div></div>';
 }
 /* --- محرّر البند --- */
 let hf=null;
@@ -1758,23 +1857,641 @@ A.hfsave=()=>{
   _ts=null;if(!it)S.ui.shSel=id;save();closeSheets();haptic(10);toast(it?'حُفظت التعديلات':'أُضيف إلى الدرع ✓');render();refreshModal();
 };
 
-/* ===== محاور المعركة ===== */
-const WAR_FRONTS=[
- {id:'glance',n:'نظرة عابرة',ic:'👁️',type:'pre'},
- {id:'sick',n:'مرض',ic:'🤒',type:'sudden'},
- {id:'stress',n:'ضغط وتوتر',ic:'😰',type:'sudden'},
- {id:'sad',n:'حزن',ic:'😔',type:'sudden'},
- {id:'sleepless',n:'سهر وأرق',ic:'🌙',type:'sudden'}
+/* ===== مخططات مشتركة + إحصاءات الدرع ===== */
+const DN_SHORT=['أحد','اثنين','ثلاثاء','أربعاء','خميس','جمعة','سبت'],DN_ABBR=['أحد','إثن','ثلا','أرب','خمس','جمع','سبت'];
+function shPct(ds){if(ds>today()||ds<trackStart())return null;const a=shAll(ds);return a.n?a.pct:null}
+function habPct(it,ds){const st=statusOf(it,ds);if(st==='done'||st==='part'||st==='miss'||st==='open'){const f=shFrac(it,ds);return f===null?null:Math.round(f*100)}return null}
+const avgOf=a=>{const v=a.filter(x=>x!==null);return v.length?Math.round(v.reduce((q,x)=>q+x,0)/v.length):null};
+/* سلسلة زمنية مجمّعة بحسب الفترة: أسبوع/شهر/سنة/الكل */
+function periodSeries(getV,p,o,startStr){
+  const t=new Date();t.setHours(0,0,0,0);let a,b,lab,mode;
+  if(p==='w'){a=weekStart(o);b=new Date(a);b.setDate(a.getDate()+6);lab=fmtS(a)+' – '+fmtS(b);mode='d'}
+  else if(p==='m'){a=new Date(t.getFullYear(),t.getMonth()-o,1);b=new Date(a.getFullYear(),a.getMonth()+1,0);lab=AR_MONTHS[a.getMonth()]+' '+a.getFullYear();mode='d'}
+  else if(p==='y'){a=new Date(t.getFullYear()-o,0,1);b=new Date(a.getFullYear(),11,31);lab='سنة '+a.getFullYear();mode='m'}
+  else{a=pds(startStr||today());b=new Date(t);lab='كل الفترة';mode=(b-a)/DAY>=60?'m':'d'}
+  const days=[];
+  for(let d=new Date(a);d<=b;d.setDate(d.getDate()+1)){const ds=dstr(d);days.push({ds:ds,w:d.getDay(),n:d.getDate(),m:d.getMonth(),y:d.getFullYear(),v:ds>today()?null:getV(ds)})}
+  let bk=[];
+  if(mode==='d'){bk=days.map(d=>({l:p==='w'?DN_SHORT[d.w]:String(d.n),w:p==='w'?'':DN_ABBR[d.w],v:d.v,cur:d.ds===today(),ds:d.ds}))}
+  else{
+    const g={};days.forEach(d=>{const k=d.y*12+d.m;(g[k]=g[k]||{l:String(d.m+1),vs:[],y:d.y,m:d.m}).vs.push(d.v)});
+    if(p==='y')for(let m=0;m<12;m++){const k=a.getFullYear()*12+m;if(!g[k])g[k]={l:String(m+1),vs:[]}}
+    bk=Object.keys(g).sort((x,y2)=>x-y2).map(k=>({l:g[k].l,v:avgOf(g[k].vs),cur:g[k].y===t.getFullYear()&&g[k].m===t.getMonth()}));
+  }
+  const all=days.map(d=>d.v),avg=avgOf(all);
+  let prev=null;if(p!=='a'){const pr=periodSeriesAvg(getV,p,o+1);prev=pr}
+  return{a:a,b:b,lab:lab,days:days,bk:bk,avg:avg,prev:prev,mode:mode};
+}
+function periodSeriesAvg(getV,p,o){
+  const t=new Date();t.setHours(0,0,0,0);let a,b;
+  if(p==='w'){a=weekStart(o);b=new Date(a);b.setDate(a.getDate()+6)}
+  else if(p==='m'){a=new Date(t.getFullYear(),t.getMonth()-o,1);b=new Date(a.getFullYear(),a.getMonth()+1,0)}
+  else{a=new Date(t.getFullYear()-o,0,1);b=new Date(a.getFullYear(),11,31)}
+  const v=[];for(let d=new Date(a);d<=b;d.setDate(d.getDate()+1)){const ds=dstr(d);v.push(ds>today()?null:getV(ds))}
+  return avgOf(v);
+}
+function trendBadge(avg,prev){
+  if(avg===null||prev===null)return'';
+  const d=avg-prev;if(d===0)return'<span class="chip">ثابت عن السابق</span>';
+  return '<span class="chip" style="color:var(--'+(d>0?'ok':'bad')+')">'+(d>0?'▲ +':'▼ ')+Math.abs(d)+'% عن السابق</span>';
+}
+/* أعمدة بأسماء تحتها */
+function barChart(bk,o){
+  const n=bk.length,two=bk.some(b=>b.w),scroll=n>16,showVal=n<=12;
+  const h='<div class="bc" style="--n:'+n+';'+(scroll?'min-width:'+(n*27)+'px':'')+'">'+bk.map(b=>'<div class="bcol'+(b.cur?' cur':'')+'">'+(showVal?'<b class="xs">'+(b.v===null?'':b.v)+'</b>':'')+'<div class="bw"><i style="height:'+(b.v===null?3:Math.max(4,b.v))+'%" class="'+(b.v===null?'nn':b.v>=100?'full':b.v<40?'low':'')+'"></i></div><small>'+(two?'<span class="wd">'+b.w+'</span>':'')+b.l+'</small></div>').join('')+'</div>';
+  return scroll?'<div class="bcs">'+h+(two||true?'':'')+'</div>':h;
+}
+function chartFocus(){
+  $$('.bcs').forEach(sc=>{const c=$('.bcol.cur',sc);if(!c)return;const r=c.getBoundingClientRect(),q=sc.getBoundingClientRect();sc.scrollLeft+=(r.left+r.width/2)-(q.left+q.width/2)});
+}
+/* مخطط خطي للتقدّم */
+function lineChart(bk){
+  const W=320,H=150,L=26,R=8,T=10,B=24,n=bk.length,iw=W-L-R,ih=H-T-B;
+  const X=i=>L+(n<=1?iw/2:i*iw/(n-1)),Y=v=>T+ih*(1-v/100);
+  let s='<svg viewBox="0 0 '+W+' '+H+'" class="lc" aria-hidden="true"><defs><linearGradient id="lcg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--acc);stop-opacity:.38"/><stop offset="1" style="stop-color:var(--acc);stop-opacity:0"/></linearGradient></defs>';
+  [0,50,100].forEach(g=>{s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(g)+'" y2="'+Y(g)+'" class="lgl"/><text x="'+(L-6)+'" y="'+(Y(g)+3)+'" class="lt" text-anchor="end">'+g+'</text>'});
+  const runs=[];let cur=[];bk.forEach((b,i)=>{if(b.v===null){if(cur.length)runs.push(cur);cur=[]}else cur.push([X(i),Y(b.v),i])});if(cur.length)runs.push(cur);
+  runs.forEach(r=>{
+    if(r.length>1){
+      let d='M'+r[0][0].toFixed(1)+' '+r[0][1].toFixed(1);
+      for(let i=1;i<r.length;i++){const p0=r[i-1],p1=r[i],cx=(p0[0]+p1[0])/2;d+=' C'+cx.toFixed(1)+' '+p0[1].toFixed(1)+' '+cx.toFixed(1)+' '+p1[1].toFixed(1)+' '+p1[0].toFixed(1)+' '+p1[1].toFixed(1)}
+      s+='<path d="'+d+' L'+r[r.length-1][0].toFixed(1)+' '+Y(0)+' L'+r[0][0].toFixed(1)+' '+Y(0)+'Z" fill="url(#lcg)"/><path d="'+d+'" class="lln"/>';
+    }
+    if(n<=40)r.forEach(p=>{s+='<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="'+(n>20?2:3.4)+'" class="ldt"/>'});
+  });
+  const last=bk.map((b,i)=>b.v===null?-1:i).filter(i=>i>=0).pop();
+  if(last!==undefined)s+='<circle cx="'+X(last).toFixed(1)+'" cy="'+Y(bk[last].v).toFixed(1)+'" r="5.5" class="ldl"/><text x="'+X(last).toFixed(1)+'" y="'+(Y(bk[last].v)-10).toFixed(1)+'" class="lt lv" text-anchor="middle">'+bk[last].v+'%</text>';
+  const step=n<=12?1:n<=16?2:Math.ceil(n/7);
+  bk.forEach((b,i)=>{if(i%step===0||i===n-1)s+='<text x="'+X(i).toFixed(1)+'" y="'+(H-7)+'" class="lt" text-anchor="middle">'+b.l+'</text>'});
+  return s+'</svg>';
+}
+/* أدوات اختيار الفترة المشتركة */
+function periodBar(key,okey,p,o,lab,act,actO){
+  const seg='<div class="seg" style="margin:12px 0">'+[['w','أسبوع'],['m','شهر'],['y','سنة'],['a','الكل']].map(x=>'<button class="'+(p===x[0]?'on':'')+'" data-a="'+act+'" data-v="'+x[0]+'">'+x[1]+'</button>').join('')+'</div>';
+  const nav=p==='a'?'<div class="center mut sm" style="margin:6px 0">'+lab+'</div>':'<div class="row" style="justify-content:space-between"><button class="ib" data-a="'+actO+'" data-d="1" aria-label="السابق">'+ICONS.back+'</button><b>'+lab+'</b><button class="ib" data-a="'+actO+'" data-d="-1" style="transform:scaleX(-1);'+(o?'':'opacity:.3;pointer-events:none')+'" aria-label="التالي">'+ICONS.back+'</button></div>';
+  return seg+nav;
+}
+function pctRing(p,col){
+  return '<svg viewBox="0 0 42 42" class="dn" aria-hidden="true"><circle cx="21" cy="21" r="15.9155" fill="none" stroke="var(--card3)" stroke-width="4.6"/><circle cx="21" cy="21" r="15.9155" fill="none" stroke="'+col+'" stroke-width="4.6" stroke-linecap="round" stroke-dasharray="'+p+' '+(100-p)+'" transform="rotate(-90 21 21)"/><text x="21" y="22" text-anchor="middle" dominant-baseline="central" class="dnt">'+p+'%</text></svg>';
+}
+/* --- إحصاءات الدرع --- */
+function tierKey(p){return p>=100?0:p>=70?1:p>=40?2:p>0?3:4}
+const TIER_N=['محصّن','قوي','متماسك','هشّ','مكشوف'],TIER_C=['#22c55e','#14b8a6','#f0a92e','#ff7b4d','#7d8a8d'];
+function shHeat(weeks,fn){
+  fn=fn||shPct;
+  const step=13,end=new Date();end.setHours(0,0,0,0);
+  const dow=(end.getDay()+1)%7,st=new Date(end);st.setDate(end.getDate()-dow-(weeks-1)*7);const td=today();
+  let s='<svg viewBox="0 0 '+(weeks*step-3)+' '+(7*step-3)+'" class="hm" aria-hidden="true">';
+  for(let w=0;w<weeks;w++)for(let r=0;r<7;r++){const d=new Date(st);d.setDate(st.getDate()+w*7+r);const ds=dstr(d);if(ds>td)continue;const v=fn(ds);s+='<rect x="'+((weeks-1-w)*step)+'" y="'+(r*step)+'" width="10" height="10" rx="3" style="fill:'+(v===null?'':TIER_C[tierKey(v)])+';opacity:'+(v===null?'':(v===0?.45:.55+v/250).toFixed(2))+'"/>'}
+  return s+'</svg>';
+}
+POST.shieldstats=chartFocus;
+reg('shieldstats',el=>{
+  const p=S.ui.sP||'m',o=p==='a'?0:(S.ui.sO||0),ps=periodSeries(shPct,p,o,trackStart());
+  const vals=ps.days.map(d=>d.v).filter(v=>v!==null),cnt=[0,0,0,0,0];vals.forEach(v=>cnt[tierKey(v)]++);
+  const avg=ps.avg===null?0:ps.avg,tier=shTier(avg);
+  /* سلسلة أيام الدرع القوي (≥70) عبر كل الأيام */
+  let cur2=0,best2=0,run=0;
+  for(let d=pds(trackStart());d<=new Date();d.setDate(d.getDate()+1)){const v=shPct(dstr(d));if(v!==null&&v>=70){run++;best2=Math.max(best2,run)}else if(v!==null&&dstr(d)!==today()){run=0}}cur2=run;
+  const bestDay=vals.length?Math.max.apply(null,vals):0;
+  /* ترتيب البنود */
+  const rk=itemsAll().filter(it=>!isHidden(it)&&it.kind!=='auto'||it.id==='habits'||it.id==='diary'||it.id==='sleepwake'||it.id==='sleepbed').map(it=>{let d=0,t=0;ps.days.forEach(x=>{const st=statusOf(it,x.ds);if(st==='done'){d++;t++}else if(st==='part'||st==='miss')t++});return{it:it,t:t,pct:t?Math.round(d*100/t):null}}).filter(x=>x.pct!==null&&!isHidden(x.it)).sort((a,b)=>b.pct-a.pct);
+  const best=rk.slice(0,3),worst=rk.slice().reverse().slice(0,3).filter(x=>best.indexOf(x)<0);
+  const row=x=>'<button class="rr" data-a="go" data-p="habit/'+x.it.id+'"><span class="ri">'+x.it.ic+'</span><span class="rn">'+esc(x.it.t)+'</span><div class="bar"><i style="width:'+x.pct+'%"></i></div><b>'+x.pct+'%</b></button>';
+  const tot=vals.length||1;
+  el.innerHTML=periodBar('sP','sO',p,o,ps.lab,'sp','so')+
+  '<div class="card acc"><div class="row" style="gap:14px"><div style="width:118px;flex:none">'+pctRing(avg,tier[1])+'</div><div class="grow"><div style="font-size:12.5px;color:var(--mut)">متوسط قوة الدرع</div><div style="font-size:30px;font-weight:800;line-height:1.2">'+(ps.avg===null?'—':avg+'%')+'</div><div class="chip on" style="margin-top:4px">'+(ps.avg===null?'بلا بيانات':tier[2])+'</div><div style="margin-top:8px">'+trendBadge(ps.avg,ps.prev)+'</div></div></div></div>'+
+  '<div class="stat"><div><b>'+cnt[0]+'</b><small>🛡️ يوم محصّن</small></div><div><b>'+bestDay+'%</b><small>⭐ أفضل يوم</small></div><div><b>'+cur2+'</b><small>🔥 سلسلة ≥70%</small></div></div>'+
+  '<div class="sec"><h3>مستوى الالتزام</h3><small>'+(p==='w'?'كل يوم':p==='m'?'أيام الشهر':'متوسط شهري')+'</small></div><div class="card">'+barChart(ps.bk)+'</div>'+
+  '<div class="sec"><h3>📈 تقدّمي</h3><small>'+(p==='w'?'خلال الأسبوع':p==='m'?'خلال الشهر':'خلال '+(p==='y'?'السنة':'الرحلة'))+'</small></div><div class="card">'+lineChart(ps.bk)+(best2>0?'<div class="mut xs center">أطول سلسلة أيام بدرع قوي: '+best2+' يوم</div>':'')+'</div>'+
+  '<div class="sec"><h3>توزيع الأيام</h3></div><div class="card">'+TIER_N.map((n,i)=>'<div class="hb"><span style="width:70px;display:flex;gap:6px;align-items:center"><i style="width:10px;height:10px;border-radius:3px;background:'+TIER_C[i]+'"></i>'+n+'</span><div class="bar"><i style="width:'+Math.round(cnt[i]*100/tot)+'%;background:'+TIER_C[i]+'"></i></div><b>'+cnt[i]+'</b></div>').join('')+'</div>'+
+  (rk.length?'<div class="sec"><h3>💪 أقوى بنودك</h3></div><div class="card">'+best.map(row).join('')+'</div>'+(worst.length?'<div class="sec"><h3>🎯 تحتاج اهتمامًا</h3></div><div class="card">'+worst.map(row).join('')+'</div>':''):'')+
+  '<div class="sec"><h3>آخر 20 أسبوعًا</h3></div><div class="card">'+shHeat(20)+'<div class="legend">'+TIER_N.map((n,i)=>'<span><i style="background:'+TIER_C[i]+'"></i>'+n+'</span>').join('')+'</div></div>';
+},{title:'إحصاءات الدرع',tab:'shield',parent:'shield'});
+A.sp=el=>{S.ui.sP=el.dataset.v;S.ui.sO=0;save();render()};
+A.so=el=>{S.ui.sO=Math.max(0,(S.ui.sO||0)+(+el.dataset.d));save();render()};
+
+/* ===== برنامج النوم والاستيقاظ (محور مستقل) ===== */
+const SL_Q=[['😫','متعب جدًا'],['😕','سيّئ'],['😐','عادي'],['🙂','جيد'],['😴','ممتاز']];
+const SL_RT0=[['phone','الهاتف خارج السرير'],['wudu','الوضوء'],['adhkar','أذكار النوم'],['alarm','ضبط المنبّه'],['prep','تجهيز ورد الصباح وثيابي']];
+const SL_TAGS=['سهرة اجتماعية','مذاكرة أو عمل','أرق','هاتف','مرض','سفر'];
+const SL_TIPS=[
+ 'ثبّت موعد الاستيقاظ حتى في أيام الراحة؛ الساعة البيولوجية تحبّ الثبات أكثر مما تحبّ الساعات الطويلة.',
+ 'اجعل الهاتف يُشحن خارج غرفة النوم؛ أغلب سهر الليل الطويل يبدأ بنظرة «أخيرة» على الشاشة.',
+ 'الاستيقاظ الصعب يُحلّ في الليلة السابقة: نم في موعدك، فالمنبّه لا يصنع نومًا.',
+ 'عند رنين المنبّه قم فورًا وتوضّأ بالماء البارد؛ التأجيل يعيد الجسم إلى النوم العميق ويزيد ثقل الصباح.',
+ 'سهرة استثنائية؟ أبقِ موعد الاستيقاظ ثابتًا، وعوّض بقيلولة 20–30 دقيقة قبل العصر لا بنوم صباحي طويل.',
+ 'لا تدخل السرير إلا عند النعاس؛ السرير للنوم فقط، والاستلقاء الطويل مستيقظًا يفتح باب الخواطر.',
+ 'ضوء الصباح ورؤية السماء بعد الفجر يضبطان ساعتك الداخلية ويجعلان نوم الليلة القادمة أسهل.',
+ 'قلّل الكافيين بعد الظهر، والعشاء الثقيل قبل النوم بساعة أو أقل يضرّ جودة النوم.',
+ 'قبل النوم بـ 45 دقيقة: أضواء خافتة، لا أخبار ولا نقاشات حادّة، ووضوء وأذكار وتجهيز الغد.',
+ 'أفضل مكافأة لاستيقاظ الفجر أن يبدأ يومك بورد القرآن هادئًا قبل أن يزاحمك شيء.'
 ];
-const WAR_TYPES={
- pre:{n:'هجوم بمقدّمات',ic:'🎯',d:'نظرة أقل من ثانية ثم غضّ بصر، لكن كثرتها تُنتج فكرة ثم شهوة. تستطيع قطعه مبكرًا وتقاومه بقوة.'},
- sudden:{n:'هجوم مباغت',ic:'⚡',d:'تأتي الشهوة مباشرة بلا مقدّمات وأنت في حال ضعف (مرض، ضغط، حزن، سهر). هنا أكثر الهزائم، فاستعدّ له بقاعدة الثلاث.'}
+function slDef(){return{on:false,since:null,cfg:{wake:'04:55',bed:'22:00',need:7,minH:6,tol:20,wind:45,purpose:'قرآن وصلاة الفجر وورد',ov:{},rt:SL_RT0.map(x=>({id:x[0],t:x[1]})),remind:true},log:{},goals:[],rev:{},pend:null}}
+let _slS=null;
+function SL(){
+  if(_slS===S&&S.sleep)return S.sleep;
+  const d=slDef(),o=S.sleep||{};
+  S.sleep=Object.assign({},d,o);S.sleep.cfg=Object.assign({},d.cfg,o.cfg||{});
+  S.sleep.cfg.ov=S.sleep.cfg.ov||{};S.sleep.log=S.sleep.log||{};S.sleep.rev=S.sleep.rev||{};S.sleep.goals=S.sleep.goals||[];
+  _slS=S;return S.sleep;
+}
+const slOn=()=>!!(S&&S.sleep&&S.sleep.on);
+/* ---- أدوات الوقت ---- */
+const tmin=s=>{const a=String(s||'0:0').split(':');return(+a[0]||0)*60+(+a[1]||0)};
+const hhmm=m=>{m=((Math.round(m)%1440)+1440)%1440;return pad(Math.floor(m/60))+':'+pad(m%60)};
+const T12=s=>{if(!s)return'—';const m=tmin(s);let h=Math.floor(m/60);const ap=h<12?'ص':'م';h=h%12||12;return h+':'+pad(m%60)+' '+ap};
+const sdiff=(a,b)=>{const d=(tmin(a)-tmin(b)+1440)%1440;return d>720?d-1440:d};
+const durMin=(bed,wake)=>(tmin(wake)-tmin(bed)+1440)%1440;
+const fmtDur=m=>{m=Math.round(m);const h=Math.floor(m/60),r=m%60;return h?h+'س'+(r?' '+r+'د':''):r+'د'};
+const slAbs=s=>{const t=tmin(s);return t<12*60?t+1440:t};
+const nowHM=()=>{const n=new Date();return hhmm(n.getHours()*60+n.getMinutes())};
+/* ---- الخطة والتقييم ---- */
+function slPlan(ds){const c=SL().cfg,o=c.ov[pds(ds).getDay()]||{};return{wake:o.wake||c.wake,bed:o.bed||c.bed,off:!!o.off,custom:!!(o.wake||o.bed||o.off)}}
+const slLatest=pl=>hhmm(tmin(pl.wake)-SL().cfg.minH*60);
+const slBestBed=(wake,need)=>hhmm(tmin(wake)-need*60);
+function slScoreR(r,c){
+  let sc=0,w=0;
+  if(r.wd!==undefined){sc+=45*Math.max(0,100-Math.max(0,r.wd-c.tol)*100/90);w+=45}
+  if(r.dur!==undefined){const need=c.need*60;let s=r.dur>=need?100:Math.max(0,100-(need-r.dur)*100/180);if(r.dur>need+120)s=Math.max(60,100-(r.dur-need-120)/3);sc+=35*s;w+=35}
+  if(r.bd!==undefined){sc+=20*Math.max(0,100-Math.max(0,r.bd-c.tol)*100/120);w+=20}
+  return w?Math.round(sc/w):null;
+}
+function slEval(ds){
+  const s=SL(),c=s.cfg,L=s.log[ds];if(!L||L.skip)return null;
+  const pl=slPlan(ds),r={L:L,pl:pl};
+  if(L.wake){r.wd=sdiff(L.wake,pl.wake);r.wakeOk=r.wd<=c.tol}
+  if(L.bed){r.bd=sdiff(L.bed,pl.bed);r.bedOk=r.bd<=c.tol}
+  if(L.bed&&L.wake){r.dur=durMin(L.bed,L.wake);r.full=r.dur>=c.need*60-20;r.enough=r.dur>=c.minH*60-10}
+  r.score=slScoreR(r,c);return r;
+}
+const slScoreOf=ds=>{const e=slEval(ds);return e&&e.score!==undefined?e.score:null};
+const slDurOf=ds=>{const e=slEval(ds);return e&&e.dur!==undefined?e.dur:null};
+/* حالة البند في الدرع: 1 تم، .5 جزئي، 0 فاتني، null لا يُحسب */
+function slFrac(kind,ds){
+  if(!slOn())return null;
+  const s=SL();if(!s.since||ds<s.since)return null;
+  if(slPlan(ds).off)return null;
+  const L=s.log[ds];if(L&&L.skip)return null;
+  const r=slEval(ds),tol=s.cfg.tol;
+  if(kind==='wake'){if(!r||r.wd===undefined)return 0;return r.wd<=tol?1:r.wd<=tol*3?.5:0}
+  if(!r||r.bd===undefined)return 0;return r.bd<=tol?1:r.bd<=tol*3?.5:0;
+}
+function slStreak(){const it=itemById('sleepwake');if(!it||!slOn())return{cur:0,best:0};const st=itemStreaks(it);return{cur:st.cur,best:st.best}}
+/* ---- الطور الحالي ---- */
+function slNK(){const n=new Date(),L=SL().log[today()]||{};return dstr(Date.now()+((n.getHours()>=14||L.wake||L.skip)?DAY:0))}
+function slPhase(){
+  const s=SL(),c=s.cfg,n=new Date(),h=n.getHours(),m=h*60+n.getMinutes(),td=today(),L=s.log[td]||{};
+  if(h<14){
+    const pl=slPlan(td),wm=tmin(pl.wake);
+    if(L.wake||L.skip)return{ph:'day',pl:slPlan(dstr(Date.now()+DAY)),nk:dstr(Date.now()+DAY)};
+    if(s.pend&&m<wm)return{ph:'asleep',pl:pl,nk:td};
+    if(m>=wm)return{ph:'wake',pl:pl,nk:td};
+    return{ph:'late',pl:pl,nk:td};
+  }
+  const nk=dstr(Date.now()+DAY),pl=slPlan(nk),bedAbs=slAbs(pl.bed),latestAbs=slAbs(slLatest(pl));
+  if(s.pend&&s.pend.nk===nk)return{ph:'asleep',pl:pl,nk:nk};
+  if(m>=latestAbs)return{ph:'latebed',pl:pl,nk:nk};
+  if(m>=bedAbs)return{ph:'bed',pl:pl,nk:nk};
+  if(m>=bedAbs-c.wind)return{ph:'wind',pl:pl,nk:nk};
+  return{ph:'day',pl:pl,nk:nk};
+}
+function slUntil(pl,ph){const n=new Date(),m=n.getHours()*60+n.getMinutes();const bedAbs=slAbs(pl.bed),c=SL().cfg;return{toWind:bedAbs-c.wind-m,toBed:bedAbs-m,toLatest:slAbs(slLatest(pl))-m}}
+/* ===== الصفحة ===== */
+function slTabs(){const t=S.ui.slT||'now';return '<div class="tabs t5">'+[['now','الليلة'],['log','السجل'],['stats','إحصاءات'],['goals','أهدافي'],['set','إعدادات']].map(x=>'<button class="'+(t===x[0]?'on':'')+'" data-a="slt" data-t="'+x[0]+'">'+x[1]+'</button>').join('')+'</div>'}
+A.slt=el=>{S.ui.slT=el.dataset.t;save();render();window.scrollTo(0,0)};
+reg('sleep',el=>{
+  if(!slOn()){el.innerHTML=slSetup();return}
+  const t=S.ui.slT||'now';
+  el.innerHTML=slTabs()+({now:slNow,log:slLogTab,stats:slStatsTab,goals:slGoalsTab,set:slSetTab}[t]||slNow)();
+},{title:'برنامج النوم',tab:'tools',parent:'tools'});
+POST.sleep=chartFocus;
+/* ---- التفعيل الأول ---- */
+let slN={need:7};
+function slSetup(){
+  const c=SL().cfg;slN.need=c.need;
+  return '<div class="card acc center" style="margin-top:8px"><div style="font-size:52px">😴</div><h3 style="margin:6px 0">برنامج النوم والاستيقاظ</h3><p class="mut sm">الاستيقاظ على موعدك هو أول انتصار في يومك، والنوم المنتظم يقوّي إرادتك أمام الشهوة. برنامج مستقل بخطته وأهدافه وإحصاءاته.</p></div>'+
+  '<div class="card"><div class="step"><i>1</i><div>ضع موعد استيقاظك وساعات نومك، ويحسب لك التطبيق أفضل وقت للنوم</div></div><div class="step"><i>2</i><div>سجّل بضغطة: «ذاهب للنوم» ثم «استيقظت»</div></div><div class="step"><i>3</i><div>يتحوّل نومك إلى درجة وسلاسل وأوسمة وأهداف، ويدخل في درعك اليومي</div></div></div>'+
+  '<div class="card"><label class="lbl" style="margin-top:0">موعد استيقاظي</label><input type="time" id="sl-w" data-i="slsug" value="'+c.wake+'" style="direction:ltr;text-align:center">'+
+  '<label class="lbl">ساعات النوم التي أحتاجها</label><div class="chips">'+[6,6.5,7,7.5,8].map(n=>'<button class="chip '+(slN.need===n?'on':'')+'" data-a="slneed" data-v="'+n+'">'+n+' س</button>').join('')+'</div>'+
+  '<label class="lbl">موعد نومي <small class="mut" id="sl-sug"></small></label><input type="time" id="sl-b" value="'+slBestBed(c.wake,slN.need)+'" style="direction:ltr;text-align:center">'+
+  '<label class="lbl">لماذا أستيقظ؟ <small class="mut">يظهر لك كل صباح</small></label><input id="sl-p" value="'+esc(c.purpose)+'" placeholder="مثلًا: قرآن وصلاة الفجر"></div>'+
+  '<button class="btn pri big" data-a="slon">✅ فعّل البرنامج</button><p class="mut xs center">كل شيء قابل للتعديل لاحقًا من «الإعدادات».</p>';
+}
+INP.slsug=()=>{const w=$('#sl-w'),b=$('#sl-b');if(w&&b&&/^\d\d:\d\d$/.test(w.value))b.value=slBestBed(w.value,slN.need)};
+A.slneed=el=>{slN.need=+el.dataset.v;$$('[data-a=slneed]').forEach(b=>b.classList.toggle('on',b===el));INP.slsug()};
+A.slon=()=>{
+  const w=$('#sl-w').value,b=$('#sl-b').value;
+  if(!/^\d\d:\d\d$/.test(w)||!/^\d\d:\d\d$/.test(b)){toast('اضبط الموعدين');return}
+  const s=SL();Object.assign(s.cfg,{wake:w,bed:b,need:slN.need,purpose:($('#sl-p').value||'').trim()||'استيقاظ مبكر'});
+  s.on=true;s.since=today();
+  mset('sleepwake',{weight:3});mset('sleepbed',{weight:2});
+  S.shCfg.off=(S.shCfg.off||[]).filter(x=>x!=='sleepwake'&&x!=='sleepbed');
+  if(!s.goals.length){s.goals.push({id:uid(),k:'wstreak',n:7,created:today(),hit:null},{id:uid(),k:'wweek',n:6,created:today(),hit:null})}
+  save();haptic([20,30,20]);S.ui.slT='now';render();toast('فُعّل برنامج النوم. بالتوفيق! 🌙',3000);
 };
+/* ---- تبويب «الليلة» ---- */
+function slNow(){
+  const s=SL(),c=s.cfg,P=slPhase(),pl=P.pl,td=today(),u=slUntil(pl);
+  const need=durMin(pl.bed,pl.wake);
+  let ic,title,sub,btn='',cls='acc';
+  const tl=m=>m>=60?Math.floor(m/60)+' س '+(m%60?'و'+m%60+' د':''):m+' د';
+  if(P.ph==='wake'){
+    ic='☀️';title='صباح الخير، سجّل استيقاظك';sub='موعدك '+T12(pl.wake)+(c.purpose?' · '+esc(c.purpose):'');
+    const L=s.log[td]||{};
+    btn='<button class="btn pri big mt" data-a="slwake">☀️ استيقظتُ الآن</button><button class="link mt" data-a="slnight" data-d="'+td+'">سجّل بوقت آخر</button>'+(L.bed?'':'');
+  }else if(P.ph==='asleep'){
+    const pn=s.pend?new Date(s.pend.t):null;
+    ic='😴';title='نمتَ'+(pn?' الساعة '+T12(hhmm(pn.getHours()*60+pn.getMinutes())):'');sub='موعد استيقاظك '+T12(pl.wake)+(c.purpose?' · '+esc(c.purpose):'');
+    btn='<button class="btn pri big mt" data-a="slwake">☀️ استيقظتُ الآن</button>';
+  }else if(P.ph==='late'){
+    ic='🌙';title='ما زلتَ مستيقظًا';sub='موعدك '+T12(pl.wake)+' — كل ساعة سهر الآن تُؤخذ من نشاطك وقوة إرادتك';cls='bad';
+    btn='<button class="btn pri big mt" data-a="slbed">🌙 ذاهب للنوم الآن</button>';
+  }else if(P.ph==='latebed'){
+    ic='⏳';title='تأخّر الوقت، نمْ الآن';sub='إن نمتَ الآن ستحصل على '+fmtDur(durMin(nowHM(),pl.wake))+' فقط. السرير الآن أفضل من أي شيء آخر.';cls='bad';
+    btn='<button class="btn pri big mt" data-a="slbed">🌙 ذاهب للنوم الآن</button>';
+  }else if(P.ph==='bed'){
+    ic='🌙';title='حان وقت النوم';sub='موعدك '+T12(pl.bed)+' → استيقاظ '+T12(pl.wake)+' ('+fmtDur(need)+')';
+    btn='<button class="btn pri big mt" data-a="slbed">🌙 ذاهب للنوم الآن</button>';
+  }else if(P.ph==='wind'){
+    ic='🕯️';title='ابدأ التهيئة للنوم';sub='نومك بعد '+tl(u.toBed)+' · أنهِ قائمة ما قبل النوم أدناه';
+    btn='<button class="btn pri big mt" data-a="slbed">🌙 ذاهب للنوم الآن</button>';
+  }else{
+    ic='🌌';title='ليلتك القادمة';sub='نوم '+T12(pl.bed)+' → استيقاظ '+T12(pl.wake)+' ('+fmtDur(need)+')'+(u.toWind>0?'<br>التهيئة بعد '+tl(u.toWind):'');
+    btn='<button class="btn mt" data-a="slbed">🌙 ذاهب للنوم الآن</button>';
+  }
+  if(pl.off)sub='غدًا يوم راحة: لا موعد مطلوب 🌿';
+  const st=slStreak();
+  let h='<div class="card '+cls+' slhero" style="margin-top:8px"><div class="row"><span style="font-size:42px">'+ic+'</span><div class="grow"><b style="font-size:18px">'+title+'</b><div class="mut sm">'+sub+'</div></div></div>'+btn+'</div>';
+  /* ملخص آخر ليلة */
+  const lastDs=(s.log[td]&&(s.log[td].wake||s.log[td].bed))?td:null,le=lastDs?slEval(lastDs):null;
+  if(le&&le.L.wake)h+=slNightCard(lastDs,le,'ليلة البارحة');
+  /* قائمة ما قبل النوم */
+  if(P.ph!=='wake'){
+    const rk=P.nk,L=(s.log[rk]||{}).rt||{},rt=c.rt,dn=rt.filter(x=>L[x.id]).length;
+    h+='<div class="sec"><h3>قبل النوم</h3><small>'+dn+' / '+rt.length+'</small></div><div class="card">'+(rt.length?rt.map(x=>'<button class="task" style="width:100%;text-align:start;border-width:0 0 1px" data-a="slrt" data-id="'+x.id+'" data-k="'+rk+'">'+shCheck(L[x.id])+'<div class="t">'+esc(x.t)+'</div></button>').join(''):'<div class="mut sm">لا عناصر. أضفها من الإعدادات.</div>')+'</div>';
+  }
+  /* الأسبوع */
+  h+='<div class="sec"><h3>آخر 7 أيام</h3><small>الاستيقاظ في الموعد</small></div><div class="card">'+slWeek()+'</div>';
+  /* أرقام سريعة */
+  const last7=[];for(let i=0;i<7;i++){const ds=dstr(Date.now()-i*DAY),e=slEval(ds);if(e&&e.dur!==undefined)last7.push(e.dur)}
+  const avg=last7.length?Math.round(last7.reduce((a,b)=>a+b,0)/last7.length):null,debt=last7.reduce((a,d)=>a+Math.max(0,c.need*60-d),0);
+  h+='<div class="stat sm mt"><div><b>'+st.cur+'</b><small>🔥 في موعدي</small></div><div><b>'+(avg===null?'—':fmtDur(avg))+'</b><small>متوسط نومي</small></div><div><b>'+(last7.length?fmtDur(debt):'—')+'</b><small>دَين النوم</small></div></div>';
+  if(debt>=90&&new Date().getHours()<15&&last7.length>=3)h+='<div class="banner">💤 عندك دَين نوم. قيلولة 20–30 دقيقة قبل العصر تعوّض جزءًا منه دون أن تفسد ليلتك.</div>';
+  h+='<div class="card flat mt"><b class="sm">💡 نصيحة</b><div class="sm mt">'+SL_TIPS[Math.floor(Date.now()/DAY)%SL_TIPS.length]+'</div></div>';
+  return h;
+}
+function slNightCard(ds,e,label){
+  const c=SL().cfg,sc=e.score,col=sc===null?'#7d8a8d':shTier(sc)[1];
+  const chip=(ok,t)=>'<span class="chip '+(ok?'on':'')+'" style="'+(ok===false?'color:var(--bad)':'')+'">'+t+'</span>';
+  return '<div class="card mt"><div class="row" style="gap:14px"><div style="width:84px;flex:none">'+(sc===null?'':pctRing(sc,col))+'</div><div class="grow"><b>'+label+'</b><div class="mut xs">'+fmtD(ds)+'</div><div class="row w mt" style="gap:6px">'+
+  (e.L.bed?chip(e.bedOk,'🌙 '+T12(e.L.bed)):'')+(e.L.wake?chip(e.wakeOk,'☀️ '+T12(e.L.wake)):'')+(e.dur!==undefined?chip(e.full?true:e.enough?null:false,'⏱ '+fmtDur(e.dur)):'')+'</div></div></div>'+
+  '<div class="mt"><div class="xs mut" style="margin-bottom:6px">كيف كان نومك؟</div><div class="chips">'+SL_Q.map((q,i)=>'<button class="chip '+(e.L.q===i+1?'on':'')+'" data-a="slqq" data-d="'+ds+'" data-v="'+(i+1)+'">'+q[0]+'</button>').join('')+'<button class="chip" data-a="slnight" data-d="'+ds+'">✎ تعديل</button></div></div></div>';
+}
+A.slqq=el=>{const L=SL().log[el.dataset.d];if(!L)return;L.q=L.q===+el.dataset.v?0:+el.dataset.v;save();render()};
+function slWeek(){
+  let h='<div class="wk7">';
+  for(let i=6;i>=0;i--){
+    const d=new Date(Date.now()-i*DAY),ds=dstr(d),it=itemById('sleepwake'),st=it?statusOf(it,ds):'none',e=slEval(ds);
+    const mk={done:'✓',part:'~',miss:'✕',open:'·',none:'–',skip:'⏭',future:''}[st]||'';
+    h+='<button class="w '+(ST_CLS[st]||'s-none')+(ds===today()?' tdy':'')+'" data-a="slnight" data-d="'+ds+'"><small>'+AR_DAYS[d.getDay()]+'</small><b>'+mk+'</b><small>'+(e&&e.dur!==undefined?(Math.round(e.dur/6)/10):'')+'</small></button>';
+  }
+  return h+'</div><div class="mut xs center mt">الرقم تحت كل يوم = ساعات النوم · اضغط يومًا لتعديله</div>';
+}
+/* ---- التسجيل السريع ---- */
+A.slbed=()=>{
+  const s=SL(),P=slPhase(),nk=P.nk,pl=P.pl,L=s.log[nk]=s.log[nk]||{};
+  const had=!!(s.pend&&s.pend.nk===nk&&L.bed);
+  if(!had){L.bed=nowHM();s.pend={t:Date.now(),nk:nk}}
+  if(s.since>nk)s.since=nk;
+  save();haptic([20,30,20]);render();
+  const dn=(L.rt||{}),left=s.cfg.rt.filter(x=>!dn[x.id]);
+  const sleepIt=itemById('sleep'),shDone=S.shield[today()]&&S.shield[today()].sleep;
+  const dur=durMin(L.bed,pl.wake);
+  sheet('<div class="center"><div class="hero-ic" style="font-size:54px">🌙</div><h3>تصبح على خير</h3><p class="mut sm">إن نمتَ الآن ستنال <b>'+fmtDur(dur)+'</b> قبل موعدك '+T12(pl.wake)+'.</p></div>'+
+  (left.length?'<div class="card flat"><b class="sm">لم تُنجز بعد:</b>'+left.map(x=>'<div class="sm mt">• '+esc(x.t)+'</div>').join('')+'</div>':'')+
+  (sleepIt&&!isHidden(sleepIt)&&!shDone?'<button class="btn" data-a="slazkar">📿 أنهيتُ أذكار النوم ✓</button>':'')+
+  '<button class="btn pri mt" data-a="close">أغلق الهاتف ونم 🌙</button>');
+};
+A.slazkar=el=>{const td=today();S.shield[td]=S.shield[td]||{};S.shield[td].sleep=1;save();el.remove();toast('تقبّل الله')};
+A.slwake=()=>{
+  const s=SL(),td=today(),L=s.log[td]=s.log[td]||{};
+  L.wake=nowHM();delete L.skip;
+  if(!L.bed&&s.pend&&Date.now()-s.pend.t<20*36e5){const pd=new Date(s.pend.t);L.bed=hhmm(pd.getHours()*60+pd.getMinutes())}
+  s.pend=null;if(s.since>td)s.since=td;
+  save();slCheckGoals();haptic([20,30,20]);
+  if(!L.bed){render();slEdit(td);toast('أدخل ساعة نومك لتكتمل الليلة');return}
+  render();
+  const e=slEval(td),sc=e&&e.score;
+  sheet('<div class="center"><div class="hero-ic" style="font-size:52px">☀️</div><h3>'+(e&&e.wakeOk?'ما شاء الله، في موعدك! 🎉':'استيقظتَ، وهذا بداية')+'</h3><p class="mut sm">'+(e&&e.dur!==undefined?'نمتَ '+fmtDur(e.dur)+(sc!==null?' · درجة ليلتك '+sc+'%':''):'')+'</p></div>'+
+  '<label class="lbl">كيف كان نومك؟</label><div class="chips" style="justify-content:center">'+SL_Q.map((q,i)=>'<button class="chip" style="font-size:22px;padding:8px 14px" data-a="slqs2" data-v="'+(i+1)+'" aria-label="'+q[1]+'">'+q[0]+'</button>').join('')+'</div><button class="btn ghost mt" data-a="close">تخطّي</button>');
+};
+A.slqs2=el=>{const L=SL().log[today()];if(L){L.q=+el.dataset.v;save()}closeSheets();render()};
+A.slrt=el=>{
+  const s=SL(),k=el.dataset.k,L=s.log[k]=s.log[k]||{};L.rt=L.rt||{};L.rt[el.dataset.id]=!L.rt[el.dataset.id];
+  if(s.since>k)s.since=k;save();haptic(8);render();
+};
+/* ---- تحرير ليلة ---- */
+let slE={ds:null,q:0,nap:0,tags:[]};
+function slEdit(ds){
+  const s=SL(),L=s.log[ds]||{},pl=slPlan(ds);
+  slE={ds:ds,q:L.q||0,nap:L.nap||0,tags:(L.tags||[]).slice()};
+  sheet('<h3>'+(L.skip?'يوم متخطّى':'تسجيل ليلة')+'</h3><label class="lbl" style="margin-top:6px">تاريخ الاستيقاظ</label><input type="date" id="sl-date" data-c="sldate" max="'+today()+'" value="'+ds+'" style="direction:ltr;text-align:center">'+
+  '<div class="mut xs mt">'+AR_DAYF[pds(ds).getDay()]+(pl.off?' · يوم راحة':' · موعدك: نوم '+T12(pl.bed)+' / استيقاظ '+T12(pl.wake))+'</div>'+
+  '<div class="row mt"><div class="grow"><label class="lbl" style="margin-top:0">نمتُ الساعة</label><input type="time" id="sl-bed" data-i="sldur" value="'+(L.bed||'')+'" style="direction:ltr;text-align:center"></div><div class="grow"><label class="lbl" style="margin-top:0">استيقظتُ الساعة</label><input type="time" id="sl-wake" data-i="sldur" value="'+(L.wake||'')+'" style="direction:ltr;text-align:center"></div></div><div id="sl-dur" class="mut sm center mt"></div>'+
+  '<label class="lbl">كيف كان نومي؟</label><div class="chips" id="sl-q">'+SL_Q.map((q,i)=>'<button class="chip '+(slE.q===i+1?'on':'')+'" data-a="slqs" data-v="'+(i+1)+'">'+q[0]+' '+q[1]+'</button>').join('')+'</div>'+
+  '<label class="lbl">قيلولة نهارية</label><div class="chips" id="sl-nap">'+[[0,'لا'],[20,'20 د'],[30,'30 د'],[60,'ساعة'],[90,'ساعة ونصف']].map(n=>'<button class="chip '+(slE.nap===n[0]?'on':'')+'" data-a="slnap" data-v="'+n[0]+'">'+n[1]+'</button>').join('')+'</div>'+
+  '<label class="lbl">ما الذي أثّر على نومي؟ <small class="mut">اختياري</small></label><div class="chips" id="sl-tags">'+SL_TAGS.map(t=>'<button class="chip '+(slE.tags.indexOf(t)>=0?'on':'')+'" data-a="sltag" data-v="'+esc(t)+'">'+t+'</button>').join('')+'</div>'+
+  '<textarea id="sl-note" style="min-height:60px;margin-top:10px" placeholder="ملاحظة (اختياري)">'+esc(L.note||'')+'</textarea>'+
+  '<button class="btn pri mt" data-a="slsave">حفظ</button><div class="row mt"><button class="btn sm ghost grow" style="margin:0" data-a="slskip">'+(L.skip?'إلغاء التخطّي':'⏭ تخطّي هذا اليوم (لا يُحتسب)')+'</button>'+(s.log[ds]?'<button class="btn sm bad grow" style="margin:0" data-a="sldel">حذف</button>':'')+'</div>');
+  INP.sldur();
+}
+A.slnight=el=>{closeSheets();slEdit(el.dataset.d||today())};
+CH.sldate=el=>{if(!el.value||el.value>today())return;closeSheets();slEdit(el.value)};
+INP.sldur=()=>{const b=$('#sl-bed'),w=$('#sl-wake'),o=$('#sl-dur');if(!o||!b||!w)return;o.textContent=(b.value&&w.value)?'مدة النوم: '+fmtDur(durMin(b.value,w.value)):''};
+A.slqs=el=>{slE.q=slE.q===+el.dataset.v?0:+el.dataset.v;$$('#sl-q .chip').forEach(b=>b.classList.toggle('on',+b.dataset.v===slE.q))};
+A.slnap=el=>{slE.nap=+el.dataset.v;$$('#sl-nap .chip').forEach(b=>b.classList.toggle('on',+b.dataset.v===slE.nap))};
+A.sltag=el=>{const t=el.dataset.v,i=slE.tags.indexOf(t);if(i>=0)slE.tags.splice(i,1);else slE.tags.push(t);el.classList.toggle('on',i<0)};
+A.slsave=()=>{
+  const s=SL(),ds=slE.ds,bed=$('#sl-bed').value,wake=$('#sl-wake').value;
+  if(!bed&&!wake&&!slE.q&&!$('#sl-note').value.trim()){toast('أدخل وقت النوم أو الاستيقاظ');return}
+  if(bed&&wake){const d=durMin(bed,wake);if(d<20||d>16*60){toast('مدة النوم غير منطقية، راجع الوقتين');return}}
+  const L=s.log[ds]=s.log[ds]||{};delete L.skip;
+  L.bed=bed||'';L.wake=wake||'';L.q=slE.q;L.nap=slE.nap;L.tags=slE.tags.slice();L.note=$('#sl-note').value.trim();
+  if(!L.bed)delete L.bed;if(!L.wake)delete L.wake;
+  if(s.since>ds)s.since=ds;
+  save();slCheckGoals();closeSheets();haptic(12);render();toast('حُفظت الليلة ✓');
+};
+A.slskip=()=>{const s=SL(),ds=slE.ds,L=s.log[ds]=s.log[ds]||{};L.skip=!L.skip;if(s.since>ds)s.since=ds;save();closeSheets();render();toast(L.skip?'تُخطّي هذا اليوم':'أُلغي التخطّي')};
+A.sldel=async()=>{if(await ask('حذف تسجيل هذه الليلة؟',{danger:true,ok:'حذف'})){delete SL().log[slE.ds];save();closeSheets();render()}};
+/* ---- تبويب السجل ---- */
+function slLogTab(){
+  const s=SL(),now=new Date(),mk=S.ui.slM||(now.getFullYear()+'-'+pad(now.getMonth()+1)),a=mk.split('-'),y=+a[0],m=+a[1]-1;
+  const first=new Date(y,m,1),dim=new Date(y,m+1,0).getDate(),pre=(first.getDay()+1)%7,td=today(),it=itemById('sleepwake');
+  const isNow=mk===now.getFullYear()+'-'+pad(now.getMonth()+1);
+  let cells='';for(let i=0;i<pre;i++)cells+='<div class="day empty"></div>';
+  const cn={done:0,part:0,miss:0,skip:0};
+  for(let d=1;d<=dim;d++){
+    const ds=y+'-'+pad(m+1)+'-'+pad(d),st=it?statusOf(it,ds):'none';if(cn[st]!==undefined)cn[st]++;
+    cells+='<'+(ds<=td?'button data-a="slnight" data-d="'+ds+'"':'div')+' class="day '+ST_CLS[st]+(ds===td?' today':'')+'">'+d+(s.log[ds]&&s.log[ds].q?'<i></i>':'')+'</'+(ds<=td?'button':'div')+'>';
+  }
+  const hd=WK_ORDER.map(d=>'<div class="dh">'+AR_DAYS[d]+'</div>').join('');
+  const rows=Object.keys(s.log).filter(k=>k.slice(0,7)===mk&&!s.log[k].skip&&(s.log[k].bed||s.log[k].wake)).sort().reverse();
+  return '<div class="card"><div class="row" style="justify-content:space-between;margin-bottom:10px"><button class="ib" data-a="slmon" data-d="-1" aria-label="الشهر السابق">'+ICONS.back+'</button><b>'+AR_MONTHS[m]+' '+y+'</b><button class="ib" data-a="slmon" data-d="1" style="transform:scaleX(-1);'+(isNow?'opacity:.3;pointer-events:none':'')+'" aria-label="الشهر التالي">'+ICONS.back+'</button></div><div class="cal">'+hd+cells+'</div>'+
+  '<div class="legend"><span><i style="background:color-mix(in srgb,var(--acc) 45%,var(--card))"></i>في موعدي</span><span><i style="background:color-mix(in srgb,var(--acc) 22%,var(--card))"></i>تأخّرت قليلًا</span><span><i style="background:color-mix(in srgb,var(--bad) 35%,var(--card))"></i>فاتني</span></div>'+
+  '<div class="mut sm center mt">هذا الشهر: في موعدي '+cn.done+' · قريب '+cn.part+' · فاتني '+cn.miss+' · تخطّي '+cn.skip+'</div><p class="xs mut center">اضغط أي يوم لتسجيله أو تعديله · النقطة = قيّمتَ نومك</p></div>'+
+  '<button class="btn pri" data-a="slnight" data-d="'+td+'">＋ سجّل ليلة</button>'+
+  '<div class="sec"><h3>ليالي الشهر</h3><small>'+rows.length+' ليلة</small></div>'+
+  (rows.length?'<div class="list">'+rows.map(k=>{const e=slEval(k);if(!e)return'';const d=pds(k);
+    return '<button class="li" data-a="slnight" data-d="'+k+'"><span class="ic">'+(e.L.q?SL_Q[e.L.q-1][0]:'🌙')+'</span><span class="grow"><b>'+AR_DAYS[d.getDay()]+' '+d.getDate()+' '+AR_MONTHS[d.getMonth()]+'</b><span class="sub">'+(e.L.bed?T12(e.L.bed):'؟')+' ← '+(e.L.wake?T12(e.L.wake):'؟')+(e.dur!==undefined?' · '+fmtDur(e.dur):'')+((e.L.tags||[]).length?' · '+esc(e.L.tags.join('، ')):'')+'</span></span>'+(e.score!==null?'<span class="chip '+(e.score>=70?'on':'')+'" style="'+(e.score<40?'color:var(--bad)':'')+'">'+e.score+'%</span>':'')+'</button>'}).join('')+'</div>':'<div class="card ph">لا ليالٍ مسجّلة في هذا الشهر</div>');
+}
+A.slmon=el=>{
+  const now=new Date(),mk=S.ui.slM||(now.getFullYear()+'-'+pad(now.getMonth()+1)),a=mk.split('-'),d=new Date(+a[0],+a[1]-1+(+el.dataset.d),1);
+  const nk=d.getFullYear()+'-'+pad(d.getMonth()+1),cm=now.getFullYear()+'-'+pad(now.getMonth()+1);
+  if(nk>cm)return;S.ui.slM=nk===cm?null:nk;save();render();
+};
+/* ---- تبويب الإحصاءات ---- */
+function durChart(bk,c){
+  const n=bk.length,two=bk.some(b=>b.w),scroll=n>16,showVal=n<=12,full=c.need*60-20,low=c.minH*60-10;
+  const h='<div class="bc" style="--n:'+n+';'+(scroll?'min-width:'+(n*27)+'px':'')+'">'+bk.map(b=>{const v=b.v;
+    return '<div class="bcol'+(b.cur?' cur':'')+'">'+(showVal?'<b class="xs">'+(v===null?'':Math.round(v/6)/10)+'</b>':'')+'<div class="bw"><i style="height:'+(v===null?3:Math.max(4,Math.min(100,v/6)))+'%" class="'+(v===null?'nn':v>=full?'full':v<low?'low':'')+'"></i></div><small>'+(two?'<span class="wd">'+b.w+'</span>':'')+b.l+'</small></div>'}).join('')+'</div>';
+  return scroll?'<div class="bcs">'+h+'</div>':h;
+}
+const avgN=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:null;
+function slStatsTab(){
+  const s=SL(),c=s.cfg,p=S.ui.slP||'w',o=p==='a'?0:(S.ui.slO||0);
+  const ps=periodSeries(slScoreOf,p,o,s.since),pd=periodSeries(slDurOf,p,o,s.since);
+  const ev=ps.days.map(d=>({d:d,e:slEval(d.ds)})).filter(x=>x.e);
+  const head=periodBar('slP','slO',p,o,ps.lab,'slp','slo');
+  if(!ev.length)return head+'<div class="card ph">لا ليالٍ مسجّلة في هذه الفترة. سجّل ليلتك من تبويب «الليلة» وستظهر هنا درجاتك ومخططاتك.</div>';
+  const avg=ps.avg===null?0:ps.avg,tier=shTier(avg);
+  const durs=ev.filter(x=>x.e.dur!==undefined).map(x=>x.e.dur);
+  const wk=ev.filter(x=>x.e.wd!==undefined),bd=ev.filter(x=>x.e.bd!==undefined);
+  const wRef=c.wake,bRef=c.bed;
+  const wAbs=wk.map(x=>sdiff(x.e.L.wake,wRef)),bAbs=bd.map(x=>sdiff(x.e.L.bed,bRef));
+  const wAvg=avgN(wAbs),bAvg=avgN(bAbs);
+  const sd=a=>{if(a.length<2)return null;const m=avgN(a);return Math.round(Math.sqrt(avgN(a.map(x=>(x-m)*(x-m)))))};
+  const wsd=sd(wAbs);
+  const wokP=wk.length?Math.round(wk.filter(x=>x.e.wakeOk).length*100/wk.length):null,bokP=bd.length?Math.round(bd.filter(x=>x.e.bedOk).length*100/bd.length):null;
+  const fullN=durs.filter(d=>d>=c.need*60-20).length;
+  const stab=wsd===null?'—':wsd<=10?'ثابت جدًا':wsd<=25?'ثابت':wsd<=50?'متذبذب':'غير منتظم';
+  let h=head+'<div class="card acc"><div class="row" style="gap:14px"><div style="width:118px;flex:none">'+pctRing(avg,tier[1])+'</div><div class="grow"><div class="xs mut">متوسط درجة النوم</div><div style="font-size:30px;font-weight:800;line-height:1.2">'+(ps.avg===null?'—':avg+'%')+'</div><div class="mt">'+trendBadge(ps.avg,ps.prev)+'</div></div></div><div class="mut xs mt">الدرجة = موعد الاستيقاظ (45%) + مدة النوم (35%) + موعد النوم (20%)</div></div>'+
+  '<div class="stat sm"><div><b>'+(durs.length?fmtDur(avgN(durs)):'—')+'</b><small>متوسط النوم</small></div><div><b>'+(wAvg===null?'—':T12(hhmm(tmin(wRef)+wAvg)))+'</b><small>متوسط الاستيقاظ</small></div><div><b>'+(bAvg===null?'—':T12(hhmm(tmin(bRef)+bAvg)))+'</b><small>متوسط النوم (وقت)</small></div></div>'+
+  '<div class="stat sm mt"><div><b>'+(wokP===null?'—':wokP+'%')+'</b><small>استيقاظ في موعدي</small></div><div><b>'+(bokP===null?'—':bokP+'%')+'</b><small>نوم في موعدي</small></div><div><b>'+fullN+' / '+durs.length+'</b><small>ليالٍ بلغتُ هدفها</small></div></div>'+
+  '<div class="sec"><h3>مدة النوم</h3><small>'+(p==='w'?'كل يوم':p==='m'?'أيام الشهر':'متوسط شهري')+'</small></div><div class="card">'+durChart(pd.bk,c)+'<div class="legend"><span><i style="background:var(--acc)"></i>بلغتُ '+c.need+' س</span><span><i style="background:color-mix(in srgb,var(--acc) 62%,var(--card3))"></i>أقل</span><span><i style="background:color-mix(in srgb,var(--bad) 55%,var(--card3))"></i>تحت '+c.minH+' س</span></div></div>'+
+  '<div class="sec"><h3>مستوى الالتزام</h3><small>درجة كل '+(p==='y'||p==='a'?'شهر':'يوم')+'</small></div><div class="card">'+barChart(ps.bk)+'</div>'+
+  '<div class="sec"><h3>📈 تقدّمي</h3><small>'+(p==='w'?'خلال الأسبوع':p==='m'?'خلال الشهر':'خلال '+(p==='y'?'السنة':'الرحلة'))+'</small></div><div class="card">'+lineChart(ps.bk)+'</div>'+
+  '<div class="sec"><h3>ثبات الاستيقاظ</h3></div><div class="card"><div class="row"><b style="font-size:20px" class="grow">'+stab+'</b>'+(wsd===null?'':'<span class="chip">انحراف ±'+wsd+' د</span>')+'</div>'+(wk.length?'<div class="mut sm mt">أبكر استيقاظ: <b>'+T12(hhmm(tmin(wRef)+Math.min.apply(null,wAbs)))+'</b> · أتأخر استيقاظ: <b>'+T12(hhmm(tmin(wRef)+Math.max.apply(null,wAbs)))+'</b></div>':'')+'<div class="mut xs mt">الثبات أهم من الطول: من يستيقظ في موعد متقارب يصحو أنشط ويغالب الكسل أسهل.</div></div>';
+  /* أيام الأسبوع */
+  const wd=[0,1,2,3,4,5,6].map(d=>{const xs=wk.filter(x=>x.d.w===d);return{d:d,n:xs.length,p:xs.length?Math.round(xs.filter(x=>x.e.wakeOk).length*100/xs.length):null}}).filter(x=>x.n>0);
+  if(wd.length>=3)h+='<div class="sec"><h3>أي الأيام أصعب؟</h3><small>الاستيقاظ في الموعد</small></div><div class="card">'+WK_ORDER.map(d=>wd.find(x=>x.d===d)).filter(Boolean).map(x=>'<div class="rr"><span class="rn">'+AR_DAYF[x.d]+'</span><div class="bar"><i style="width:'+x.p+'%"></i></div><b>'+x.p+'%</b></div>').join('')+'</div>';
+  /* أسباب */
+  const tg={};ev.forEach(x=>(x.e.L.tags||[]).forEach(t=>{tg[t]=(tg[t]||0)+1}));
+  const tgk=Object.keys(tg).sort((a,b)=>tg[b]-tg[a]);
+  if(tgk.length)h+='<div class="sec"><h3>ما يسرق نومك</h3></div><div class="card">'+tgk.map(t=>'<div class="rr"><span class="rn">'+esc(t)+'</span><div class="bar"><i style="width:'+Math.round(tg[t]*100/tg[tgk[0]])+'%"></i></div><b>'+tg[t]+'</b></div>').join('')+'</div>';
+  /* ارتباطات */
+  const ins=[];
+  const good=ev.filter(x=>x.e.dur!==undefined&&x.e.full&&shPct(x.d.ds)!==null).map(x=>shPct(x.d.ds)),bad=ev.filter(x=>x.e.dur!==undefined&&!x.e.full&&shPct(x.d.ds)!==null).map(x=>shPct(x.d.ds));
+  if(good.length>=3&&bad.length>=3)ins.push('درعك بعد ليلة كافية: <b>'+Math.round(avgN(good))+'%</b> مقابل <b>'+Math.round(avgN(bad))+'%</b> بعد ليلة ناقصة');
+  const a0=ps.a,b0=new Date(ps.b);b0.setHours(23,59,59,999);
+  const nightW=S.war.filter(e=>{const t=new Date(e.t0),hr=t.getHours();return t>=a0&&t<=b0&&(hr>=22||hr<5)}),allW=S.war.filter(e=>{const t=new Date(e.t0);return t>=a0&&t<=b0});
+  if(allW.length)ins.push('<b>'+nightW.length+'</b> من أصل '+allW.length+' حالة معركة وقعت بين 10 مساءً و5 فجرًا');
+  if(ins.length)h+='<div class="sec"><h3>نومك وانتصارك</h3></div><div class="card">'+ins.map(x=>'<div class="sm" style="margin:6px 0">• '+x+'</div>').join('')+'</div>';
+  h+='<div class="sec"><h3>آخر 20 أسبوعًا</h3></div><div class="card">'+shHeat(20,slScoreOf)+'<div class="legend">'+TIER_N.map((n,i)=>'<span><i style="background:'+TIER_C[i]+'"></i>'+n+'</span>').join('')+'</div></div>';
+  return h;
+}
+A.slp=el=>{S.ui.slP=el.dataset.v;S.ui.slO=0;save();render()};
+A.slo=el=>{S.ui.slO=Math.max(0,(S.ui.slO||0)+(+el.dataset.d));save();render()};
+/* ---- تبويب الأهداف ---- */
+const SL_GK={
+ wstreak:{t:n=>'أستيقظ في موعدي '+n+' يومًا متتاليًا',u:'يوم',pre:[3,7,14,21,30,60],prog:()=>slStreak().cur,once:true},
+ wweek:{t:n=>'أستيقظ في موعدي '+n+' أيام من كل أسبوع',u:'يوم',pre:[4,5,6,7],prog:()=>slWeekCount('sleepwake'),per:'w'},
+ bweek:{t:n=>'أنام في موعدي '+n+' ليالٍ من كل أسبوع',u:'ليلة',pre:[3,4,5,6,7],prog:()=>slWeekCount('sleepbed'),per:'w'},
+ avgdur:{t:n=>'متوسط نومي '+n+' ساعات فأكثر (آخر 7 أيام)',u:'ساعة',pre:[6,6.5,7,7.5,8],prog:()=>{const a=[];for(let i=0;i<7;i++){const d=slDurOf(dstr(Date.now()-i*DAY));if(d!==null)a.push(d)}return a.length>=3?Math.round(avgN(a)/6)/10:0},per:'w'},
+ avgscore:{t:n=>'متوسط درجة نومي '+n+'% هذا الشهر',u:'%',pre:[60,70,80,90],prog:()=>{const t=new Date(),a=[];for(let d=1;d<=t.getDate();d++){const v=slScoreOf(t.getFullYear()+'-'+pad(t.getMonth()+1)+'-'+pad(d));if(v!==null)a.push(v)}return a.length>=5?Math.round(avgN(a)):0},per:'m'}
+};
+function slWeekCount(id){const it=itemById(id);if(!it||!slOn())return 0;let n=0;const a=weekStart(0),t=new Date();for(let d=new Date(a);d<=t;d.setDate(d.getDate()+1))if(statusOf(it,dstr(d))==='done')n++;return n}
+function slGoalKey(g){const k=SL_GK[g.k];if(k.once)return'once';if(k.per==='m')return today().slice(0,7);return dstr(weekStart(0))}
+function slCheckGoals(){
+  const s=SL();let hit=null;
+  s.goals.forEach(g=>{const k=SL_GK[g.k];if(!k)return;const pr=k.prog();if(pr>=g.n&&g.hit!==slGoalKey(g)){g.hit=slGoalKey(g);g.cnt=(g.cnt||0)+1;hit=g}});
+  if(hit){save();setTimeout(()=>toast('🎯 حقّقتَ هدفك: '+SL_GK[hit.k].t(hit.n),4200),600)}
+}
+let slG={k:'wstreak',n:7,id:null};
+function slGoalsTab(){
+  const s=SL(),c=s.cfg,st=slStreak();
+  let h='<div class="card acc" style="margin-top:8px"><div class="row"><span style="font-size:34px">☀️</span><div class="grow"><b>هدفي الأساسي</b><div class="mut sm">أستيقظ كل يوم '+T12(c.wake)+(c.purpose?' من أجل: '+esc(c.purpose):'')+'</div></div></div><div class="stat mt"><div><b>'+st.cur+'</b><small>🔥 سلسلتي الآن</small></div><div><b>'+st.best+'</b><small>🏆 أفضل سلسلة</small></div><div><b>'+slWeekCount('sleepwake')+'/7</b><small>هذا الأسبوع</small></div></div></div>';
+  h+='<div class="sec"><h3>أهدافي</h3></div>';
+  h+=s.goals.length?s.goals.map(g=>{const k=SL_GK[g.k];if(!k)return'';const pr=k.prog(),pc=Math.min(100,Math.round(pr*100/g.n)),done=pr>=g.n;
+    return '<div class="card"><div class="row"><div class="grow"><b>'+k.t(g.n)+'</b><div class="mut xs mt">'+(done?'✅ تحقّق '+(k.once?'':(k.per==='m'?'هذا الشهر':'هذا الأسبوع')):pr+' من '+g.n+' '+k.u)+(g.cnt?' · تحقّق '+g.cnt+' مرة':'')+'</div></div><button class="link" data-a="slgoal" data-id="'+g.id+'">تعديل</button></div><div class="bar mt"><i style="width:'+pc+'%"></i></div></div>'}).join(''):'<div class="card ph">أضف هدفًا يمسكك على الطريق</div>';
+  h+='<button class="btn" data-a="slgoal">＋ هدف جديد</button>';
+  const medals=MEDALS.map(n=>{const t=n>=100?4:n>=30?3:n>=7?2:1,ok=st.best>=n;return '<div class="md '+(ok?'t'+t:'lock')+'"><div class="c">'+(ok?n:'🔒')+'</div>'+(ok?'':'<small>'+n+'</small>')+'<small>'+(n===1?'يوم':n<11?'أيام':'يومًا')+'</small></div>'}).join('');
+  h+='<div class="sec"><h3>🎖️ أوسمة الاستيقاظ</h3><small>أفضل سلسلة: '+st.best+'</small></div><div class="card"><div class="medals">'+medals+'</div></div>';
+  /* مراجعة الأسبوع */
+  const wk0=dstr(weekStart(0)),wk1=dstr(weekStart(1)),R=s.rev;
+  const rv=k=>{const r=R[k];return r&&(r.good||r.bad||r.lesson)};
+  const wsum=(k)=>{const a=pds(k),sc=[],du=[];let ok=0,n=0;for(let i=0;i<7;i++){const d=new Date(a);d.setDate(a.getDate()+i);const ds=dstr(d);if(ds>today())break;const e=slEval(ds);if(e){if(e.score!==null)sc.push(e.score);if(e.dur!==undefined)du.push(e.dur);if(e.wd!==undefined){n++;if(e.wakeOk)ok++}}}return{sc:sc.length?Math.round(avgN(sc)):null,du:du.length?avgN(du):null,ok:ok,n:n}};
+  const card=(k,lab)=>{const sm=wsum(k),r=R[k]||{};
+    return '<div class="card"><div class="row"><b class="grow">'+lab+'</b><span class="chip">'+fmtS(pds(k))+'</span></div>'+(sm.n?'<div class="row w mt" style="gap:6px"><span class="chip on">في موعدي '+sm.ok+'/'+sm.n+'</span>'+(sm.sc!==null?'<span class="chip">درجة '+sm.sc+'%</span>':'')+(sm.du?'<span class="chip">متوسط '+fmtDur(sm.du)+'</span>':'')+'</div>':'<div class="mut sm mt">لا ليالٍ مسجّلة</div>')+
+    (rv(k)?(r.good?'<div class="sm mt">👍 '+esc(r.good)+'</div>':'')+(r.bad?'<div class="sm mt">👎 '+esc(r.bad)+'</div>':'')+(r.lesson?'<div class="sm mt">💡 '+esc(r.lesson)+'</div>':''):'')+
+    '<button class="btn sm mt" data-a="slrev" data-k="'+k+'">'+(rv(k)?'تعديل المراجعة':'✍️ اكتب مراجعتي')+'</button></div>'};
+  h+='<div class="sec"><h3>مراجعة الأسبوع</h3><small>الجيد · السيئ · الدرس</small></div>'+card(wk0,'هذا الأسبوع')+card(wk1,'الأسبوع الماضي');
+  return h;
+}
+A.slgoal=el=>{
+  const g=el.dataset.id?SL().goals.find(x=>x.id===el.dataset.id):null;
+  slG=g?{k:g.k,n:g.n,id:g.id}:{k:'wstreak',n:7,id:null};
+  sheet('<h3>'+(g?'تعديل الهدف':'هدف جديد')+'</h3><label class="lbl">نوع الهدف</label><div class="chips" id="slg-k">'+Object.keys(SL_GK).map(k=>'<button class="chip '+(slG.k===k?'on':'')+'" data-a="slgk" data-v="'+k+'">'+SL_GK[k].t('N').replace('N','…')+'</button>').join('')+'</div>'+
+  '<label class="lbl">الرقم المطلوب</label><div class="chips" id="slg-n"></div><input type="number" id="slg-i" data-i="slgn" min="1" step="any" value="'+slG.n+'" style="margin-top:10px"><div id="slg-p" class="card flat mt"></div>'+
+  '<button class="btn pri mt" data-a="slgsave">حفظ</button>'+(g?'<button class="btn bad" data-a="slgdel">حذف</button>':''));
+  slGDraw();
+};
+function slGDraw(){
+  const k=SL_GK[slG.k];$('#slg-n').innerHTML=k.pre.map(n=>'<button class="chip '+(slG.n===n?'on':'')+'" data-a="slgnn" data-v="'+n+'">'+n+'</button>').join('');
+  $('#slg-p').innerHTML='<b class="sm">'+k.t(slG.n)+'</b><div class="mut xs mt">تقدّمك الآن: '+k.prog()+' '+k.u+'</div>';
+  $$('#slg-k .chip').forEach(b=>b.classList.toggle('on',b.dataset.v===slG.k));
+}
+A.slgk=el=>{slG.k=el.dataset.v;slG.n=SL_GK[slG.k].pre[Math.min(1,SL_GK[slG.k].pre.length-1)];$('#slg-i').value=slG.n;slGDraw()};
+A.slgnn=el=>{slG.n=+el.dataset.v;$('#slg-i').value=slG.n;slGDraw()};
+INP.slgn=el=>{const v=+el.value;if(v>0){slG.n=v;$$('#slg-n .chip').forEach(b=>b.classList.toggle('on',+b.dataset.v===v));$('#slg-p').innerHTML='<b class="sm">'+SL_GK[slG.k].t(v)+'</b><div class="mut xs mt">تقدّمك الآن: '+SL_GK[slG.k].prog()+' '+SL_GK[slG.k].u+'</div>'}};
+A.slgsave=()=>{
+  const s=SL();if(!(slG.n>0)){toast('أدخل رقمًا صحيحًا');return}
+  if(slG.id){const g=s.goals.find(x=>x.id===slG.id);g.k=slG.k;g.n=slG.n;g.hit=null}else s.goals.push({id:uid(),k:slG.k,n:slG.n,created:today(),hit:null});
+  save();closeSheets();render();
+};
+A.slgdel=async()=>{if(await ask('حذف هذا الهدف؟',{danger:true,ok:'حذف'})){const s=SL();s.goals=s.goals.filter(x=>x.id!==slG.id);save();closeSheets();render()}};
+A.slrev=el=>{
+  const k=el.dataset.k,r=SL().rev[k]||{};
+  sheet('<h3>مراجعة الأسبوع</h3><div class="mut sm">أسبوع '+fmtS(pds(k))+'</div><label class="lbl">👍 ما الجيد؟</label><textarea id="rv-g" style="min-height:64px">'+esc(r.good||'')+'</textarea><label class="lbl">👎 ما السيّئ؟</label><textarea id="rv-b" style="min-height:64px">'+esc(r.bad||'')+'</textarea><label class="lbl">💡 ما الدرس؟</label><textarea id="rv-l" style="min-height:64px">'+esc(r.lesson||'')+'</textarea><button class="btn pri mt" data-a="slrevsave" data-k="'+k+'">حفظ</button>');
+};
+A.slrevsave=el=>{SL().rev[el.dataset.k]={good:$('#rv-g').value.trim(),bad:$('#rv-b').value.trim(),lesson:$('#rv-l').value.trim()};save();closeSheets();render();toast('حُفظت المراجعة')};
+/* ---- تبويب الإعدادات ---- */
+function slSetTab(){
+  const s=SL(),c=s.cfg,best=slBestBed(c.wake,c.need),latest=hhmm(tmin(c.wake)-c.minH*60);
+  const chips=(f,arr,fmt)=>'<div class="chips cs">'+arr.map(n=>'<button class="chip '+(c[f]===n?'on':'')+'" data-a="slchip" data-f="'+f+'" data-v="'+n+'">'+fmt(n)+'</button>').join('')+'</div>';
+  let h='<div class="card" style="margin-top:8px"><b>المواعيد الأساسية</b>'+
+  '<div class="row mt"><div class="grow"><label class="lbl" style="margin-top:0">☀️ أستيقظ</label><input type="time" data-c="slset" data-f="wake" value="'+c.wake+'" style="direction:ltr;text-align:center"></div><div class="grow"><label class="lbl" style="margin-top:0">🌙 أنام</label><input type="time" data-c="slset" data-f="bed" value="'+c.bed+'" style="direction:ltr;text-align:center"></div></div>'+
+  '<div class="card flat mt"><div class="sm">مدة النوم بين الموعدين: <b>'+fmtDur(durMin(c.bed,c.wake))+'</b></div><div class="sm mt">أفضل وقت للنوم لتنال '+c.need+' ساعات: <b>'+T12(best)+'</b>'+(best!==c.bed?' <button class="link" data-a="slusebest">اعتمده</button>':'')+'</div><div class="sm mt">آخر وقت مقبول للنوم ('+c.minH+' ساعات كحد أدنى): <b>'+T12(latest)+'</b></div></div>'+
+  '<label class="lbl">ساعات النوم المطلوبة (هدفي)</label>'+chips('need',[6,6.5,7,7.5,8],n=>n+' س')+
+  '<label class="lbl">أقل ما أقبله (حدّ أدنى)</label>'+chips('minH',[5,5.5,6,6.5,7],n=>n+' س')+
+  '<label class="lbl">هامش التأخير المسموح</label>'+chips('tol',[10,15,20,30,45],n=>n+' د')+
+  '<label class="lbl">أبدأ التهيئة قبل النوم بـ</label>'+chips('wind',[20,30,45,60,90],n=>n+' د')+
+  '<label class="lbl">لماذا أستيقظ؟</label><input data-c="slset" data-f="purpose" value="'+esc(c.purpose)+'" placeholder="مثلًا: قرآن وصلاة الفجر"></div>';
+  /* أيام مخصّصة */
+  h+='<div class="sec"><h3>مواعيد الأيام</h3><small>مواعيد مختلفة لبعض الأيام</small></div><div class="list">'+WK_ORDER.map(d=>{const o=c.ov[d]||{},pl={wake:o.wake||c.wake,bed:o.bed||c.bed};
+    return '<button class="li" data-a="slday" data-d="'+d+'"><span class="grow"><b>'+AR_DAYF[d]+'</b><span class="sub">'+(o.off?'يوم راحة: لا موعد':'نوم '+T12(pl.bed)+' · استيقاظ '+T12(pl.wake))+'</span></span>'+((o.wake||o.bed||o.off)?'<span class="chip on">مخصّص</span>':'<span class="arr">'+ICONS.back+'</span>')+'</button>'}).join('')+'</div>';
+  /* ما قبل النوم */
+  h+='<div class="sec"><h3>قائمة ما قبل النوم</h3></div><div class="card">'+(c.rt.length?c.rt.map(x=>'<div class="task"><div class="t">'+esc(x.t)+'</div><button class="link" data-a="slrtedit" data-id="'+x.id+'">تعديل</button></div>').join(''):'<div class="mut sm">لا عناصر</div>')+'<button class="btn sm mt" data-a="slrtedit">＋ عنصر جديد</button></div>';
+  /* تذكير ودرع */
+  const sw=itemById('sleepwake'),sb=itemById('sleepbed');
+  h+='<div class="sec"><h3>التذكير والدرع</h3></div><div class="card"><button class="task" style="width:100%;text-align:start;border-width:0 0 1px" data-a="sltog" data-f="remind">'+shCheck(c.remind)+'<div class="t">تنبيهات داخل التطبيق<br><small class="mut" style="font-weight:400">وقت التهيئة، وقت النوم، وتسجيل الاستيقاظ</small></div></button>'+
+  [sw,sb].map(it=>'<button class="task" style="width:100%;text-align:start;border-width:0 0 1px" data-a="slshield" data-id="'+it.id+'">'+shCheck(!isHidden(it))+'<div class="t">'+it.ic+' «'+esc(it.t)+'» في درعي اليومي</div></button>').join('')+'</div>';
+  h+='<div class="sec"><h3>البيانات</h3></div><div class="card"><button class="btn sm ghost" data-a="sloff">إيقاف البرنامج (تبقى بياناتك)</button><button class="btn sm bad mt" data-a="slwipe">حذف كل سجلّ النوم</button></div>';
+  return h;
+}
+CH.slset=el=>{
+  const f=el.dataset.f,c=SL().cfg,v=el.value;
+  if(f==='purpose')c.purpose=v.trim();
+  else if(f==='wake'||f==='bed'){if(!/^\d\d:\d\d$/.test(v))return;c[f]=v}
+  save();render();
+};
+A.slchip=el=>{const f=el.dataset.f;SL().cfg[f]=+el.dataset.v;save();render()};
+A.slusebest=()=>{const c=SL().cfg;c.bed=slBestBed(c.wake,c.need);save();render()};
+A.sltog=el=>{const c=SL().cfg;c[el.dataset.f]=!c[el.dataset.f];save();render()};
+A.slshield=el=>{const id=el.dataset.id,it=itemById(id),off=S.shCfg.off=S.shCfg.off||[],i=off.indexOf(id);if(i>=0)off.splice(i,1);else off.push(id);save();render()};
+A.slday=el=>{
+  const d=+el.dataset.d,c=SL().cfg,o=c.ov[d]||{};
+  sheet('<h3>'+AR_DAYF[d]+'</h3><p class="mut sm">مواعيد هذا اليوم فقط. الموعد هو يوم الاستيقاظ.</p><div class="row"><div class="grow"><label class="lbl" style="margin-top:0">🌙 أنام</label><input type="time" id="sd-b" value="'+(o.bed||c.bed)+'" style="direction:ltr;text-align:center"></div><div class="grow"><label class="lbl" style="margin-top:0">☀️ أستيقظ</label><input type="time" id="sd-w" value="'+(o.wake||c.wake)+'" style="direction:ltr;text-align:center"></div></div>'+
+  '<button class="task" style="width:100%;text-align:start;border-width:0" data-a="sdoff" id="sd-off">'+shCheck(o.off)+'<div class="t">يوم راحة: لا أطالب نفسي بموعد</div></button>'+
+  '<button class="btn pri mt" data-a="sdsave" data-d="'+d+'">حفظ</button>'+((o.wake||o.bed||o.off)?'<button class="btn" data-a="sdreset" data-d="'+d+'">العودة للموعد العام</button>':''));
+  window._sdoff=!!o.off;
+};
+A.sdoff=el=>{window._sdoff=!window._sdoff;el.firstChild.outerHTML=shCheck(window._sdoff)};
+A.sdsave=el=>{
+  const d=+el.dataset.d,c=SL().cfg,b=$('#sd-b').value,w=$('#sd-w').value;
+  if(!/^\d\d:\d\d$/.test(b)||!/^\d\d:\d\d$/.test(w)){toast('اضبط الوقتين');return}
+  const o={};if(b!==c.bed)o.bed=b;if(w!==c.wake)o.wake=w;if(window._sdoff)o.off=true;
+  if(Object.keys(o).length)c.ov[d]=o;else delete c.ov[d];
+  save();closeSheets();render();
+};
+A.sdreset=el=>{delete SL().cfg.ov[+el.dataset.d];save();closeSheets();render()};
+A.slrtedit=el=>{
+  const x=el.dataset.id?SL().cfg.rt.find(r=>r.id===el.dataset.id):null;
+  sheet('<h3>'+(x?'تعديل العنصر':'عنصر جديد')+'</h3><input id="rt-t" value="'+esc(x?x.t:'')+'" placeholder="مثلًا: شحن الهاتف في الصالة"><button class="btn pri mt" data-a="slrtsave" data-id="'+(x?x.id:'')+'">حفظ</button>'+(x?'<button class="btn bad" data-a="slrtdel" data-id="'+x.id+'">حذف</button>':''));
+};
+A.slrtsave=el=>{const t=$('#rt-t').value.trim();if(!t)return;const c=SL().cfg;if(el.dataset.id)c.rt.find(r=>r.id===el.dataset.id).t=t;else c.rt.push({id:uid(),t:t});save();closeSheets();render()};
+A.slrtdel=el=>{const c=SL().cfg;c.rt=c.rt.filter(r=>r.id!==el.dataset.id);save();closeSheets();render()};
+A.sloff=async()=>{if(await ask('سيتوقف البرنامج ويختفي من الدرع، وتبقى بياناتك محفوظة. يمكنك إعادة تفعيله متى شئت.',{ok:'إيقاف'})){SL().on=false;SL().pend=null;save();render()}};
+A.slwipe=async()=>{if(await ask('سيُحذف كل سجلّ النوم والمراجعات نهائيًا.',{danger:true,ok:'حذف الكل'})){const s=SL();s.log={};s.rev={};s.pend=null;s.since=today();s.goals.forEach(g=>{g.hit=null;g.cnt=0});save();render();toast('حُذف السجلّ')}};
+/* ===== تكامل مع بقية التطبيق ===== */
+/* لوحة البند داخل الدرع */
+function slItemPanel(it,ds){
+  const e=slEval(ds),L=SL().log[ds]||{},pl=slPlan(ds),wake=it.id==='sleepwake';
+  const line=wake?(L.wake?'استيقظتَ '+T12(L.wake)+' · موعدك '+T12(pl.wake)+(e&&e.wakeOk?' ✓':''):'لم تسجّل استيقاظ هذا اليوم بعد'):(L.bed?'نمتَ '+T12(L.bed)+' · موعدك '+T12(pl.bed)+(e&&e.bedOk?' ✓':''):'لم تسجّل ساعة نومك لهذه الليلة');
+  return '<div class="mt sm">'+line+'</div><div class="row mt"><button class="btn pri grow" style="margin:0" data-a="go" data-p="sleep">😴 برنامج النوم</button><button class="btn grow" style="margin:0" data-a="slnight" data-d="'+ds+'">✎ تسجيل / تعديل</button></div>';
+}
+/* تنبيه داخل التطبيق */
+function slBanner(){
+  if(!slOn()||!SL().cfg.remind)return'';
+  const P=slPhase();
+  if(P.ph==='wake')return '<div class="banner mt"><b>☀️ حان موعد استيقاظك</b><div class="mt"><button class="chip" data-a="slwake">سجّل استيقاظي الآن</button></div></div>';
+  if(P.ph==='late')return '<div class="banner mt"><b>🌙 الفجر قريب وما زلتَ مستيقظًا</b><div class="mt"><button class="chip" data-a="slbed">ذاهب للنوم</button></div></div>';
+  if(P.ph==='wind')return '<div class="banner mt"><b>🕯️ حان وقت التهيئة للنوم</b><div class="mt"><button class="chip" data-a="go" data-p="sleep">قائمة ما قبل النوم</button> <button class="chip" data-a="slbed">ذاهب للنوم</button></div></div>';
+  if(P.ph==='bed'||P.ph==='latebed')return '<div class="banner mt"><b>🌙 '+(P.ph==='bed'?'حان وقت النوم':'تأخّر الوقت، نمْ الآن')+'</b><div class="mt"><button class="chip" data-a="slbed">ذاهب للنوم</button></div></div>';
+  return'';
+}
+/* بطاقة اليوم */
+function sleepCard(){
+  if(!slOn())return'';
+  const P=slPhase(),pl=P.pl,st=slStreak(),c=SL().cfg;
+  let ic='😴',t='',sub='',cls='',act='';
+  if(P.ph==='wake'){ic='☀️';t='سجّل استيقاظك';sub='موعدك '+T12(pl.wake)+' · '+esc(c.purpose);act='<button class="btn pri sm" style="margin:0;flex:none" data-a="slwake">استيقظت</button>'}
+  else if(P.ph==='asleep'){ic='😴';t='نائم الآن';sub='موعد الاستيقاظ '+T12(pl.wake);act='<button class="btn pri sm" style="margin:0;flex:none" data-a="slwake">استيقظت</button>'}
+  else if(P.ph==='late'||P.ph==='latebed'){ic='⏳';t='حان وقت النوم الآن';sub='الاستيقاظ '+T12(pl.wake)+' · كل دقيقة تُحسب';cls='bad';act='<button class="btn pri sm" style="margin:0;flex:none" data-a="slbed">أنام</button>'}
+  else if(P.ph==='bed'){ic='🌙';t='حان وقت النوم';sub='موعدك '+T12(pl.bed)+' → '+T12(pl.wake);act='<button class="btn pri sm" style="margin:0;flex:none" data-a="slbed">أنام</button>'}
+  else if(P.ph==='wind'){ic='🕯️';t='ابدأ التهيئة للنوم';sub='نومك '+T12(pl.bed)+' · أنهِ قائمة ما قبل النوم'}
+  else{ic='🌌';t='ليلتك القادمة';sub='نوم '+T12(pl.bed)+' → استيقاظ '+T12(pl.wake)+(st.cur?' · 🔥 '+st.cur+' يوم في موعدي':'')}
+  return '<div class="card '+cls+' row" style="margin-top:12px;cursor:pointer" data-a="go" data-p="sleep"><span style="font-size:28px">'+ic+'</span><div class="grow" style="min-width:0"><b>'+t+'</b><div class="mut sm">'+sub+'</div></div>'+act+'</div>';
+}
+/* بلاطة أدواتي */
+function slTile(){
+  if(!slOn())return '<button class="tile wide" data-a="go" data-p="sleep"><span class="ic">😴</span><div class="grow"><b>النوم والاستيقاظ</b><br><span>خطة طويلة المدى: موعد ثابت، تسجيل، إحصاءات وأهداف</span></div></button>';
+  const st=slStreak(),P=slPhase();
+  return '<button class="tile wide" data-a="go" data-p="sleep"><span class="ic">😴</span><div class="grow"><b>النوم والاستيقاظ</b><br><span>'+(st.cur?'🔥 '+st.cur+' يوم في موعدي · ':'')+'الاستيقاظ '+T12(P.pl.wake)+'</span></div></button>';
+}
+/* زر الطوارئ ليلًا */
+function slEmBtn(){const h=new Date().getHours();return(slOn()&&(h>=21||h<5))?'<button class="btn" data-a="emsleep">😴 الوقت متأخر: الأقوى الآن أن تنام</button>':''}
+A.emsleep=()=>{if(typeof emClose==='function')emClose();A.slbed()};
+
+/* ===== محاور المعركة (v2.2: بسيطة، نوعان + حالة حرّة + اقتراحات) ===== */
+const WAR_TYPES={
+ pre:{n:'بمقدّمات',ic:'🎯',s:'سبقتها نظرة أو فكرة',d:'نظرة أو مشهد أو فكرة تسبقها ثم تكبر. تستطيع قطعها مبكرًا.'},
+ sudden:{n:'مباغتة',ic:'⚡',s:'جاءت فجأة دفعة واحدة',d:'تأتي دفعة واحدة بلا مقدّمات وأنت في حال ضعف.'}
+};
+const WAR_SUG={
+ cause:['نظرة عابرة','مشهد في الشارع','صورة أو مقطع في السوشيال','إعلان','فكرة تسلّلت','تذكّر قديم','محادثة أو مزحة'],
+ ctx:['مريض','ضغط وتوتر','حزين','سهران / أرق','وحيد في الغرفة','أتصفح الهاتف','في الشارع أو مكان عام','ملل وفراغ','متعب']
+};
+const WAR_LEG={glance:{type:'pre',cause:'نظرة عابرة'},sick:{type:'sudden',ctx:'مريض'},stress:{type:'sudden',ctx:'ضغط وتوتر'},sad:{type:'sudden',ctx:'حزين'},sleepless:{type:'sudden',ctx:'سهران / أرق'}};
 const WAR_RANKS=[[0,'🪖','مجنّد'],[5,'⚔️','مقاتل'],[15,'🛡️','فارس'],[35,'🏹','قائد كتيبة'],[75,'👑','قائد الجيش']];
-const warFronts=()=>WAR_FRONTS.concat(S.warFronts||[]);
-const frontOf=id=>warFronts().find(f=>f.id===id)||{id:id,n:id,ic:'⚔️',type:'sudden'};
+const WAR_PER=[['🌌','12–4 بعد منتصف الليل',0,4],['🌅','4–8 فجرًا وصباحًا باكرًا',4,8],['☀️','8–12 صباحًا',8,12],['🌤️','12–4 ظهرًا وعصرًا',12,16],['🌇','4–8 مساءً',16,20],['🌙','8–12 ليلًا',20,24]];
 const CHAIN=2*36e5;
+/* ترحيل بيانات النسخة السابقة (محور ثابت) إلى النوع + المقدمة + الحالة */
+function warMig(){
+  if(!S||!S.war)return;let ch=false;
+  (S.war||[]).forEach(e=>{
+    if(e.type)return;ch=true;
+    const lg=WAR_LEG[e.front]||(S.warFronts||[]).find(f=>f.id===e.front)||null,tp=lg&&lg.type||'sudden';
+    e.type=tp;e.log=e.log||[];
+    if(lg){
+      if(tp==='pre')e.cause=e.cause||lg.cause||lg.n;
+      else{const s=lg.ctx||lg.n;e.ctx=e.ctx&&e.ctx!==s?s+' · '+e.ctx:s}
+    }
+  });
+  if(ch)try{save()}catch(x){}
+}
 const openEp=()=>{for(let i=S.war.length-1;i>=0;i--)if(S.war[i].result==='open')return S.war[i];return null};
+const epType=e=>WAR_TYPES[e.type]||WAR_TYPES.sudden;
 function warRank(w){let r=WAR_RANKS[0],nx=null;WAR_RANKS.forEach((x,i)=>{if(w>=x[0]){r=x;nx=WAR_RANKS[i+1]||null}});return{r:r,nx:nx}}
 function warStats(list){
   list=list||S.war;
@@ -1787,77 +2504,127 @@ function warStats(list){
   for(let i=closed.length-1;i>=0&&closed[i].result==='won';i--)cur++;
   return{total:list.length,closed:closed.length,won:won,lost:closed.length-won,rate:closed.length?Math.round(won*100/closed.length):0,big:big.length,doneBig:doneBig,comp:big.length?Math.round(doneBig*100/big.length):null,cur:cur,best:best,attacks:list.reduce((a,e)=>a+(e.n||1),0)};
 }
+/* مطابقة حالة حرّة مع خطة: تطابق تام ثم تقاطع كلمات */
+const WTOK=s=>String(s||'').replace(/[^\u0621-\u064Aa-zA-Z0-9\s]/g,' ').split(/\s+/).map(w=>w.replace(/^ال/,'')).filter(w=>w.length>=3);
 function suggestMove(ctx){
-  if(!ctx)return null;
-  return S.warPlay.find(p=>p.when===ctx)||null;
+  const c=String(ctx||'').trim();if(!c)return null;
+  const ex=S.warPlay.find(p=>p.when===c);if(ex)return ex;
+  const t=WTOK(c);if(!t.length)return null;
+  let best=null,bs=0;
+  S.warPlay.forEach(p=>{const u=WTOK(p.when);const s=t.filter(w=>u.some(v=>v===w||(w.length>3&&v.length>3&&(v.indexOf(w)>=0||w.indexOf(v)>=0)))).length;if(s>bs){bs=s;best=p}});
+  return best;
+}
+/* تجميع حسب حقل (حالة/مقدمة) */
+function warGroup(fn){
+  const g={};
+  S.war.forEach(e=>{const k=(fn(e)||'').trim();if(!k)return;const o=g[k]=g[k]||{k:k,n:0,w:0,l:0,last:0};o.n++;o.last=Math.max(o.last,e.t0);if(e.result==='won')o.w++;else if(e.result==='lost')o.l++});
+  return Object.keys(g).map(k=>{const o=g[k];o.rate=o.w+o.l?Math.round(o.w*100/(o.w+o.l)):null;return o}).sort((a,b)=>b.n-a.n||b.last-a.last);
 }
 /* --- الصفحة --- */
 reg('war',el=>{
-  const st=warStats(),rk=warRank(st.won),ep=openEp();
+  warMig();
+  const st=warStats(),rk=warRank(st.won),ep=openEp(),v=S.ui.warV||'log';
   const xp=rk.nx?Math.round((st.won-rk.r[0])*100/(rk.nx[0]-rk.r[0])):100;
-  let h='<div class="card acc center" style="margin-top:8px"><div style="font-size:44px">'+rk.r[1]+'</div><b style="font-size:20px">'+rk.r[2]+'</b><div class="bar mt"><i style="width:'+xp+'%"></i></div><div class="mut xs mt">'+(rk.nx?(rk.nx[0]-st.won)+' انتصارات لرتبة «'+rk.nx[2]+'»':'بلغت أعلى رتبة، فاثبت 👑')+'</div></div>'+
-  '<div class="stat"><div><b>'+st.won+'</b><small>انتصار</small></div><div><b>'+(st.closed?st.rate+'%':'—')+'</b><small>نسبة النصر</small></div><div><b>'+st.cur+'</b><small>انتصارات متتالية</small></div></div>';
+  let h='<div class="card acc whero" style="margin-top:8px"><div class="row"><span style="font-size:42px">'+rk.r[1]+'</span><div class="grow"><b style="font-size:19px">'+rk.r[2]+'</b><div class="bar" style="margin:6px 0 4px"><i style="width:'+xp+'%"></i></div><div class="mut xs">'+(rk.nx?(rk.nx[0]-st.won)+' انتصارات لرتبة «'+rk.nx[2]+'»':'بلغت أعلى رتبة، فاثبت 👑')+'</div></div></div>'+
+  '<div class="stat mt"><div><b>'+st.won+'</b><small>انتصار</small></div><div><b>'+(st.closed?st.rate+'%':'—')+'</b><small>نسبة النصر</small></div><div><b>'+st.cur+'</b><small>متتالية</small></div></div></div>';
   if(ep){
-    const f=frontOf(ep.front),mins=Math.round((Date.now()-ep.t0)/60000);
-    h+='<div class="card bad" style="margin-top:14px"><div class="row"><span style="font-size:30px">'+f.ic+'</span><div class="grow"><b>حالة مفتوحة · '+esc(f.n)+'</b><div class="mut sm">'+(ep.ctx?esc(ep.ctx)+' · ':'')+'منذ '+(mins<60?mins+' دقيقة':Math.floor(mins/60)+' ساعة')+'</div></div><span class="chip" style="font-size:16px">'+ep.n+' هجمات</span></div>'+
+    const t=epType(ep),mins=Math.round((Date.now()-ep.t0)/60000);
+    h+='<div class="card bad" style="margin-top:14px"><div class="row"><span style="font-size:30px">'+t.ic+'</span><div class="grow"><b>حالة مفتوحة · '+ep.n+' '+(ep.n>1?'هجمات':'هجمة')+'</b><div class="mut sm">'+esc([t.n,ep.ctx].filter(Boolean).join(' · '))+' · منذ '+(mins<60?mins+' دقيقة':Math.floor(mins/60)+' ساعة')+'</div></div></div>'+
     (ep.n>=3&&!ep.moveDone?'<div class="banner mt">⚠️ بلغتَ قاعدة الثلاث: <b>قم من مكانك الآن وغيّر فعلك</b></div>':'')+
     '<div class="row mt"><button class="btn grow bad" style="margin:0" data-a="warattack">＋ هجمة أخرى</button>'+(ep.moveDone?'':'<button class="btn grow pri" style="margin:0" data-a="warmove">نفّذت قاعدة الثلاث</button>')+'</div><button class="btn ok mt" data-a="warclose">أنهِ الحالة وسجّل النتيجة</button></div>';
-  }else h+='<button class="btn pri big mt2" data-a="warattack">⚔️ سجّل هجمة جديدة</button>';
-  h+='<div class="sec"><h3>قاعدة الثلاث</h3></div><div class="card"><div class="row"><div class="grow sm">عندما تأتيك الشهوة <b>3 مرات متتالية</b>: <b>قم من مكانك فورًا بلا تفكير</b>، وغيّر فعلك مدة من الزمن، ثم عد لما كنت عليه.</div><div class="center" style="flex:none;width:78px"><b style="font-size:26px">'+(st.comp===null?'—':st.comp+'%')+'</b><div class="xs mut">التزامي</div></div></div>'+(st.big?'<div class="mut xs mt">نفّذتها في '+st.doneBig+' من '+st.big+' حالة بلغت 3 هجمات</div>':'')+'</div>'+
-  '<div class="sec"><h3>خطتي الحربية</h3><small>إذا كنت… فأفعل…</small></div><div class="card">'+S.warPlay.map(p=>'<div class="task"><div class="t"><b>'+esc(p.when)+'</b><small style="font-size:13.5px;color:var(--tx);opacity:.85">'+esc(p.do)+'</small></div><button class="link" data-a="plyedit" data-id="'+p.id+'">تعديل</button></div>').join('')+'<button class="btn sm mt" data-a="plyedit">＋ خطة جديدة</button></div>';
-  const fr=['pre','sudden'];
-  h+='<div class="sec"><h3>محاور الهجوم</h3></div>'+fr.map(tp=>{
-    const list=warFronts().filter(f=>f.type===tp);
-    return '<div class="card"><div class="row"><span style="font-size:22px">'+WAR_TYPES[tp].ic+'</span><b class="grow">'+WAR_TYPES[tp].n+'</b></div><div class="mut xs mt">'+WAR_TYPES[tp].d+'</div><div class="mt">'+list.map(f=>{
-      const es=S.war.filter(e=>e.front===f.id),s=warStats(es);
-      return '<div class="hb"><span style="width:104px">'+f.ic+' '+esc(f.n)+'</span><div class="bar"><i style="width:'+(es.length?(s.closed?s.rate:0):0)+'%"></i></div><b style="width:62px;font-size:12.5px">'+es.length+(s.closed?' · '+s.rate+'%':'')+'</b></div>';
-    }).join('')+'</div></div>';
-  }).join('')+'<p class="mut xs center">الرقم: عدد الحالات · نسبة النصر. المحور الأضعف هو الأحوج لخطتك.</p><button class="btn sm" data-a="frontadd">＋ محور جديد</button>';
-  h+='<div class="sec"><h3>سجل الحالات</h3><small>'+S.war.length+' حالة</small></div><div id="warlog"></div>';
+  }else h+='<button class="btn pri big mt2" data-a="warattack">⚔️ سجّل هجمة</button>';
+  h+='<div class="seg mt2">'+[['log','السجل'],['ana','التحليل'],['plan','خطتي']].map(x=>'<button class="'+(v===x[0]?'on':'')+'" data-a="warv" data-v="'+x[0]+'">'+x[1]+'</button>').join('')+'</div>';
+  if(v==='ana')h+=warAna();
+  else if(v==='plan')h+=warPlanView(st);
+  else h+='<div id="warlog" class="mt"></div>';
   el.innerHTML=h;
   if(window._openWar){window._openWar=false;setTimeout(A.warattack,120)}
 },{title:'محاور المعركة',tab:'tools',parent:'tools'});
 POST.war=()=>warLog();
+A.warv=el=>{S.ui.warV=el.dataset.v;save();render()};
+/* --- تبويب التحليل --- */
+function warAna(){
+  if(!S.war.length)return '<div class="card ph mt">سجّل هجماتك وسيظهر هنا تحليل: متى وأين وفي أي حال تضعف.</div>';
+  let h='<div class="wcmp mt">'+['pre','sudden'].map(tp=>{
+    const es=S.war.filter(e=>e.type===tp),s=warStats(es);
+    return '<div><span style="font-size:24px">'+WAR_TYPES[tp].ic+'</span><b class="big">'+es.length+'</b><div class="sm">'+WAR_TYPES[tp].n+'</div><div class="bar" style="margin:8px 0 4px"><i style="width:'+(s.closed?s.rate:0)+'%"></i></div><div class="xs mut">'+(s.closed?'نصر '+s.rate+'%':'لم تُحسم بعد')+'</div></div>';
+  }).join('')+'</div>';
+  const ctxs=warGroup(e=>e.ctx),cs=warGroup(e=>e.cause);
+  const per=WAR_PER.map(p=>({ic:p[0],n:p[1],c:S.war.filter(e=>{const hr=new Date(e.t0).getHours();return hr>=p[2]&&hr<p[3]}).length}));
+  const topP=per.slice().sort((a,b)=>b.c-a.c)[0];
+  const weak=ctxs.filter(x=>x.n>=2&&x.l>0).sort((a,b)=>b.l-a.l||b.n-a.n)[0];
+  const ins=[];
+  if(ctxs[0])ins.push('أكثر ما يهاجمك فيه: <b>'+esc(ctxs[0].k)+'</b> ('+ctxs[0].n+' مرة)');
+  if(weak)ins.push('أكثر ما أسقطك: <b>'+esc(weak.k)+'</b> ('+weak.l+' سقوط) — ضع له خطة قوية');
+  if(topP&&topP.c>0)ins.push('ساعة الخطر: <b>'+topP.n+'</b>');
+  if(ins.length)h+='<div class="card flat mt"><b class="sm">ما تقوله بياناتك</b>'+ins.map(x=>'<div class="sm mt">• '+x+'</div>').join('')+'</div>';
+  const rows=(arr,max)=>{const m=Math.max.apply(null,arr.map(x=>x.n));return arr.slice(0,max).map(x=>'<div class="rr"><span class="rn">'+esc(x.k)+'</span><div class="bar"><i style="width:'+Math.round(x.n*100/m)+'%"></i></div><b style="width:74px">'+x.n+(x.rate!==null?' · '+x.rate+'%':'')+'</b></div>').join('')};
+  h+='<div class="sec"><h3>في أي حال تأتيك؟</h3><small>العدد · نسبة النصر</small></div><div class="card">'+(ctxs.length?rows(ctxs,7):'<div class="mut sm">لم تكتب حالات بعد</div>')+'</div>';
+  if(cs.length)h+='<div class="sec"><h3>المقدّمات</h3></div><div class="card">'+rows(cs,6)+'</div>';
+  const pm=Math.max.apply(null,per.map(x=>x.c))||1;
+  h+='<div class="sec"><h3>ساعة الخطر</h3></div><div class="card">'+per.map(x=>'<div class="rr"><span class="ri">'+x.ic+'</span><span class="rn" style="flex-basis:128px">'+x.n+'</span><div class="bar"><i style="width:'+Math.round(x.c*100/pm)+'%"></i></div><b>'+x.c+'</b></div>').join('')+'</div>';
+  return h;
+}
+/* --- تبويب الخطة --- */
+function warPlanView(st){
+  return '<div class="card mt"><div class="row"><div class="grow sm"><b>قاعدة الثلاث</b><div class="mt">عندما تأتيك الشهوة <b>3 مرات متتالية</b>: قم من مكانك فورًا بلا تفكير، غيّر فعلك مدة من الزمن، ثم عد.</div></div><div class="center" style="flex:none;width:74px"><b style="font-size:26px">'+(st.comp===null?'—':st.comp+'%')+'</b><div class="xs mut">التزامي</div></div></div>'+(st.big?'<div class="mut xs mt">نفّذتها في '+st.doneBig+' من '+st.big+' حالة بلغت 3 هجمات</div>':'')+'</div>'+
+  '<div class="sec"><h3>خطتي الحربية</h3><small>إذا كنت… فأفعل…</small></div><div class="card">'+(S.warPlay.length?S.warPlay.map(p=>'<div class="task"><div class="t"><b>'+esc(p.when)+'</b><small style="font-size:13.5px;color:var(--tx);opacity:.85">'+esc(p.do)+'</small></div><button class="link" data-a="plyedit" data-id="'+p.id+'">تعديل</button></div>').join(''):'<div class="mut sm">لا خطط بعد</div>')+'<button class="btn sm mt" data-a="plyedit">＋ خطة جديدة</button></div>';
+}
+/* --- السجل --- */
 function warLog(){
   const box=$('#warlog');if(!box)return;
   const flt=S.ui.warTab||'all';
-  const list=S.war.slice().reverse().filter(e=>flt==='all'||e.result===flt||(flt==='open'&&e.result==='open'));
+  const list=S.war.slice().reverse().filter(e=>flt==='all'||e.result===flt||(flt==='unk'&&e.result==='unk'));
   const groups={};list.forEach(e=>{const d=new Date(e.t0),k=d.getFullYear()+'-'+pad(d.getMonth()+1);(groups[k]=groups[k]||[]).push(e)});
   const keys=Object.keys(groups).sort().reverse(),nowK=today().slice(0,7);
   let h='<div class="tabs">'+[['all','الكل'],['won','انتصارات'],['lost','هزائم'],['unk','غير محسومة']].map(x=>'<button class="'+(flt===x[0]?'on':'')+'" data-a="wartab" data-t="'+x[0]+'">'+x[1]+'</button>').join('')+'</div>';
-  if(!keys.length)h+='<div class="card ph">لا حالات هنا بعد</div>';
+  if(!keys.length)h+='<div class="card ph">'+(S.war.length?'لا حالات هنا':'لا حالات بعد — حين تأتيك هجمة سجّلها هنا وستتعلّم منها')+'</div>';
   keys.forEach(k=>{
     const open=S.ui.warOpen[k]===undefined?k===nowK:S.ui.warOpen[k],g=groups[k],w=g.filter(e=>e.result==='won').length;
     h+='<button class="card row" style="width:100%;text-align:start;padding:12px 16px" data-a="warmon" data-k="'+k+'"><b class="grow">'+AR_MONTHS[+k.slice(5)-1]+' '+k.slice(0,4)+'</b><span class="chip">'+g.length+' حالة · '+w+' ✅</span><span style="transform:rotate('+(open?90:-90)+'deg);display:inline-block">‹</span></button>';
-    if(open)h+='<div class="list" style="margin-bottom:10px">'+g.map(e=>{const f=frontOf(e.front),d=new Date(e.t0);
-      return '<button class="li" data-a="warview" data-id="'+e.id+'"><span class="ic">'+f.ic+'</span><span class="grow"><b>'+esc(f.n)+' · '+e.n+' '+(e.n>1?'هجمات':'هجمة')+'</b><span class="sub">'+d.getDate()+' '+AR_MONTHS[d.getMonth()]+' · '+d.toLocaleTimeString('ar',{hour:'2-digit',minute:'2-digit'})+(e.ctx?' · '+esc(e.ctx):'')+'</span></span><span class="chip '+(e.result==='won'?'on':'')+'" style="'+(e.result==='lost'?'color:var(--bad)':'')+'">'+({won:'انتصار',lost:'سقوط',open:'مفتوحة',unk:'غير محسومة'}[e.result])+'</span></button>'}).join('')+'</div>';
+    if(open)h+='<div class="list" style="margin-bottom:10px">'+g.map(e=>{const t=epType(e),d=new Date(e.t0);
+      return '<button class="li" data-a="warview" data-id="'+e.id+'"><span class="ic">'+t.ic+'</span><span class="grow"><b>'+t.n+' · '+e.n+' '+(e.n>1?'هجمات':'هجمة')+'</b><span class="sub">'+d.getDate()+' '+AR_MONTHS[d.getMonth()]+' · '+d.toLocaleTimeString('ar',{hour:'2-digit',minute:'2-digit'})+(e.cause?' · '+esc(e.cause):'')+(e.ctx?' · '+esc(e.ctx):'')+'</span></span><span class="chip '+(e.result==='won'?'on':'')+'" style="'+(e.result==='lost'?'color:var(--bad)':'')+'">'+({won:'انتصار',lost:'سقوط',open:'مفتوحة',unk:'غير محسومة'}[e.result])+'</span></button>'}).join('')+'</div>';
   });
   box.innerHTML=h;
 }
 A.wartab=el=>{S.ui.warTab=el.dataset.t;save();warLog()};
 A.warmon=el=>{const k=el.dataset.k,nowK=today().slice(0,7);const cur=S.ui.warOpen[k]===undefined?k===nowK:S.ui.warOpen[k];S.ui.warOpen[k]=!cur;save();warLog()};
 /* --- تسجيل هجمة --- */
-let wrk={front:null,ctx:''};
+let wrk={type:null,cause:'',ctx:''};
+function warSugs(kind){
+  const hist=warGroup(e=>e[kind]).filter(x=>x.n>=1).map(x=>x.k),base=WAR_SUG[kind].slice();
+  if(kind==='ctx')S.warPlay.forEach(p=>{if(base.indexOf(p.when)<0&&p.when.length<=22)base.push(p.when)});
+  const extra=hist.filter(x=>base.indexOf(x)<0&&x.indexOf(' · ')<0&&x.length<=24).slice(0,4);
+  return Array.from(new Set(extra.concat(base)));
+}
 A.warattack=()=>{
   const ep=openEp(),fresh=ep&&Date.now()-ep.t1<CHAIN?ep:null;
-  wrk={front:fresh?fresh.front:null,ctx:fresh?fresh.ctx:''};
-  const ctxs=Array.from(new Set(S.warPlay.map(p=>p.when).concat(['وحيد في الغرفة','أتصفح الهاتف','في الشارع أو مكان عام'])));
-  sheet('<h3>'+(fresh?'هجمة أخرى (رقم '+(fresh.n+1)+')':'هجمة جديدة')+'</h3><p class="mut sm">سجّلها بسرعة وبلا حكم على نفسك. من أي محور جاءتك؟</p>'+
-  ['pre','sudden'].map(tp=>'<div class="lbl">'+WAR_TYPES[tp].ic+' '+WAR_TYPES[tp].n+'</div><div class="chips">'+warFronts().filter(f=>f.type===tp).map(f=>'<button class="chip '+(wrk.front===f.id?'on':'')+'" data-a="wrf" data-id="'+f.id+'">'+f.ic+' '+esc(f.n)+'</button>').join('')+'</div>').join('')+
-  '<div class="lbl">وأنت في أي حال؟</div><div class="chips">'+ctxs.map(c=>'<button class="chip '+(wrk.ctx===c?'on':'')+'" data-a="wrc" data-v="'+esc(c)+'">'+esc(c)+'</button>').join('')+'</div><input id="wr-c" class="mt" placeholder="أو اكتب حالتك" value="'+(ctxs.indexOf(wrk.ctx)<0?esc(wrk.ctx):'')+'"><div id="wr-s"></div><button class="btn bad big mt2" data-a="warsave">سجّل الهجمة</button>');
+  wrk={type:fresh?fresh.type:null,cause:fresh&&fresh.cause||'',ctx:fresh&&fresh.ctx||''};
+  const chips=(kind,act)=>'<div class="chips mt" id="wr-'+kind+'s">'+warSugs(kind).map(c=>'<button class="chip '+(wrk[kind]===c?'on':'')+'" data-a="'+act+'" data-v="'+esc(c)+'">'+esc(c)+'</button>').join('')+'</div>';
+  sheet('<h3>'+(fresh?'هجمة أخرى (رقم '+(fresh.n+1)+')':'هجمة جديدة')+'</h3><p class="mut sm">سجّلها بسرعة وبلا حكم على نفسك.</p>'+
+  '<div class="wtypes">'+['pre','sudden'].map(tp=>'<button class="wt '+(wrk.type===tp?'on':'')+'" data-a="wrt" data-v="'+tp+'"><span>'+WAR_TYPES[tp].ic+'</span><b>'+WAR_TYPES[tp].n+'</b><small>'+WAR_TYPES[tp].s+'</small></button>').join('')+'</div>'+
+  '<div id="wr-pre" style="display:'+(wrk.type==='pre'?'block':'none')+'"><label class="lbl">ما المقدّمة؟ <small class="mut">اختياري</small></label><input id="wr-p" data-i="wrp" placeholder="اكتب أو اختر اقتراحًا" value="'+esc(wrk.cause)+'">'+chips('cause','wrp')+'</div>'+
+  '<label class="lbl">في أي حالة؟ <small class="mut">اختياري</small></label><input id="wr-c" data-i="wrc" placeholder="اكتب حالتك أو اختر اقتراحًا" value="'+esc(wrk.ctx)+'">'+chips('ctx','wrc')+
+  '<div id="wr-s"></div><button class="btn bad big mt2" data-a="warsave">سجّل الهجمة</button>');
   wrSuggest();
 };
 function wrSuggest(){const b=$('#wr-s');if(!b)return;const m=suggestMove(wrk.ctx);b.innerHTML=m?'<div class="card flat mt" style="border-color:var(--acc)"><b class="sm">خطتك لهذه الحال:</b><div class="sm mt">'+esc(m.do)+'</div></div>':''}
-A.wrf=el=>{wrk.front=el.dataset.id;$$('[data-a=wrf]').forEach(b=>b.classList.toggle('on',b===el));haptic(6)};
-A.wrc=el=>{wrk.ctx=el.dataset.v;$('#wr-c').value='';$$('[data-a=wrc]').forEach(b=>b.classList.toggle('on',b===el));wrSuggest();haptic(6)};
+function wrMark(kind){$$('[data-a=wr'+(kind==='cause'?'p':'c')+'].chip').forEach(b=>b.classList.toggle('on',b.dataset.v===wrk[kind]))}
+A.wrt=el=>{wrk.type=el.dataset.v;$$('[data-a=wrt]').forEach(b=>b.classList.toggle('on',b===el));const p=$('#wr-pre');if(p)p.style.display=wrk.type==='pre'?'block':'none';haptic(6)};
+/* الاقتراح يملأ الحقل؛ الضغط مرة ثانية يمسحه */
+function wrPick(kind,inp,el){const v=el.dataset.v,on=wrk[kind]===v;wrk[kind]=on?'':v;$(inp).value=wrk[kind];wrMark(kind);if(kind==='ctx')wrSuggest();haptic(6)}
+A.wrp=el=>wrPick('cause','#wr-p',el);
+A.wrc=el=>wrPick('ctx','#wr-c',el);
+INP.wrp=el=>{wrk.cause=el.value.trim();wrMark('cause')};
+INP.wrc=el=>{wrk.ctx=el.value.trim();wrMark('ctx');wrSuggest()};
 A.warsave=()=>{
-  const typed=$('#wr-c').value.trim();if(typed)wrk.ctx=typed;
-  if(!wrk.front){toast('اختر المحور أولًا');return}
-  const now=Date.now();let ep=openEp();
-  if(ep&&now-ep.t1<CHAIN){ep.n++;ep.t1=now;if(ep.front!==wrk.front){ep.fronts=(ep.fronts||[ep.front]).concat([wrk.front])}if(wrk.ctx)ep.ctx=wrk.ctx}
+  if(!wrk.type){toast('اختر نوع الهجمة أولًا');return}
+  const ctx=($('#wr-c').value||'').trim(),cause=wrk.type==='pre'?($('#wr-p').value||'').trim():'';
+  const now=Date.now();let ep=openEp();const at={t:now,type:wrk.type,cause:cause,ctx:ctx};
+  if(ep&&now-ep.t1<CHAIN){ep.n++;ep.t1=now;(ep.log=ep.log||[]).push(at);if(ctx)ep.ctx=ctx;if(cause)ep.cause=cause}
   else{
     if(ep)ep.result='unk';
-    ep={id:uid(),t0:now,t1:now,n:1,front:wrk.front,fronts:[wrk.front],ctx:wrk.ctx,moveDone:false,move:'',mins:0,result:'open',how:'',lesson:''};S.war.push(ep);
+    ep={id:uid(),t0:now,t1:now,n:1,type:wrk.type,front:wrk.type,cause:cause,ctx:ctx,log:[at],moveDone:false,move:'',mins:0,result:'open',how:'',lesson:''};S.war.push(ep);
   }
   save();closeSheets();haptic([30,40,30]);
   if(ep.n>=3&&!ep.moveDone)ruleOfThree(ep);else{render();toast('سُجّلت الهجمة رقم '+ep.n+(ep.n===2?' — الثالثة تعني: قم فورًا':''),3200)}
@@ -1894,14 +2661,14 @@ A.wzsave=el=>{
   if(ep.result==='won')toast('ما شاء الله! انتصار جديد 🏆',3000);else{toast('لا بأس، تعلّم وانهض',2500);slipSheet(S.ui.k)}
 };
 A.warview=el=>{
-  const e=S.war.find(x=>x.id===el.dataset.id);if(!e)return;const f=frontOf(e.front),d=new Date(e.t0);
-  sheet('<h3>'+f.ic+' '+esc(f.n)+'</h3><div class="mut sm">'+d.toLocaleString('ar',{dateStyle:'full',timeStyle:'short'})+'</div><div class="row w mt"><span class="chip">'+e.n+' هجمات</span><span class="chip '+(e.result==='won'?'on':'')+'">'+({won:'انتصار',lost:'سقوط',open:'مفتوحة',unk:'غير محسومة'}[e.result])+'</span>'+(e.moveDone?'<span class="chip on">نفّذت قاعدة الثلاث</span>':e.n>=3?'<span class="chip" style="color:var(--bad)">لم أنفّذ قاعدة الثلاث</span>':'')+(e.mins?'<span class="chip">بعيدًا '+e.mins+' د</span>':'')+'</div>'+
-  (e.ctx?'<div class="card flat mt"><b class="sm">الحال</b><div>'+esc(e.ctx)+'</div></div>':'')+(e.how?'<div class="card flat"><b class="sm">كيف تغلّبت</b><div style="white-space:pre-wrap">'+esc(e.how)+'</div></div>':'')+(e.lesson?'<div class="card flat"><b class="sm">الدرس</b><div style="white-space:pre-wrap">'+esc(e.lesson)+'</div></div>':'')+
+  const e=S.war.find(x=>x.id===el.dataset.id);if(!e)return;const t=epType(e),d=new Date(e.t0);
+  sheet('<h3>'+t.ic+' '+t.n+'</h3><div class="mut sm">'+d.toLocaleString('ar',{dateStyle:'full',timeStyle:'short'})+'</div><div class="row w mt"><span class="chip">'+e.n+' '+(e.n>1?'هجمات':'هجمة')+'</span><span class="chip '+(e.result==='won'?'on':'')+'">'+({won:'انتصار',lost:'سقوط',open:'مفتوحة',unk:'غير محسومة'}[e.result])+'</span>'+(e.moveDone?'<span class="chip on">نفّذت قاعدة الثلاث</span>':e.n>=3?'<span class="chip" style="color:var(--bad)">لم أنفّذ قاعدة الثلاث</span>':'')+(e.mins?'<span class="chip">بعيدًا '+e.mins+' د</span>':'')+'</div>'+
+  (e.cause?'<div class="card flat mt"><b class="sm">المقدّمة</b><div>'+esc(e.cause)+'</div></div>':'')+(e.ctx?'<div class="card flat'+(e.cause?'':' mt')+'"><b class="sm">الحال</b><div>'+esc(e.ctx)+'</div></div>':'')+(e.how?'<div class="card flat"><b class="sm">كيف تغلّبت</b><div style="white-space:pre-wrap">'+esc(e.how)+'</div></div>':'')+(e.lesson?'<div class="card flat"><b class="sm">الدرس</b><div style="white-space:pre-wrap">'+esc(e.lesson)+'</div></div>':'')+
   (e.result==='open'||e.result==='unk'?'<button class="btn ok" data-a="warreopen" data-id="'+e.id+'">'+(e.result==='open'?'سجّل النتيجة':'سجّل نتيجتها الآن')+'</button>':'')+'<button class="btn bad" data-a="wardel" data-id="'+e.id+'">حذف الحالة</button>');
 };
 A.warreopen=el=>{const e=S.war.find(x=>x.id===el.dataset.id);if(!e)return;e.result='open';save();closeSheets();A.warclose()};
 A.wardel=async el=>{if(await ask('حذف هذه الحالة؟',{danger:true,ok:'حذف'})){S.war=S.war.filter(e=>e.id!==el.dataset.id);save();closeSheets();render()}};
-/* --- الخطة والمحاور --- */
+/* --- الخطة --- */
 A.plyedit=el=>{
   const p=el.dataset.id?S.warPlay.find(x=>x.id===el.dataset.id):{when:'',do:''};
   sheet('<h3>'+(p.id?'تعديل الخطة':'خطة جديدة')+'</h3><label class="lbl">إذا كنتُ…</label><input id="py-w" value="'+esc(p.when)+'" placeholder="مثلًا: مريضًا على الفراش"><label class="lbl">فأفعل…</label><textarea id="py-d">'+esc(p.do)+'</textarea><button class="btn pri mt" data-a="plysave" data-id="'+(p.id||'')+'">حفظ</button>'+(p.id?'<button class="btn bad" data-a="plydel" data-id="'+p.id+'">حذف</button>':''));
@@ -1912,14 +2679,11 @@ A.plysave=el=>{
   save();closeSheets();render();
 };
 A.plydel=el=>{S.warPlay=S.warPlay.filter(x=>x.id!==el.dataset.id);save();closeSheets();render()};
-A.frontadd=()=>sheet('<h3>محور جديد</h3><label class="lbl">الاسم</label><input id="fa-n" placeholder="مثلًا: إعلانات، وحدة، أصدقاء السوء"><label class="lbl">نوعه</label><div class="seg"><button class="on" data-a="fatype" data-v="sudden">⚡ مباغت</button><button data-a="fatype" data-v="pre">🎯 بمقدّمات</button></div><button class="btn pri mt2" data-a="fasave">إضافة</button>');
-let faType='sudden';
-A.fatype=el=>{faType=el.dataset.v;$$('[data-a=fatype]').forEach(b=>b.classList.toggle('on',b===el))};
-A.fasave=()=>{const n=$('#fa-n').value.trim();if(!n)return;S.warFronts.push({id:'c'+uid(),n:n,ic:'⚔️',type:faType});save();closeSheets();render()};
 function warCard(){
+  warMig();
   const ep=openEp();if(!ep)return'';
-  const f=frontOf(ep.front);
-  return '<button class="card bad row" style="width:100%;text-align:start" data-a="go" data-p="war"><span style="font-size:26px">'+f.ic+'</span><div class="grow"><b>حالة معركة مفتوحة · '+ep.n+' هجمات</b><div class="mut sm">'+(ep.n>=3&&!ep.moveDone?'نفّذ قاعدة الثلاث الآن!':'سجّل نتيجتها حين تهدأ')+'</div></div></button>';
+  const t=epType(ep);
+  return '<button class="card bad row" style="width:100%;text-align:start" data-a="go" data-p="war"><span style="font-size:26px">'+t.ic+'</span><div class="grow"><b>حالة معركة مفتوحة · '+ep.n+' '+(ep.n>1?'هجمات':'هجمة')+'</b><div class="mut sm">'+(ep.n>=3&&!ep.moveDone?'نفّذ قاعدة الثلاث الآن!':'سجّل نتيجتها حين تهدأ')+'</div></div></button>';
 }
 
 /* ===== نفسي ===== */
@@ -1988,14 +2752,21 @@ function dyList(){
     if(y!==lastY){lastY=y;h+='<div class="sec"><h3>'+y+'</h3><small>'+keys.filter(z=>z.slice(0,4)===y).reduce((a,z)=>a+groups[z].length,0)+' تدوينة</small></div>'}
     const open=searching?true:(S.ui.dyOpen[k]===undefined?k===nowK:S.ui.dyOpen[k]),g=groups[k],lim=dyShow[k]||DY_PAGE;
     h+='<button class="card row" style="width:100%;text-align:start;padding:12px 16px;margin:6px 0" data-a="dymon" data-k="'+k+'"><b class="grow">'+AR_MONTHS[+k.slice(5)-1]+'</b><span class="chip">'+g.length+'</span><span style="display:inline-block;transform:rotate('+(open?90:-90)+'deg)">‹</span></button>';
-    if(open)h+='<div class="list">'+g.slice(0,lim).map(d=>{const x=new Date(d.t);
-      return '<button class="li" data-a="dyview" data-id="'+d.id+'" style="align-items:flex-start"><span style="flex:none;width:42px;text-align:center"><b style="font-size:20px;display:block;line-height:1.1">'+x.getDate()+'</b><span class="xs mut">'+AR_DAYS[x.getDay()]+'</span></span><span class="grow" style="min-width:0"><span style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;white-space:pre-wrap;word-break:break-word">'+esc(d.text)+'</span></span><span style="font-size:20px">'+MOODS[d.mood-1]+'</span></button>'}).join('')+'</div>'+(g.length>lim?'<button class="btn sm ghost" style="margin:8px auto" data-a="dymore" data-k="'+k+'">عرض المزيد ('+(g.length-lim)+')</button>':'');
+    if(open){
+      const wkOf=d=>Math.min(5,Math.ceil(new Date(d.t).getDate()/7)),cnt={};g.forEach(d=>{const w=wkOf(d);cnt[w]=(cnt[w]||0)+1});
+      let ws=(S.ui.dyWk||{})[k]||0;if(ws&&!cnt[ws])ws=0;
+      const gg=ws?g.filter(d=>wkOf(d)===ws):g;
+      h+='<div class="chips" style="margin:2px 0 8px"><button class="chip '+(!ws?'on':'')+'" data-a="dywk" data-k="'+k+'" data-w="0">الكل · '+g.length+'</button>'+[1,2,3,4,5].filter(w=>cnt[w]).map(w=>'<button class="chip '+(ws===w?'on':'')+'" data-a="dywk" data-k="'+k+'" data-w="'+w+'">أسبوع '+w+' · '+cnt[w]+'</button>').join('')+'</div>';
+      h+='<div class="list">'+gg.slice(0,lim).map(d=>{const x=new Date(d.t);
+      return '<button class="li" data-a="dyview" data-id="'+d.id+'" style="align-items:flex-start"><span style="flex:none;width:42px;text-align:center"><b style="font-size:20px;display:block;line-height:1.1">'+x.getDate()+'</b><span class="xs mut">'+AR_DAYS[x.getDay()]+'</span></span><span class="grow" style="min-width:0"><span style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;white-space:pre-wrap;word-break:break-word">'+esc(d.text)+'</span></span><span style="font-size:20px">'+MOODS[d.mood-1]+'</span></button>'}).join('')+'</div>'+(gg.length>lim?'<button class="btn sm ghost" style="margin:8px auto" data-a="dymore" data-k="'+k+'">عرض المزيد ('+(gg.length-lim)+')</button>':'');
+    }
   });
   box.innerHTML=h;
 }
 INP.dyq=el=>{S.ui.dyQ=el.value;clearTimeout(INP._t);INP._t=setTimeout(()=>{save();dyList()},180)};
 A.dyfm=el=>{S.ui.dyMood=+el.dataset.v;save();$$('[data-a=dyfm]').forEach(b=>b.classList.toggle('on',b===el));dyList()};
 A.dymon=el=>{const k=el.dataset.k,nowK=today().slice(0,7),cur=S.ui.dyOpen[k]===undefined?k===nowK:S.ui.dyOpen[k];S.ui.dyOpen[k]=!cur;save();dyList()};
+A.dywk=el=>{S.ui.dyWk=S.ui.dyWk||{};S.ui.dyWk[el.dataset.k]=+el.dataset.w;dyShow[el.dataset.k]=DY_PAGE;save();dyList()};
 A.dymore=el=>{dyShow[el.dataset.k]=(dyShow[el.dataset.k]||DY_PAGE)+DY_PAGE;dyList()};
 let dyDate=null;
 function dySheet(id,ds){
@@ -2043,7 +2814,7 @@ reg('settings',el=>{
   '<div class="sec"><h3>المظهر</h3></div><div class="card"><label class="lbl" style="margin-top:0">السمة</label>'+sg('theme',[['dark','داكن'],['light','فاتح'],['auto','تلقائي']],S.theme)+
   '<label class="lbl">اللون</label><div class="swatch">'+['teal','gold','sky','violet'].map(c=>'<button class="sw-'+c+' '+(S.acc===c?'on':'')+'" data-a="setopt" data-key="acc" data-v="'+c+'" aria-label="'+c+'"></button>').join('')+'</div>'+
   '<label class="lbl">حجم الخط</label>'+sg('fs',[[90,'صغير'],[100,'عادي'],[112,'كبير']],S.fs)+'</div>'+
-  '<div class="sec"><h3>شكل العدّاد</h3><small>يظهر في «اليوم»</small></div><div class="card"><p class="mut sm" style="margin:0">كل شكل يمتلئ بقدر تقدّمك نحو هدفك القادم. اختر ما يلهمك لكل عدّاد.</p>'+cstyleSettings()+'</div>'+
+  '<div class="sec"><h3>شكل العدّاد</h3><small>يظهر في «اليوم»</small></div><div class="card"><p class="mut sm" style="margin:0">كل شكل يمتلئ بقدر تقدّمك نحو هدفك القادم. الشكل الذي تختاره يُطبَّق على كل العدّادات.</p>'+cstyleSettings()+'</div>'+
   '<div class="sec"><h3>الأمان والخصوصية</h3></div><div class="list">'+
   '<button class="li" data-a="pinset"><span class="ic">🔐</span><span class="grow"><b>'+(S.pin?'تغيير الرقم السري':'وضع رقم سري')+'</b><span class="sub">'+(S.pin?'القفل مفعّل':'يحمي تطبيقك من أي شخص يمسك هاتفك')+'</span></span></button>'+
   (S.pin?'<div class="li"><span class="ic">⏱️</span><span class="grow"><b>القفل التلقائي</b></span><select data-c="lockafter" style="width:auto">'+[[0,'فورًا'],[30,'30 ثانية'],[60,'دقيقة'],[300,'5 دقائق']].map(o=>'<option value="'+o[0]+'" '+(S.lockAfter===o[0]?'selected':'')+'>'+o[1]+'</option>').join('')+'</select></div><button class="li" data-a="pinoff"><span class="ic">🔓</span><span class="grow"><b style="color:var(--bad)">إزالة الرقم السري</b></span></button>':'')+
