@@ -424,6 +424,13 @@ button.hb{padding:0;background:none}
 .sbar i{position:absolute;top:0;bottom:0;right:0;border-radius:99px;background:color-mix(in srgb,var(--acc) 62%,var(--card3))}
 .sbar i.full{background:var(--acc)}.sbar i.low{background:color-mix(in srgb,var(--bad) 55%,var(--card3))}
 .sbar u{position:absolute;top:0;bottom:0;width:2px;background:var(--tx);opacity:.4}
+/* نوم v2.5: أعمدة مكدّسة (ليل + بعد الفجر/قيلولة) */
+.stk{width:100%;display:flex;flex-direction:column;border-radius:6px 6px 2px 2px;overflow:hidden;transition:height .6s var(--ease)}
+.stk i{border-radius:0;min-height:2px;transition:none}
+.stk u{display:block;background:color-mix(in srgb,var(--warn) 78%,var(--card3));min-height:3px}
+.bcol.cur .stk{box-shadow:0 0 0 2px color-mix(in srgb,var(--acc) 40%,transparent)}
+.sbar b{position:absolute;top:0;bottom:0;background:color-mix(in srgb,var(--warn) 78%,var(--card3))}
+.sld .grow{min-width:0}.sld .hr{white-space:nowrap}
 
 </style>
 </head>
@@ -2023,25 +2030,41 @@ const slLatest=pl=>hhmm(tmin(pl.wake)-slMinH(SL().cfg)*60);
 const slBestBed=(wake,need)=>hhmm(tmin(wake)-need*60);
 function slScoreR(r,c){
   let sc=0,w=0;
-  if(r.wd!==undefined&&!r.pend){sc+=45*((!r.need||r.stay===true)?Math.max(0,100-Math.max(0,r.wd-c.tol)*100/90):0);w+=45}
-  if(r.dur!==undefined){const need=c.need*60;let s=r.dur>=need?100:Math.max(0,100-(need-r.dur)*100/180);if(r.dur>need+120)s=Math.max(60,100-(r.dur-need-120)/3);sc+=35*s;w+=35}
+  /* الدرجة: المدة الكلية 45% · الاستيقاظ (بشرط التأكيد) 35% · موعد النوم 20% */
+  const du=r.tot!==undefined?r.tot:r.dur;
+  if(du!==undefined){const need=c.need*60;let s=du>=need?100:Math.max(0,100-(need-du)*100/180);if(du>need+120)s=Math.max(60,100-(du-need-120)/3);sc+=45*s;w+=45}
+  if(r.wd!==undefined&&!r.pend){sc+=35*((!r.need||r.stay===true)?Math.max(0,100-Math.max(0,r.wd-c.tol)*100/90):0);w+=35}
   if(r.bd!==undefined){sc+=20*Math.max(0,100-Math.max(0,r.bd-c.tol)*100/120);w+=20}
   return w?Math.round(sc/w):null;
 }
+const slSumMin=a=>a.reduce((t,x)=>t+durMin(x.s,x.e),0);
+function slSortEx(L){const w=L.wake?tmin(L.wake):0;(L.ex||[]).sort((a,b)=>((tmin(a.s)-w+1440)%1440)-((tmin(b.s)-w+1440)%1440))}
 function slEval(ds){
   const s=SL(),c=s.cfg,L=s.log[ds];if(!L||L.skip)return null;
-  const pl=slPlan(ds),r={L:L,pl:pl};
+  const pl=slPlan(ds),r={L:L,pl:pl},ex=L.ex||[],back=ex.filter(x=>x.k==='back'),nap=ex.filter(x=>x.k==='nap');
+  r.backMin=slSumMin(back);r.napMin=slSumMin(nap);r.exMin=r.backMin+r.napMin;      /* نوم إضافي بعد الاستيقاظ الأول */
   if(L.wake){
     r.wd=sdiff(L.wake,pl.wake);r.wakeOk=r.wd<=c.tol;          /* على الوقت: من التسجيل الأول */
     r.need=!pl.off;r.stay=L.stay;                              /* البقاء مستيقظًا: من التأكيد فقط */
     r.pend=r.need&&L.stay===undefined&&ds===today();           /* ينتظر تأكيد اليوم */
+    r.fin=L.stay===false?(back.length?back[back.length-1].e:undefined):L.wake;   /* الاستيقاظ النهائي */
+    r.fd=r.fin!==undefined?sdiff(r.fin,pl.wake):undefined;
   }
   if(L.bed){r.bd=sdiff(L.bed,pl.bed);r.bedOk=r.bd<=c.tol}
-  if(L.bed&&L.wake){r.dur=durMin(L.bed,L.wake);r.full=r.dur>=c.need*60-20;r.enough=r.dur>=slMinH(c)*60-10}
+  if(L.bed&&L.wake){r.dur=durMin(L.bed,L.wake);r.tot=r.dur+r.exMin;r.full=r.tot>=c.need*60-20;r.enough=r.tot>=slMinH(c)*60-10}
   r.score=slScoreR(r,c);return r;
 }
 const slScoreOf=ds=>{const e=slEval(ds);return e&&e.score!==undefined?e.score:null};
-const slDurOf=ds=>{const e=slEval(ds);return e&&e.dur!==undefined?e.dur:null};
+const slDurOf=ds=>{const e=slEval(ds);return e&&e.tot!==undefined?e.tot:null};         /* مجموع نوم اليوم */
+const slExOf=ds=>{const e=slEval(ds);return e&&e.tot!==undefined?e.exMin:null};        /* الجزء الإضافي منه */
+/* دين النوم: نقص آخر 7 أيام عن حاجتك (الفائض اليومي يُحتسب بحد أقصى ساعة) */
+function slDebt(){
+  const need=SL().cfg.need*60;let sum=0,n=0;
+  for(let i=0;i<7;i++){const e=slEval(dstr(Date.now()-i*DAY));if(e&&e.tot!==undefined){n++;sum+=Math.max(-60,need-e.tot)}}
+  return{debt:n>=2?Math.max(0,Math.round(sum)):0,n:n};
+}
+const slPay=debt=>Math.min(60,Math.ceil(debt/5)*5);        /* ما يُقدَّم من موعد النوم لسداد الدين */
+function slSD(a){if(a.length<3)return null;const m=avgN(a);return Math.round(Math.sqrt(avgN(a.map(x=>(x-m)*(x-m)))))}
 /* حالة البند في الدرع: 1 تم، .5 جزئي، 0 فاتني، null لا يُحسب */
 function slFrac(kind,ds){
   if(!slOn())return null;
@@ -2092,7 +2115,7 @@ function slNavIcon(){
   return '<svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 019.5 4 8 8 0 1020 14.5z"/><path d="M17 3v3M15.5 4.5h3"/></svg>';
 }
 /* ===== الصفحة ===== */
-function slTabs(){const t=S.ui.slT||'now';return '<div class="seg" style="margin:8px 0 12px">'+[['now','الليلة'],['stats','الإحصاءات'],['goals','أهدافي'],['set','الإعدادات']].map(x=>'<button class="'+(t===x[0]?'on':'')+'" data-a="slt" data-t="'+x[0]+'">'+x[1]+'</button>').join('')+'</div>'}
+function slTabs(){const t=S.ui.slT||'now';return '<div class="seg" style="margin:8px 0 12px">'+[['now','اليوم'],['stats','الإحصاءات'],['goals','أهدافي'],['set','الإعدادات']].map(x=>'<button class="'+(t===x[0]?'on':'')+'" data-a="slt" data-t="'+x[0]+'">'+x[1]+'</button>').join('')+'</div>'}
 A.slt=el=>{S.ui.slT=el.dataset.t;save();render();window.scrollTo(0,0)};
 reg('sleep',el=>{
   if(!slOn()){el.innerHTML=slSetup();return}
@@ -2104,7 +2127,7 @@ POST.sleep=chartFocus;
 let slN={need:7};
 function slSetup(){
   const c=SL().cfg;slN.need=c.need;
-  return '<div class="card acc center" style="margin-top:8px"><div style="font-size:52px">😴</div><h3 style="margin:6px 0">النوم والاستيقاظ</h3><p class="mut sm">استيقاظك على موعدك أول انتصار في يومك، والنوم المنتظم يقوّي إرادتك. سجّل بضغطتين، وشاهد نومك يتحوّل إلى درجات وإحصاءات.</p></div>'+
+  return '<div class="card acc center" style="margin-top:8px"><div style="font-size:52px">😴</div><h3 style="margin:6px 0">النوم والاستيقاظ</h3><p class="mut sm">برنامج مبني على أسس العلاج السلوكي للأرق وتطبيقات النوم الأقوى: استيقاظ ثابت، يوميات تحسب مجموع نومك الحقيقي، دين نوم وموعد مقترح، ومراجعة أسبوعية.</p></div>'+
   '<div class="card"><label class="lbl" style="margin-top:0">موعد استيقاظي</label><input type="time" id="sl-w" data-i="slsug" value="'+c.wake+'" style="direction:ltr;text-align:center">'+
   '<label class="lbl">ساعات النوم التي أحتاجها</label><div class="chips cs">'+[6,6.5,7,7.5,8].map(n=>'<button class="chip '+(slN.need===n?'on':'')+'" data-a="slneed" data-v="'+n+'">'+n+' س</button>').join('')+'</div>'+
   '<label class="lbl">موعد نومي <small class="mut">محسوب لك، وتستطيع تعديله</small></label><input type="time" id="sl-b" value="'+slBestBed(c.wake,slN.need)+'" style="direction:ltr;text-align:center"></div>'+
@@ -2162,8 +2185,9 @@ function slNow(){
   if(pl.off&&(P.ph==='day'||P.ph==='wind'||P.ph==='bed'))sub='غدًا يوم راحة: بلا موعد 🌿';
   const st=slStreak();
   let h='<div class="card '+cls+'"><div class="row"><span style="font-size:42px">'+ic+'</span><div class="grow"><b style="font-size:18px">'+title+'</b><div class="mut sm">'+sub+'</div></div></div>'+btn+(st.cur?'<div class="center xs mut mt">🔥 '+st.cur+' '+(st.cur<11?'أيام':'يومًا')+' متتالية في موعدي</div>':'')+'</div>';
-  const le=(s.log[td]&&s.log[td].wake)?slEval(td):null;
-  if(le)h+=slNightCard(td,le);
+  const le=(s.log[td]&&(s.log[td].wake||s.log[td].ex))?slEval(td):null;
+  if(le)h+=slDayCard(td,le);
+  h+=slDebtCard();
   if(P.ph!=='wake'){
     const L=(s.log[P.nk]||{}).rt||{},rt=c.rt,dn=rt.filter(x=>L[x.id]).length;
     if(rt.length)h+='<div class="sec"><h3>قبل النوم</h3><small>'+dn+' / '+rt.length+'</small></div><div class="card">'+rt.map(x=>'<button class="task" style="width:100%;text-align:start" data-a="slrt" data-id="'+x.id+'" data-k="'+P.nk+'">'+shCheck(L[x.id])+'<div class="t">'+esc(x.t)+'</div></button>').join('')+'</div>';
@@ -2172,12 +2196,26 @@ function slNow(){
   return h;
 }
 const slAsk=()=>'<button class="btn pri big mt" data-a="slstay" data-v="1">✅ نعم، بقيتُ مستيقظًا</button><button class="btn big" data-a="slstay" data-v="0">😴 لا، رجعتُ للنوم</button>';
-function slNightCard(ds,e){
-  const sc=e.score,col=sc===null?'#7d8a8d':shTier(sc)[1];
+function slDayCard(ds,e){
+  const c=SL().cfg,sc=e.score,col=sc===null?'#7d8a8d':shTier(sc)[1],need=c.need*60;
   const chip=(ok,t)=>'<span class="chip '+(ok?'on':'')+'" style="'+(ok===false?'color:var(--bad)':'')+'">'+t+'</span>';
-  return '<div class="card"><div class="row" style="gap:14px"><div style="width:76px;flex:none">'+(sc===null?'':pctRing(sc,col))+'</div><div class="grow"><b>ليلة البارحة</b><div class="row w mt" style="gap:6px">'+
-  (e.L.bed?chip(e.bedOk,'🌙 '+T12(e.L.bed)):'')+(e.L.wake?chip(e.wakeOk,'☀️ '+T12(e.L.wake)):'')+(e.L.wake&&e.need?(e.stay===true?chip(true,'✓ بقيتُ مستيقظًا'):e.stay===false?chip(false,'↩ رجعتُ للنوم'):chip(null,'⏳ لم يُؤكَّد')):'')+(e.dur!==undefined?chip(e.full?true:e.enough?null:false,'⏱ '+fmtDur(e.dur)):'')+'</div></div></div>'+
-  '<div class="chips mt" style="justify-content:space-between">'+SL_Q.map((q,i)=>'<button class="chip '+(e.L.q===i+1?'on':'')+'" style="font-size:20px;padding:6px 12px" data-a="slqq" data-d="'+ds+'" data-v="'+(i+1)+'" aria-label="'+q[1]+'">'+q[0]+'</button>').join('')+'</div></div>';
+  const tot=e.tot,df=tot!==undefined?tot-need:null;
+  let h='<div class="card"><div class="row" style="gap:14px"><div style="width:76px;flex:none">'+(sc===null?'':pctRing(sc,col))+'</div><div class="grow"><div class="xs mut">مجموع نومك '+(ds===today()?'اليوم':'')+'</div>'+
+  '<div style="font-size:28px;font-weight:800;line-height:1.3">'+(tot!==undefined?fmtDur(tot):'—')+'</div>'+
+  (df!==null?'<div class="xs mut">'+(df>=-20?(df>20?'أكثر من حاجتك بـ '+fmtDur(df):'يغطي حاجتك ✓'):'ينقصك '+fmtDur(-df)+' عن حاجتك')+'</div>':'')+'</div></div>'+
+  '<div class="row w mt" style="gap:6px">'+(e.dur!==undefined?chip(null,'🌙 الليل '+fmtDur(e.dur)):'')+(e.backMin?chip(false,'🛌 بعد الفجر '+fmtDur(e.backMin)):'')+(e.napMin?chip(null,'💤 قيلولة '+fmtDur(e.napMin)):'')+'</div>'+
+  '<div class="row w mt" style="gap:6px">'+(e.L.bed?chip(e.bedOk,'🌙 '+T12(e.L.bed)):'')+(e.L.wake?chip(e.wakeOk,'☀️ '+T12(e.L.wake)):'')+(e.L.wake&&e.need?(e.stay===true?chip(true,'✓ بقيتُ مستيقظًا'):e.stay===false?chip(false,'↩ رجعتُ للنوم'):chip(null,'⏳ لم يُؤكَّد')):'')+'</div>'+
+  '<div class="chips mt" style="justify-content:space-between">'+SL_Q.map((q,i)=>'<button class="chip '+(e.L.q===i+1?'on':'')+'" style="font-size:20px;padding:6px 12px" data-a="slqq" data-d="'+ds+'" data-v="'+(i+1)+'" aria-label="'+q[1]+'">'+q[0]+'</button>').join('')+'</div>'+
+  '<div class="row mt" style="justify-content:center;gap:18px">'+(e.stay===false&&!e.backMin?'<button class="link" data-a="slback" data-d="'+ds+'">🛌 سجّل نومك بعد الفجر</button>':'')+'<button class="link" data-a="slexadd" data-k="nap" data-d="'+ds+'">💤 سجّل قيلولة</button></div></div>';
+  return h;
+}
+/* دين النوم وموعد نوم الليلة */
+function slDebtCard(){
+  const c=SL().cfg,d=slDebt(),tp=slPlan(dstr(Date.now()+DAY));
+  const pay=slPay(d.debt),sug=hhmm(tmin(tp.bed)-(tp.off?0:pay));
+  const note=d.n<2?'سجّل يومين على الأقل ليُحسب دين نومك.':d.debt>0?'نقصك '+fmtDur(d.debt)+' عن حاجتك ('+c.need+' س يوميًا) في آخر 7 أيام. قدّمنا موعد نومك '+pay+' د لتسدّد جزءًا منه.':'نومك يغطي حاجتك. حافظ على موعدك.';
+  return '<div class="card"><div class="row" style="gap:10px"><div class="grow"><div class="xs mut">دين النوم · آخر 7 أيام</div><div style="font-size:24px;font-weight:800;line-height:1.35;color:var(--'+(d.debt>0?'bad':'ok')+')">'+(d.debt>0?fmtDur(d.debt):'لا دين ✓')+'</div></div>'+
+  (tp.off?'<div class="grow xs mut" style="text-align:end">غدًا يوم راحة 🌿</div>':'<div class="grow" style="text-align:end"><div class="xs mut">موعد نومك الليلة</div><div style="font-size:24px;font-weight:800;line-height:1.35;white-space:nowrap">'+T12(sug)+'</div></div>')+'</div><div class="xs mut mt">'+note+'</div></div>';
 }
 A.slqq=el=>{const L=SL().log[el.dataset.d];if(!L)return;L.q=L.q===+el.dataset.v?0:+el.dataset.v;save();render()};
 function slWeek(){
@@ -2186,7 +2224,7 @@ function slWeek(){
   for(let i=6;i>=0;i--){
     const d=new Date(Date.now()-i*DAY),ds=dstr(d),st=it?statusOf(it,ds):'none',e=slEval(ds);
     const mk={done:'✓',part:'~',miss:'✕',open:'·',none:'–',skip:'⏭',future:''}[st]||'';
-    h+='<button class="w '+(ST_CLS[st]||'s-none')+(ds===today()?' tdy':'')+'" data-a="slnight" data-d="'+ds+'"><small>'+AR_DAYS[d.getDay()]+'</small><b>'+mk+'</b><small>'+(e&&e.dur!==undefined?(Math.round(e.dur/6)/10):'')+'</small></button>';
+    h+='<button class="w '+(ST_CLS[st]||'s-none')+(ds===today()?' tdy':'')+'" data-a="slnight" data-d="'+ds+'"><small>'+AR_DAYS[d.getDay()]+'</small><b>'+mk+'</b><small>'+(e&&e.tot!==undefined?(Math.round(e.tot/6)/10):'')+'</small></button>';
   }
   const ev=[];for(let i=6;i>=0;i--){const e=slEval(dstr(Date.now()-i*DAY));if(e&&e.wd!==undefined)ev.push(e)}
   const dec=ev.filter(e=>e.need&&!e.pend);
@@ -2231,22 +2269,91 @@ A.slstay=el=>{
     sheet('<div class="center"><div class="hero-ic" style="font-size:54px">'+(f===1?'🎉':'☀️')+'</div><h3>'+(f===1?'ما شاء الله، ثبتَّ على موعدك!':f>0?'بقيتَ مستيقظًا':'بقيتَ مستيقظًا، لكن...')+'</h3><p class="mut sm">'+
     (f===1?'يومك ناجح'+(st.cur>1?' · 🔥 '+st.cur+' '+(st.cur<11?'أيام':'يومًا')+' متتالية':'')+'.':f>0?'استيقاظك تأخّر قليلًا عن موعدك فحُسب نصف نجاح.':'استيقاظك تأخّر كثيرًا عن موعدك ('+fmtDur(Math.max(0,e.wd))+') فلم يُحسب يومًا ناجحًا. غدًا أبكر بإذن الله.')+'</p></div><button class="btn pri mt" data-a="close">الحمد لله</button>');
   }else{
-    L.stay=false;L.ct=Date.now();save();haptic(12);closeSheets();render();slWhy();
+    L.stay=false;L.ct=Date.now();save();haptic(12);closeSheets();render();slBack(td);
   }
 };
-function slWhy(){
-  sheet('<div class="center"><div class="hero-ic" style="font-size:46px">🤍</div><h3>ما الذي أرجعك للنوم؟</h3><p class="mut sm">لا لوم. معرفة السبب أول الحل.</p></div>'+
-  SL_WHY.map(w=>'<button class="btn" data-a="slwhy" data-v="'+w[0]+'">'+w[1]+'</button>').join('')+
-  '<div id="sl-wo" hidden><input id="sl-wt" maxlength="80" placeholder="اكتب السبب باختصار (اختياري)"><button class="btn pri mt" data-a="slwhy" data-v="other" data-go="1">حفظ</button></div>'+
-  '<button class="link" style="width:100%" data-a="close">تخطّي</button>');
+/* ---- رجعتُ للنوم: السبب + ساعة الرجوع + ساعة الاستيقاظ النهائي ---- */
+let slB={ds:null,why:null,wtxt:'',s:'',e:''};
+const slMarks=(a,b,step)=>{const o=[];for(let m=Math.ceil((a+1)/step)*step;m<=b;m+=step)o.push(m);return o};
+function slBack(ds){
+  const L=SL().log[ds]||{},bk=(L.ex||[]).filter(x=>x.k==='back'),b=bk[bk.length-1];
+  slB={ds:ds,why:L.why||null,wtxt:L.wtxt||'',s:b?b.s:'',e:b?b.e:''};
+  sheet('<div class="center"><div class="hero-ic" style="font-size:40px">🤍</div><h3 style="margin:0">رجعتَ للنوم</h3><p class="mut sm">لا لوم. سجّل التفاصيل ليُحسب مجموع نومك ونعرف السبب.</p></div>'+
+  '<label class="lbl" style="margin-top:6px">ما الذي أرجعك للنوم؟</label><div class="chips cs" id="slb-w"></div><input id="slb-t" maxlength="80" placeholder="اكتب السبب باختصار (اختياري)" hidden>'+
+  '<label class="lbl">عدتُ للنوم الساعة</label><div class="chips cs" id="slb-s"></div><input type="time" id="slb-si" data-i="slbt" style="direction:ltr;text-align:center;margin-top:6px">'+
+  '<label class="lbl">استيقظتُ نهائيًا الساعة</label><div class="chips cs" id="slb-e"></div><input type="time" id="slb-ei" data-i="slbt" style="direction:ltr;text-align:center;margin-top:6px">'+
+  '<div id="slb-sum" class="card flat mt sm center"></div>'+
+  '<button class="btn pri mt" data-a="slbsave">حفظ</button><button class="link" style="width:100%" data-a="close">تخطّي</button>');
+  const t=$('#slb-t');if(t)t.value=slB.wtxt;
+  slbDraw();
 }
-A.slwhy=el=>{
-  const L=SL().log[today()];if(!L)return;
-  if(el.dataset.v==='other'&&!el.dataset.go){$('#sl-wo').hidden=false;const i=$('#sl-wt');if(i)i.focus();return}
-  L.why=el.dataset.v;
-  if(L.why==='other'){const t=($('#sl-wt')||{}).value;if(t&&t.trim())L.wtxt=t.trim();else delete L.wtxt}else delete L.wtxt;
-  save();closeSheets();render();toast('سُجّل. غدًا أقوى بإذن الله',2600);
+function slbDraw(){
+  const s=SL(),L=s.log[slB.ds]||{},c=s.cfg,td=today(),W=tmin(L.wake||'05:00'),lim=slB.ds===td?tmin(nowHM()):1439;
+  const chip=(a,v,t,on)=>'<button class="chip '+(on?'on':'')+'" data-a="'+a+'" data-v="'+v+'">'+t+'</button>';
+  $('#slb-w').innerHTML=SL_WHY.map(w=>chip('slbw',w[0],w[1],slB.why===w[0])).join('');
+  const t=$('#slb-t');if(t)t.hidden=slB.why!=='other';
+  const ss=[10,30,60,90].map(x=>Math.ceil((W+x)/5)*5).filter(m=>m<=lim);
+  $('#slb-s').innerHTML=ss.map(m=>chip('slbs',hhmm(m),T12(hhmm(m)),slB.s===hhmm(m))).join('');
+  const S0=slB.s?tmin(slB.s):W+30;
+  let es=slMarks(S0+20,lim,30);if(es.length>6)es=slMarks(S0+20,lim,60);if(es.length>6)es=es.slice(-6);
+  const nw=nowHM();
+  $('#slb-e').innerHTML=(slB.ds===td&&lim>S0+5?chip('slbe',nw,'الآن',slB.e===nw):'')+es.map(m=>chip('slbe',hhmm(m),T12(hhmm(m)),slB.e===hhmm(m))).join('');
+  const si=$('#slb-si'),ei=$('#slb-ei');if(si&&si.value!==slB.s)si.value=slB.s;if(ei&&ei.value!==slB.e)ei.value=slB.e;
+  const bk=(L.ex||[]).filter(x=>x.k==='back'),lastBk=bk[bk.length-1],others=(L.ex||[]).filter(x=>x!==lastBk);
+  const d=(slB.s&&slB.e)?durMin(slB.s,slB.e):null,nd=(L.bed&&L.wake)?durMin(L.bed,L.wake):null;
+  let h='اختر ساعة رجوعك للنوم وساعة استيقاظك النهائي';
+  if(d!==null){
+    if(d<5||d>720)h='راجع الوقتين: المدة غير منطقية';
+    else{h='نمتَ بعد الفجر <b>'+fmtDur(d)+'</b>';if(nd!==null){const tot=nd+slSumMin(others)+d,df=tot-c.need*60;h+='<br>مجموع نوم يومك <b>'+fmtDur(tot)+'</b> · '+(df>20?'أكثر من حاجتك بـ '+fmtDur(df):df>=-20?'يغطي حاجتك':'ينقصك '+fmtDur(-df))}}
+  }
+  $('#slb-sum').innerHTML=h;
+}
+A.slback=el=>{slBack((el&&el.dataset.d)||today())};
+A.slbw=el=>{slB.why=slB.why===el.dataset.v?null:el.dataset.v;slbDraw();if(slB.why==='other'){const t=$('#slb-t');if(t)t.focus()}};
+A.slbs=el=>{slB.s=el.dataset.v;if(slB.e&&durMin(slB.s,slB.e)<5)slB.e='';slbDraw()};
+A.slbe=el=>{slB.e=el.dataset.v;slbDraw()};
+INP.slbt=()=>{const si=$('#slb-si'),ei=$('#slb-ei');if(!si||!ei)return;slB.s=si.value;slB.e=ei.value;slbDraw()};
+A.slbsave=()=>{
+  const s=SL(),L=s.log[slB.ds];if(!L)return;
+  if(!!slB.s!==!!slB.e){toast('أدخل ساعة الرجوع وساعة الاستيقاظ معًا، أو اتركهما');return}
+  if(slB.s&&slB.e){const d=durMin(slB.s,slB.e);if(d<5||d>720){toast('المدة غير منطقية، راجع الوقتين');return}}
+  if(slB.why){L.why=slB.why;const t=($('#slb-t')||{}).value;if(slB.why==='other'&&t&&t.trim())L.wtxt=t.trim();else delete L.wtxt}
+  if(slB.s&&slB.e){
+    L.ex=L.ex||[];const bk=L.ex.filter(x=>x.k==='back'),last=bk[bk.length-1];
+    if(last){last.s=slB.s;last.e=slB.e}else L.ex.push({id:uid(),k:'back',s:slB.s,e:slB.e});
+    slSortEx(L);
+  }
+  save();closeSheets();render();
+  const e=slEval(slB.ds);toast(e&&e.tot!==undefined&&slB.s?'سُجّل. مجموع نومك '+fmtDur(e.tot):'سُجّل. غدًا أقوى بإذن الله',3200);
 };
+/* ---- نوم إضافي: قيلولة أو رجوع للنوم ---- */
+let slX={ds:null,k:'nap',fromEdit:false};
+const slExList=ds=>{const L=SL().log[ds]||{};return (L.ex||[]).map(x=>'<div class="row sm" style="padding:6px 0"><span>'+(x.k==='back'?'🛌 بعد الفجر':'💤 قيلولة')+'</span><span class="grow mut" style="text-align:center">'+T12(x.s)+' ← '+T12(x.e)+'</span><b>'+fmtDur(durMin(x.s,x.e))+'</b><button class="link" style="color:var(--bad)" data-a="slexdel" data-id="'+x.id+'" aria-label="حذف">✕</button></div>').join('')};
+A.slexadd=el=>{slExSheet((el.dataset.d)||(slE&&slE.ds)||today(),el.dataset.k,!el.dataset.d)};
+function slExSheet(ds,k,fromEdit){
+  const L=SL().log[ds]||{},td=today();slX={ds:ds,k:k,fromEdit:!!fromEdit};
+  let s0,e0;
+  if(k==='back'){s0=L.wake?hhmm(tmin(L.wake)+20):'05:30';e0=(ds===td&&tmin(nowHM())>tmin(s0)+10)?nowHM():hhmm(tmin(s0)+120)}
+  else{e0=ds===td?nowHM():'14:30';s0=hhmm(tmin(e0)-30)}
+  sheet('<h3>'+(k==='back'?'🛌 نومي بعد الاستيقاظ':'💤 قيلولة')+'</h3><div class="row"><div class="grow"><label class="lbl" style="margin-top:0">'+(k==='back'?'عدتُ للنوم':'نمتُ')+'</label><input type="time" id="slx-s" data-i="slxt" value="'+s0+'" style="direction:ltr;text-align:center"></div><div class="grow"><label class="lbl" style="margin-top:0">استيقظتُ</label><input type="time" id="slx-e" data-i="slxt" value="'+e0+'" style="direction:ltr;text-align:center"></div></div><div id="slx-sum" class="mut sm center mt"></div><button class="btn pri mt" data-a="slxsave">حفظ</button>');
+  INP.slxt();
+}
+INP.slxt=()=>{const a=$('#slx-s'),b=$('#slx-e'),o=$('#slx-sum');if(o)o.textContent=(a&&b&&a.value&&b.value)?'المدة: '+fmtDur(durMin(a.value,b.value)):''};
+A.slxsave=()=>{
+  const s=SL(),X=slX,sv=$('#slx-s').value,ev=$('#slx-e').value;
+  if(!sv||!ev){toast('أدخل الوقتين');return}
+  const d=durMin(sv,ev);if(d<5||d>720){toast('المدة غير منطقية، راجع الوقتين');return}
+  const L=s.log[X.ds]=s.log[X.ds]||{};L.ex=L.ex||[];L.ex.push({id:uid(),k:X.k,s:sv,e:ev});slSortEx(L);
+  if(X.k==='back'&&L.wake)L.stay=false;
+  if(s.since>X.ds)s.since=X.ds;
+  save();haptic(10);
+  if(X.fromEdit){
+    sheetClose();const l=$('#sl-exl');if(l)l.innerHTML=slExList(X.ds);
+    if(X.k==='back'&&L.wake&&slE.ds===X.ds){slE.stay=false;$$('#sl-st button').forEach(b=>b.classList.toggle('on',b.dataset.v==='n'));const w=$('#sl-why');if(w)w.hidden=false}
+    render();
+  }else{closeSheets();render();const e=slEval(X.ds);toast(e&&e.tot!==undefined?'سُجّل. مجموع نومك '+fmtDur(e.tot):'سُجّل',2800)}
+};
+A.slexdel=el=>{const L=SL().log[slE.ds];if(!L)return;L.ex=(L.ex||[]).filter(x=>x.id!==el.dataset.id);if(!L.ex.length)delete L.ex;save();const l=$('#sl-exl');if(l)l.innerHTML=slExList(slE.ds);render()};
 A.slqs2=el=>{const L=SL().log[today()];if(L){L.q=+el.dataset.v;save()}closeSheets();render()};
 A.slrt=el=>{
   const s=SL(),k=el.dataset.k,L=s.log[k]=s.log[k]||{};L.rt=L.rt||{};L.rt[el.dataset.id]=!L.rt[el.dataset.id];
@@ -2258,11 +2365,12 @@ function slEdit(ds){
   const s=SL(),L=s.log[ds]||{},pl=slPlan(ds);
   const td=today(),can=!pl.off&&(ds<td||(ds===td&&(L.stay!==undefined||slCfState()==='confirm')));
   slE={ds:ds,q:L.q||0,stay:L.stay,why:L.why||null,can:can};
-  sheet('<h3>'+(L.skip?'يوم متخطّى':'تسجيل ليلة')+'</h3><input type="date" id="sl-date" data-c="sldate" max="'+today()+'" value="'+ds+'" style="direction:ltr;text-align:center;margin-top:6px">'+
+  sheet('<h3>'+(L.skip?'يوم متخطّى':'تسجيل النوم')+'</h3><input type="date" id="sl-date" data-c="sldate" max="'+today()+'" value="'+ds+'" style="direction:ltr;text-align:center;margin-top:6px">'+
   '<div class="mut xs mt center">'+AR_DAYF[pds(ds).getDay()]+(pl.off?' · يوم راحة':' · موعدك: نوم '+T12(pl.bed)+' / استيقاظ '+T12(pl.wake))+'</div>'+
   '<div class="row mt"><div class="grow"><label class="lbl" style="margin-top:0">نمتُ الساعة</label><input type="time" id="sl-bed" data-i="sldur" value="'+(L.bed||'')+'" style="direction:ltr;text-align:center"></div><div class="grow"><label class="lbl" style="margin-top:0">استيقظتُ الساعة</label><input type="time" id="sl-wake" data-i="sldur" value="'+(L.wake||'')+'" style="direction:ltr;text-align:center"></div></div><div id="sl-dur" class="mut sm center mt"></div>'+
   '<label class="lbl">كيف كان نومي؟</label><div class="chips" id="sl-q" style="justify-content:space-between">'+SL_Q.map((q,i)=>'<button class="chip '+(slE.q===i+1?'on':'')+'" style="font-size:22px;padding:7px 13px" data-a="slqs" data-v="'+(i+1)+'" aria-label="'+q[1]+'">'+q[0]+'</button>').join('')+'</div>'+
   (can?'<label class="lbl">هل بقيتَ مستيقظًا ولم ترجع للنوم؟</label><div class="seg" id="sl-st">'+[['y','نعم'],['n','لا'],['u','لم يُؤكَّد']].map(x=>'<button class="'+(slStK()===x[0]?'on':'')+'" data-a="slst" data-v="'+x[0]+'">'+x[1]+'</button>').join('')+'</div><div id="sl-why" class="chips cs mt" '+(slE.stay===false?'':'hidden')+'>'+SL_WHY.map(w=>'<button class="chip '+(slE.why===w[0]?'on':'')+'" data-a="slwy" data-v="'+w[0]+'">'+w[1]+'</button>').join('')+'</div>':'')+
+  '<label class="lbl">نوم إضافي <small class="mut">يدخل في مجموع اليوم</small></label><div id="sl-exl">'+slExList(ds)+'</div><div class="row"><button class="btn sm grow" style="margin:0" data-a="slexadd" data-k="nap">＋ قيلولة</button>'+(L.wake?'<button class="btn sm grow" style="margin:0" data-a="slexadd" data-k="back">＋ رجوع للنوم</button>':'')+'</div>'+
   '<button class="btn pri mt2" data-a="slsave">حفظ</button><div class="row"><button class="link grow" data-a="slskip">'+(L.skip?'إلغاء التخطّي':'تخطّي هذا اليوم (لا يُحسب)')+'</button>'+(s.log[ds]?'<button class="link grow" style="color:var(--bad)" data-a="sldel">حذف</button>':'')+'</div>');
   INP.sldur();
 }
@@ -2271,7 +2379,7 @@ A.slst=el=>{const v=el.dataset.v;slE.stay=v==='y'?true:v==='n'?false:undefined;$
 A.slwy=el=>{slE.why=slE.why===el.dataset.v?null:el.dataset.v;$$('#sl-why .chip').forEach(b=>b.classList.toggle('on',b.dataset.v===slE.why))};
 A.slnight=el=>{closeSheets();slEdit(el.dataset.d||today())};
 CH.sldate=el=>{if(!el.value||el.value>today())return;closeSheets();slEdit(el.value)};
-INP.sldur=()=>{const b=$('#sl-bed'),w=$('#sl-wake'),o=$('#sl-dur');if(!o||!b||!w)return;o.textContent=(b.value&&w.value)?'مدة النوم: '+fmtDur(durMin(b.value,w.value)):''};
+INP.sldur=()=>{const b=$('#sl-bed'),w=$('#sl-wake'),o=$('#sl-dur');if(!o||!b||!w)return;o.textContent=(b.value&&w.value)?'نوم الليل: '+fmtDur(durMin(b.value,w.value)):''};
 A.slqs=el=>{slE.q=slE.q===+el.dataset.v?0:+el.dataset.v;$$('#sl-q .chip').forEach(b=>b.classList.toggle('on',+b.dataset.v===slE.q))};
 A.slsave=()=>{
   const s=SL(),ds=slE.ds,bed=$('#sl-bed').value,wake=$('#sl-wake').value;
@@ -2291,10 +2399,11 @@ A.slsave=()=>{
 A.slskip=()=>{const s=SL(),ds=slE.ds,L=s.log[ds]=s.log[ds]||{};L.skip=!L.skip;if(s.since>ds)s.since=ds;save();closeSheets();render();toast(L.skip?'تُخطّي هذا اليوم':'أُلغي التخطّي')};
 A.sldel=async()=>{if(await ask('حذف تسجيل هذه الليلة؟',{danger:true,ok:'حذف'})){delete SL().log[slE.ds];save();closeSheets();render()}};
 /* ---- تبويب الإحصاءات ---- */
-function durChart(bk,c){
+function durChart(bk,bx,c){
   const n=bk.length,two=bk.some(b=>b.w),scroll=n>16,showVal=n<=12,full=c.need*60-20,low=slMinH(c)*60-10;
-  const h='<div class="bc" style="--n:'+n+';'+(scroll?'min-width:'+(n*27)+'px':'')+'">'+bk.map(b=>{const v=b.v;
-    return '<div class="bcol'+(b.cur?' cur':'')+'">'+(showVal?'<b class="xs">'+(v===null?'':Math.round(v/6)/10)+'</b>':'')+'<div class="bw"><i style="height:'+(v===null?3:Math.max(4,Math.min(100,v/6)))+'%" class="'+(v===null?'nn':v>=full?'full':v<low?'low':'')+'"></i></div><small>'+(two?'<span class="wd">'+b.w+'</span>':'')+b.l+'</small></div>'}).join('')+'</div>';
+  const h='<div class="bc" style="--n:'+n+';'+(scroll?'min-width:'+(n*27)+'px':'')+'">'+bk.map((b,i)=>{const v=b.v,x=(bx[i]&&bx[i].v)||0,hh=v===null?3:Math.max(4,Math.min(100,v/7.2));
+    const bar=v===null?'<i style="height:3%" class="nn"></i>':'<div class="stk" style="height:'+hh+'%">'+(x>0?'<u style="flex:'+x+' 0 0%"></u>':'')+'<i style="flex:'+Math.max(1,v-x)+' 1 0%" class="'+(v>=full?'full':v<low?'low':'')+'"></i></div>';
+    return '<div class="bcol'+(b.cur?' cur':'')+'">'+(showVal?'<b class="xs">'+(v===null?'':Math.round(v/6)/10)+'</b>':'')+'<div class="bw">'+bar+'</div><small>'+(two?'<span class="wd">'+b.w+'</span>':'')+b.l+'</small></div>'}).join('')+'</div>';
   return scroll?'<div class="bcs">'+h+'</div>':h;
 }
 function slTrend(a,b,unitMin){
@@ -2303,32 +2412,51 @@ function slTrend(a,b,unitMin){
 }
 function slStatsTab(){
   const s=SL(),c=s.cfg;let p=S.ui.slP||'w';if(p==='a'){p='m';S.ui.slP='m'}
-  const o=S.ui.slO||0,ps=periodSeries(slScoreOf,p,o,s.since),pd=periodSeries(slDurOf,p,o,s.since);
+  const o=S.ui.slO||0,ps=periodSeries(slScoreOf,p,o,s.since),pd=periodSeries(slDurOf,p,o,s.since),px=periodSeries(slExOf,p,o,s.since);
   const ev=ps.days.map(d=>({d:d,e:slEval(d.ds)})).filter(x=>x.e);
   const head=periodBar('slP','slO',p,o,ps.lab,'slp','slo',true);
   const nL=ev.length;
-  if(!nL)return head+'<div class="card ph">لا ليالٍ مسجّلة في هذه الفترة.<br>سجّل ليلتك من تبويب «الليلة» أو اضغط على أي يوم.</div>'+(p==='w'?'<div class="card">'+slDays(ps,c)+'</div>':'');
-  const durs=ev.filter(x=>x.e.dur!==undefined).map(x=>x.e.dur),avgD=avgN(durs);
+  if(!nL)return head+'<div class="card ph">لا أيام مسجّلة في هذه الفترة.<br>سجّل نومك من تبويب «اليوم» أو اضغط على أي يوم.</div>'+(p==='w'?'<div class="card">'+slDays(ps,c)+'</div>':'');
+  const durs=ev.filter(x=>x.e.tot!==undefined).map(x=>x.e.tot),avgD=avgN(durs);
   const avg=ps.avg===null?0:ps.avg,tier=shTier(avg);
   const wk=ev.filter(x=>x.e.wd!==undefined),bd=ev.filter(x=>x.e.bd!==undefined);
   const wokN=wk.filter(x=>x.e.wakeOk).length,fullN=durs.filter(d=>d>=c.need*60-20).length;
   const dec=wk.filter(x=>x.e.need&&!x.e.pend),stayN=dec.filter(x=>x.e.stay===true).length;
   const qs=ev.filter(x=>x.e.L.q).map(x=>x.e.L.q),qa=avgN(qs);
-  let h=head+'<div class="card acc"><div class="row" style="gap:14px"><div class="grow"><div class="xs mut">متوسط نومك في الليلة</div><div style="font-size:32px;font-weight:800;line-height:1.25">'+(durs.length?fmtDur(avgD):'—')+'</div><div class="mt">'+slTrend(pd.avg,pd.prev,true)+'</div><div class="xs mut mt">هدفك '+c.need+' ساعات</div></div><div style="width:104px;flex:none">'+pctRing(avg,tier[1])+'<div class="xs mut center" style="margin-top:2px">درجة النوم</div></div></div></div>'+
-  '<div class="stat sm" style="grid-template-columns:repeat(2,1fr)"><div><b>'+wokN+' / '+wk.length+'</b><small>استيقاظ على الوقت</small></div><div><b>'+stayN+' / '+dec.length+'</b><small>بقيتُ مستيقظًا</small></div><div><b>'+fullN+' / '+durs.length+'</b><small>ليالٍ بلغتُ هدفها</small></div><div><b>'+(qa===null?'—':SL_Q[Math.round(qa)-1][0]+' '+(Math.round(qa*10)/10))+'</b><small>تقييم نومي</small></div></div>'+
-  '<div class="sec"><h3>ساعات النوم</h3><small>'+(p==='y'?'متوسط كل شهر':'كل يوم')+'</small></div><div class="card">'+durChart(pd.bk,c)+'<div class="legend"><span><i style="background:var(--acc)"></i>بلغتُ هدفي</span><span><i style="background:color-mix(in srgb,var(--acc) 62%,var(--card3))"></i>أقل</span><span><i style="background:color-mix(in srgb,var(--bad) 55%,var(--card3))"></i>ناقص</span></div></div>';
+  const backTot=ev.reduce((a,x)=>a+x.e.backMin,0),backN=ev.filter(x=>x.e.backMin>0).length;
+  const sd=slSD(ev.filter(x=>x.e.fd!==undefined).map(x=>x.e.fd));
+  const tile=(b,t)=>'<div><b>'+b+'</b><small>'+t+'</small></div>';
+  let h=head+'<div class="card acc"><div class="row" style="gap:14px"><div class="grow"><div class="xs mut">متوسط مجموع نومك في اليوم</div><div style="font-size:32px;font-weight:800;line-height:1.25">'+(durs.length?fmtDur(avgD):'—')+'</div><div class="mt">'+slTrend(pd.avg,pd.prev,true)+'</div><div class="xs mut mt">حاجتك '+c.need+' ساعات · الليل + بعد الفجر + القيلولة</div></div><div style="width:104px;flex:none">'+pctRing(avg,tier[1])+'<div class="xs mut center" style="margin-top:2px">درجة النوم</div></div></div></div>'+
+  '<div class="stat sm" style="grid-template-columns:repeat(2,1fr)">'+tile(wokN+' / '+wk.length,'استيقاظ على الوقت')+tile(stayN+' / '+dec.length,'بقيتُ مستيقظًا')+tile(fullN+' / '+durs.length,'أيام بلغتُ حاجتي')+tile(sd===null?'—':'±'+sd+' د','انتظام الاستيقاظ')+tile(backTot?fmtDur(backTot):'0','نوم بعد الفجر'+(backN?' ('+backN+' أيام)':''))+tile(qa===null?'—':SL_Q[Math.round(qa)-1][0]+' '+(Math.round(qa*10)/10),'تقييم نومي')+'</div>';
+  if(p==='w')h+='<div class="sec"><h3>🧭 مراجعة الأسبوع</h3></div>'+slReview(ev,o===0);
+  h+='<div class="sec"><h3>مجموع النوم</h3><small>'+(p==='y'?'متوسط كل شهر':'كل يوم')+'</small></div><div class="card">'+durChart(pd.bk,px.bk,c)+'<div class="legend"><span><i style="background:var(--acc)"></i>بلغتُ حاجتي</span><span><i style="background:color-mix(in srgb,var(--bad) 55%,var(--card3))"></i>ناقص</span><span><i style="background:color-mix(in srgb,var(--warn) 78%,var(--card3))"></i>بعد الفجر/قيلولة</span></div></div>';
   if(p==='w')h+='<div class="sec"><h3>تفاصيل الأيام</h3><small>اضغط يومًا لتعديله</small></div><div class="card">'+slDays(ps,c)+'</div>';
   if(p==='m')h+='<div class="sec"><h3>تقويم الشهر</h3><small>اضغط يومًا لتسجيله</small></div><div class="card">'+slCal(ps)+'</div>';
   if(p!=='w')h+='<div class="sec"><h3>📈 تقدّمي</h3><small>درجة النوم</small></div><div class="card">'+lineChart(ps.bk)+'</div>';
   h+=slAnalysis(ps,ev,wk,bd,durs,avgD,wokN,dec,stayN);
   return h;
 }
+/* مراجعة الأسبوع: توصية واحدة، وتعديل موعد النوم بخطوة 15 دقيقة (كما في CBT-I) */
+function slReview(ev,cur){
+  const c=SL().cfg,dl=ev.filter(x=>x.e.tot!==undefined);
+  if(dl.length<3)return '<div class="card ph">تظهر مراجعتك بعد تسجيل 3 أيام على الأقل.</div>';
+  const avgT=avgN(dl.map(x=>x.e.tot)),dec=ev.filter(x=>x.e.wd!==undefined&&x.e.need&&!x.e.pend),n=dec.length,stayN=dec.filter(x=>x.e.stay===true).length,stayP=n?stayN*100/n:null;
+  const why={};dec.forEach(x=>{if(x.e.stay===false&&x.e.L.why)why[x.e.L.why]=(why[x.e.L.why]||0)+1});
+  const top=Object.keys(why).sort((a,b)=>why[b]-why[a])[0],short=avgT<c.need*60-30,ret=n>=3&&stayP<70;
+  let head,tip;
+  if(ret){head='🔁 لم تبقَ مستيقظًا في '+(n-stayN)+' من '+n+' أيام';tip=(SL_WHY.find(x=>x[0]===top)||[])[2]||'اختر سببًا عند كل رجوع للنوم لنعرف ما يغلبك، وابتعد عن السرير فور الاستيقاظ.'}
+  else if(short){head='💤 معدّلك '+fmtDur(avgT)+' أقل من حاجتك';tip='قدّم موعد نومك خطوة صغيرة. الخطوة الأسبوعية المعتمدة في العلاج السلوكي للأرق 15 دقيقة.'}
+  else{head='✅ أسبوع ثابت';tip='معدّل نومك '+fmtDur(avgT)+' يغطي حاجتك. ثبّت جدولك الأسبوع القادم.'}
+  const nb=hhmm(tmin(c.bed)-15),can=cur&&(short||(ret&&top==='tired'))&&durMin(nb,c.wake)<=c.need*60+90;
+  return '<div class="card"><b>'+head+'</b><div class="mut sm mt">'+tip+'</div>'+(can?'<button class="btn sm mt" data-a="slapply">قدّم موعد نومي 15 د (إلى '+T12(nb)+')</button>':'')+'</div>';
+}
+A.slapply=()=>{const c=SL().cfg,nb=hhmm(tmin(c.bed)-15);if(durMin(nb,c.wake)>c.need*60+90){toast('وصل موعد نومك إلى أبكر حدّ مناسب');return}c.bed=nb;save();render();toast('صار موعد نومك '+T12(nb),3000)};
 A.slp=el=>{S.ui.slP=el.dataset.v;S.ui.slO=0;save();render()};
 A.slo=el=>{S.ui.slO=Math.max(0,(S.ui.slO||0)+(+el.dataset.d));save();render()};
 /* وسم التأكيد في صف اليوم */
 function slTag(e){
   if(!e.L.wake||!e.need)return e.wakeOk?' ✓':'';
-  const t=(c,x)=>'<div style="white-space:nowrap;'+(c?'color:var(--'+c+')':'')+'">'+x+'</div>';
+  const t=(c,x)=>'<div style="'+(c?'color:var(--'+c+')':'')+'">'+x+'</div>';
   if(e.stay===true)return t('ok','✓ بقيتُ مستيقظًا');
   if(e.stay===false)return t('bad','↩ رجعتُ للنوم'+(e.L.why?' · '+(e.L.why==='other'&&e.L.wtxt?esc(e.L.wtxt):slWhyT(e.L.why)):''));
   return e.pend?t('','⏳ ينتظر التأكيد'):t('bad','لم يُؤكَّد');
@@ -2342,8 +2470,8 @@ function slDays(ps,c){
     if(fut)return '<div class="sld" style="opacity:.4">'+nm+'<div class="grow xs mut">—</div></div>';
     if(L.skip)return '<button class="sld" data-a="slnight" data-d="'+d.ds+'">'+nm+'<div class="grow xs mut">⏭ يوم متخطّى</div></button>';
     if(!e||(e.dur===undefined&&!e.L.wake&&!e.L.bed))return '<button class="sld" data-a="slnight" data-d="'+d.ds+'">'+nm+'<div class="grow xs mut">'+(pl.off?'🌿 يوم راحة':'لم يُسجَّل · اضغط للتسجيل')+'</div><span class="plus">＋</span></button>';
-    const w=e.dur!==undefined?Math.min(100,e.dur/6):0,cls=e.dur===undefined?'':e.full?'full':e.enough?'':'low';
-    return '<button class="sld" data-a="slnight" data-d="'+d.ds+'">'+nm+'<div class="grow"><div class="sbar"><i class="'+cls+'" style="width:'+w+'%"></i><u style="right:'+(c.need*60/6)+'%"></u></div><div class="xs mut" style="margin-top:4px">'+(e.L.bed?T12(e.L.bed):'؟')+' ← '+(e.L.wake?T12(e.L.wake):'؟')+slTag(e)+'</div></div><div class="hr">'+(e.dur!==undefined?fmtDur(e.dur):'—')+'</div><span class="qe">'+(e.L.q?SL_Q[e.L.q-1][0]:'')+'</span></button>';
+    const w=e.dur!==undefined?Math.min(100,e.dur/7.2):0,w2=e.dur!==undefined?Math.min(100-w,e.exMin/7.2):0,cls=e.dur===undefined?'':e.full?'full':e.enough?'':'low';
+    return '<button class="sld" data-a="slnight" data-d="'+d.ds+'">'+nm+'<div class="grow"><div class="sbar"><i class="'+cls+'" style="width:'+w+'%"></i>'+(w2>0?'<b style="right:'+w+'%;width:'+w2+'%"></b>':'')+'<u style="right:'+(c.need*60/7.2)+'%"></u></div><div class="xs mut" style="margin-top:4px">'+(e.L.bed?T12(e.L.bed):'؟')+' ← '+(e.L.wake?T12(e.L.wake):'؟')+slTag(e)+(e.backMin?'<div style="color:var(--warn)">🛌 بعد الفجر '+fmtDur(e.backMin)+'</div>':'')+(e.napMin?'<div>💤 قيلولة '+fmtDur(e.napMin)+'</div>':'')+'</div></div><div class="hr">'+(e.tot!==undefined?fmtDur(e.tot):'—')+'</div><span class="qe">'+(e.L.q?SL_Q[e.L.q-1][0]:'')+'</span></button>';
   }).join('');
 }
 /* تقويم الشهر */
@@ -2360,7 +2488,7 @@ function slCal(ps){
 function slAnalysis(ps,ev,wk,bd,durs,avgD,wokN,dec,stayN){
   const s=SL(),c=s.cfg,out=[];
   const dn=ds=>{const d=pds(ds);return AR_DAYF[d.getDay()]+' '+d.getDate()+' '+AR_MONTHS[d.getMonth()]};
-  const wd=wk.map(x=>sdiff(x.e.L.wake,c.wake)),bdd=bd.map(x=>sdiff(x.e.L.bed,c.bed));
+  const wd=wk.map(x=>sdiff(x.e.L.wake,c.wake)),bdd=bd.map(x=>sdiff(x.e.L.bed,c.bed)),fdl=ev.filter(x=>x.e.fd!==undefined).map(x=>x.e.fd);
   const wAvg=avgN(wd),bAvg=avgN(bdd),wokP=wk.length?wokN*100/wk.length:null;
   let verdict='';
   const stayP=dec.length?stayN*100/dec.length:null,ret=dec.filter(x=>x.e.stay===false).length,unc=dec.filter(x=>x.e.stay===undefined).length;
@@ -2381,15 +2509,20 @@ function slAnalysis(ps,ev,wk,bd,durs,avgD,wokN,dec,stayN){
   }
   if(bAvg!==null)out.push('تنام عادةً الساعة <b>'+T12(hhmm(tmin(c.bed)+bAvg))+'</b> (موعدك '+T12(c.bed)+')'+(bAvg>c.tol?' — متأخر '+fmtDur(bAvg):bAvg<-c.tol?' — مبكّر عن موعدك':' ✓'));
   if(wAvg!==null)out.push('تستيقظ عادةً الساعة <b>'+T12(hhmm(tmin(c.wake)+wAvg))+'</b> (موعدك '+T12(c.wake)+')');
-  const dl=ev.filter(x=>x.e.dur!==undefined);
+  const bk=ev.filter(x=>x.e.backMin>0);
+  if(bk.length)out.push('نمتَ بعد الفجر في <b>'+bk.length+'</b> من '+ev.length+' أيام، بمتوسط <b>'+fmtDur(avgN(bk.map(x=>x.e.backMin)))+'</b> كل مرة');
+  const fAvg=avgN(fdl);
+  if(fAvg!==null&&wAvg!==null&&fAvg-wAvg>20)out.push('لكن استيقاظك <b>النهائي</b> عادةً الساعة <b>'+T12(hhmm(tmin(c.wake)+fAvg))+'</b>');
+  const dl=ev.filter(x=>x.e.tot!==undefined);
   if(dl.length>=3){
-    const mx=dl.reduce((a,b)=>b.e.dur>a.e.dur?b:a),mn=dl.reduce((a,b)=>b.e.dur<a.e.dur?b:a);
-    out.push('أطول نوم: <b>'+fmtDur(mx.e.dur)+'</b> ('+dn(mx.d.ds)+') · أقصر نوم: <b>'+fmtDur(mn.e.dur)+'</b> ('+dn(mn.d.ds)+')');
-    const tot=dl.reduce((a,x)=>a+Math.max(0,c.need*60-x.e.dur),0);
-    if(tot>=60)out.push('مجموع ما ينقصك عن هدفك في هذه الفترة: <b>'+fmtDur(tot)+'</b>');
+    const mx=dl.reduce((a,b)=>b.e.tot>a.e.tot?b:a),mn=dl.reduce((a,b)=>b.e.tot<a.e.tot?b:a);
+    out.push('أطول نوم: <b>'+fmtDur(mx.e.tot)+'</b> ('+dn(mx.d.ds)+') · أقصر نوم: <b>'+fmtDur(mn.e.tot)+'</b> ('+dn(mn.d.ds)+')');
+    const tot=dl.reduce((a,x)=>a+Math.max(0,c.need*60-x.e.tot),0);
+    if(tot>=60)out.push('مجموع ما ينقصك عن حاجتك في هذه الفترة: <b>'+fmtDur(tot)+'</b>');
   }
-  if(wd.length>=3){const m=avgN(wd),sd=Math.round(Math.sqrt(avgN(wd.map(x=>(x-m)*(x-m)))));out.push('ثبات استيقاظك: <b>'+(sd<=10?'ثابت جدًا':sd<=25?'ثابت':sd<=50?'متذبذب':'غير منتظم')+'</b> (±'+sd+' د)')}
-  const good=ev.filter(x=>x.e.full&&shPct(x.d.ds)!==null).map(x=>shPct(x.d.ds)),bad=ev.filter(x=>x.e.dur!==undefined&&!x.e.full&&shPct(x.d.ds)!==null).map(x=>shPct(x.d.ds));
+  const sd=slSD(fdl);
+  if(sd!==null)out.push('انتظام استيقاظك: <b>'+(sd<=10?'ثابت جدًا':sd<=25?'ثابت':sd<=50?'متذبذب':'غير منتظم')+'</b> (±'+sd+' د). الانتظام من أقوى مؤشرات جودة النوم.');
+  const good=ev.filter(x=>x.e.full&&shPct(x.d.ds)!==null).map(x=>shPct(x.d.ds)),bad=ev.filter(x=>x.e.tot!==undefined&&!x.e.full&&shPct(x.d.ds)!==null).map(x=>shPct(x.d.ds));
   if(good.length>=3&&bad.length>=3)out.push('درعك بعد ليلة كافية <b>'+Math.round(avgN(good))+'%</b> مقابل <b>'+Math.round(avgN(bad))+'%</b> بعد ليلة ناقصة');
   const a0=ps.a,b0=new Date(ps.b);b0.setHours(23,59,59,999);
   const aw=S.war.filter(e=>{const t=new Date(e.t0);return t>=a0&&t<=b0}),nw=aw.filter(e=>{const hr=new Date(e.t0).getHours();return hr>=22||hr<5});
@@ -2459,6 +2592,7 @@ function slSetTab(){
   '<label class="lbl">لماذا أستيقظ؟ <small class="mut">اختياري</small></label><input data-c="slset" data-f="purpose" value="'+esc(c.purpose)+'" placeholder="مثلًا: قرآن وصلاة الفجر"></div>';
   h+='<div class="sec"><h3>قبل النوم</h3></div><div class="card">'+(c.rt.length?c.rt.map(x=>'<div class="task"><div class="t">'+esc(x.t)+'</div><button class="link" data-a="slrtedit" data-id="'+x.id+'">تعديل</button></div>').join(''):'<div class="mut sm">لا عناصر</div>')+'<button class="btn sm mt" data-a="slrtedit">＋ عنصر</button></div>';
   h+='<div class="card"><button class="task" style="width:100%;text-align:start;border:0;padding:0" data-a="sltog">'+shCheck(c.remind)+'<div class="t">تنبيهات التهيئة والنوم والاستيقاظ داخل التطبيق</div></button></div>';
+  h+='<div class="center"><button class="link" data-a="slinfo">كيف يعمل البرنامج؟</button></div>';
   h+='<div class="row" style="justify-content:center;gap:18px;margin-top:6px"><button class="link" data-a="sloff">إيقاف البرنامج</button><button class="link" style="color:var(--bad)" data-a="slwipe">حذف السجل</button></div>';
   return h;
 }
@@ -2481,6 +2615,13 @@ A.slics=()=>{
     c.ics=true;save();closeSheets();render();toast('افتح الملف ليُضاف التذكير اليومي إلى تقويمك',4200);
   }catch(x){toast('تعذّر إنشاء التذكير')}
 };
+A.slinfo=()=>sheet('<h3>كيف يعمل البرنامج؟</h3>'+[
+ ['⏰ استيقاظ ثابت','موعد استيقاظ واحد كل يوم هو مرتكز العلاج السلوكي للأرق (CBT-I). لا يُحسب يومك إلا إذا أكّدتَ أنك لم ترجع للنوم.'],
+ ['🧮 مجموع النوم','الليل + ما نمتَه بعد الفجر + القيلولة. هكذا تعرف نومك الحقيقي لا موعد التسجيل فقط.'],
+ ['📉 دين النوم','نقص آخر 7 أيام عن حاجتك (الفائض اليومي يُحتسب بحد أقصى ساعة). إن كان عليك دين قدّمنا موعد نومك الليلة حتى 60 دقيقة.'],
+ ['🎯 الدرجة','المدة الكلية 45% + الاستيقاظ (بشرط التأكيد) 35% + موعد النوم 20%.'],
+ ['🧭 المراجعة الأسبوعية','توصية واحدة كل أسبوع، وتعديل موعد نومك بخطوة 15 دقيقة فقط.']
+].map(x=>'<div class="card flat"><b class="sm">'+x[0]+'</b><div class="mut sm mt">'+x[1]+'</div></div>').join('')+'<button class="btn pri mt" data-a="close">حسنًا</button>');
 A.slchip=el=>{SL().cfg[el.dataset.f]=+el.dataset.v;save();render()};
 A.slusebest=()=>{const c=SL().cfg;c.bed=slBestBed(c.wake,c.need);save();render()};
 A.sltog=()=>{const c=SL().cfg;c.remind=!c.remind;save();render()};
@@ -2496,7 +2637,7 @@ A.slwipe=async()=>{if(await ask('سيُحذف كل سجلّ النوم نهائ�
 /* ===== تكامل مع بقية التطبيق ===== */
 function slItemPanel(it,ds){
   const e=slEval(ds),L=SL().log[ds]||{},pl=slPlan(ds),wake=it.id==='sleepwake';
-  let line=wake?(L.wake?'سُجّل استيقاظك '+T12(L.wake)+' · موعدك '+T12(pl.wake)+(e&&e.wakeOk?' ✓':''):'لم تسجّل استيقاظ هذا اليوم بعد'):(L.bed?'نمتَ '+T12(L.bed)+' · موعدك '+T12(pl.bed)+(e&&e.bedOk?' ✓':''):'لم تسجّل ساعة نومك لهذه الليلة');
+  let line=wake?(L.wake?'سُجّل استيقاظك '+T12(L.wake)+' · موعدك '+T12(pl.wake)+(e&&e.wakeOk?' ✓':'')+(e&&e.tot!==undefined?'<br>مجموع نومك '+fmtDur(e.tot):''):'لم تسجّل استيقاظ هذا اليوم بعد'):(L.bed?'نمتَ '+T12(L.bed)+' · موعدك '+T12(pl.bed)+(e&&e.bedOk?' ✓':''):'لم تسجّل ساعة نومك لهذه الليلة');
   let ask='';
   if(wake&&L.wake&&e&&e.need){
     if(L.stay===true)line+='<br>✅ أكّدتَ بقاءك مستيقظًا';
