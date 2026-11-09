@@ -456,6 +456,7 @@ const pds=s=>{const a=s.split('-');return new Date(+a[0],+a[1]-1,+a[2])};
 const K=['porn','mast'],KN={porn:'الإباحية',mast:'العادة السرية'};
 const DEF_GOALS=[1,3,7,14,30,60,90,180,365,730,1095];
 const DAY=864e5;
+const APP_VER='3.0.1';
 const KEY='thabat2',KSNAP='thabat2_snaps',KBOOT='thabat2_boot',KCORR='thabat2_corrupt';
 const AR_MONTHS=['كانون الثاني','شباط','آذار','نيسان','أيار','حزيران','تموز','آب','أيلول','تشرين الأول','تشرين الثاني','كانون الأول'];
 const AR_DAYS=['أحد','اثنين','ثلاثاء','أربعاء','خميس','جمعة','سبت'];
@@ -1282,9 +1283,15 @@ reg('tools',el=>{
 /* ===== أنا: أدواتي + نفسي في تبويب واحد ===== */
 reg('hub',(el,ctx)=>{
   const sec=S.ui.hubS==='me'?'me':'tools';
-  el.innerHTML='<div class="seg" style="margin:8px 0 4px"><button class="'+(sec==='tools'?'on':'')+'" data-a="hubs" data-v="tools">🧰 أدواتي</button><button class="'+(sec==='me'?'on':'')+'" data-a="hubs" data-v="me">🧭 نفسي</button></div><div id="hubbody"></div>';
+  el.innerHTML='<div class="seg" style="margin:8px 0 4px"><button class="'+(sec==='tools'?'on':'')+'" data-a="hubs" data-v="tools">🧰 أدواتي</button><button class="'+(sec==='me'?'on':'')+'" data-a="hubs" data-v="me">🧭 نفسي</button></div><div id="hubbody"></div><div class="center xs mut" style="margin:20px 0 4px">ثبات '+APP_VER+'</div>';
   V[sec]($('#hubbody',el),ctx);
 },{title:'أنا',tab:'hub'});
+A.appupd=async()=>{
+  toast('جارٍ التحديث…',4000);
+  try{if('serviceWorker' in navigator){const rs=await navigator.serviceWorker.getRegistrations();await Promise.all(rs.map(r=>r.unregister()))}}catch(e){}
+  try{if(window.caches){const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)))}}catch(e){}
+  location.replace(location.pathname+'?u='+Date.now()+location.hash);
+};
 A.hubs=el=>{S.ui.hubS=el.dataset.v;save();go('hub')};
 function tile(id,ic,t,d){return '<button class="tile" data-a="go" data-p="'+id+'"><span class="ic">'+ic+'</span><b>'+esc(t)+'</b><span>'+esc(d||'')+'</span></button>'}
 /* ===== القواعد ===== */
@@ -3257,7 +3264,7 @@ reg('settings',el=>{
   (S.pin?'<div class="li"><span class="ic">⏱️</span><span class="grow"><b>القفل التلقائي</b></span><select data-c="lockafter" style="width:auto">'+[[0,'فورًا'],[30,'30 ثانية'],[60,'دقيقة'],[300,'5 دقائق']].map(o=>'<option value="'+o[0]+'" '+(S.lockAfter===o[0]?'selected':'')+'>'+o[1]+'</option>').join('')+'</select></div><button class="li" data-a="pinoff"><span class="ic">🔓</span><span class="grow"><b style="color:var(--bad)">إزالة الرقم السري</b></span></button>':'')+
   '<div class="li"><span class="ic">📳</span><span class="grow"><b>اهتزاز خفيف</b></span><label class="sw"><input type="checkbox" data-c="haptic" '+(S.haptic?'checked':'')+'><span></span></label></div></div>'+
   '<div class="sec"><h3>البيانات والإضافات</h3></div><div class="list"><button class="li" data-a="go" data-p="backup"><span class="ic">💾</span><span class="grow"><b>نسخ احتياطي واستعادة</b><span class="sub">تصدير بياناتك أو استيرادها</span></span><span class="arr">'+ICONS.back+'</span></button><button class="li" data-a="go" data-p="plugins"><span class="ic">🧩</span><span class="grow"><b>الإضافات</b><span class="sub">عدّل التطبيق بالكود</span></span><span class="arr">'+ICONS.back+'</span></button></div>'+
-  '<div class="sec"><h3>عن التطبيق</h3></div><div class="list">'+(isStandalone()?'':'<button class="li" data-a="install"><span class="ic">📲</span><span class="grow"><b>تثبيت كتطبيق</b><span class="sub">'+(deferredInstall?'اضغط للتثبيت':'من قائمة المتصفح ⋮ ← تثبيت التطبيق')+'</span></span></button>')+'<div class="li"><span class="ic">🌙</span><span class="grow"><b>ثبات 2.0</b><span class="sub">بياناتك محفوظة على جهازك فقط ولا تُرسل لأي مكان</span></span></div></div>';
+  '<div class="sec"><h3>عن التطبيق</h3></div><div class="list">'+(isStandalone()?'':'<button class="li" data-a="install"><span class="ic">📲</span><span class="grow"><b>تثبيت كتطبيق</b><span class="sub">'+(deferredInstall?'اضغط للتثبيت':'من قائمة المتصفح ⋮ ← تثبيت التطبيق')+'</span></span></button>')+'<div class="li"><span class="ic">🌙</span><span class="grow"><b>ثبات '+APP_VER+'</b><span class="sub">بياناتك محفوظة على جهازك فقط ولا تُرسل لأي مكان</span></span></div><button class="li" data-a="appupd"><span class="ic">🔄</span><span class="grow"><b>تحديث التطبيق</b><span class="sub">يجلب آخر نسخة. بياناتك لا تتأثر</span></span></button></div>';
 },{title:'الإعدادات',tab:'me',parent:'me'});
 CH.name=el=>{S.name=el.value.trim();save();renderShell()};
 CH.haptic=el=>{S.haptic=el.checked;save();if(S.haptic)haptic(20)};
@@ -3433,6 +3440,19 @@ let safeMode=false;
   try{localStorage.removeItem(KBOOT)}catch(e){}
   if(S.onboarded){const a=snaps(),last=a[0];if(!last||Date.now()-last.t>DAY)snapshot('يومي تلقائي')}
   if('serviceWorker' in navigator&&location.protocol.indexOf('http')===0)window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+  /* فحص التحديث: يقارن نسخة الصفحة بآخر نسخة منشورة ويعرض شريطًا للتحديث */
+  let updT=0;
+  const updCheck=()=>{
+    if(location.protocol.indexOf('http')!==0||Date.now()-updT<5*60000||document.getElementById('updbar'))return;updT=Date.now();
+    fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.json()).then(j=>{
+      if(!j||!j.v||j.v===APP_VER||document.getElementById('updbar'))return;
+      const b=document.createElement('button');b.id='updbar';b.setAttribute('data-a','appupd');b.textContent='✨ نسخة جديدة من ثبات ('+j.v+') · اضغط للتحديث';
+      b.style.cssText='position:fixed;z-index:95;top:calc(8px + env(safe-area-inset-top));left:12px;right:12px;padding:12px 14px;border-radius:14px;background:var(--acc);color:var(--onacc);font-weight:800;font-size:14.5px;box-shadow:var(--shadow);border:0';
+      document.body.appendChild(b);
+    }).catch(()=>{});
+  };
+  window.addEventListener('load',()=>setTimeout(updCheck,1500));
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)updCheck()});
 })();
 
 })();
