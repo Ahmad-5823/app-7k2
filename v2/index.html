@@ -2913,7 +2913,7 @@ function insights(){
 reg('me',el=>{
   const ins=insights(),nAns=Object.keys(S.answers).filter(k=>S.answers[k]).length;
   el.innerHTML=(ins.n?'<div class="card acc" style="margin-top:8px"><b>ما تعلّمته عن نفسي</b><div class="sm mt">'+(ins.trig?'أكثر محفّز يوقعني: <b>'+esc(ins.trig)+'</b><br>':'')+(ins.time?'أخطر وقت: <b>'+esc(ins.time)+'</b>':'')+'</div><div class="mut xs mt">من '+ins.n+' زلة سجّلتها. اعرف عدوّك لتهزمه.</div></div>':'<div class="card acc" style="margin-top:8px"><b>النفس الأمّارة تُهزم بمعرفتها</b><div class="mut sm mt">كل ما تكتبه هنا يقرّبك من فهم نفسك، وكل ما تسجّله يصير خريطة تحميك.</div></div>')+
-  '<div class="grid2"><button class="tile" data-a="go" data-p="study"><span class="ic">🧭</span><b>دراسة نفسي</b><span>'+nAns+' من '+SELF_Q.length+' أسئلة أجبتها</span></button><button class="tile" data-a="go" data-p="diary"><span class="ic">📓</span><b>يومياتي</b><span>'+S.diary.length+' تدوينة</span></button><button class="tile" data-a="go" data-p="weekly"><span class="ic">🗓️</span><b>مراجعة الأسبوع</b><span>وقفة أسبوعية صادقة</span></button><button class="tile" data-a="go" data-p="settings"><span class="ic">⚙️</span><b>الإعدادات</b><span>المظهر، القفل، النسخ</span></button></div>';
+  '<div class="grid2"><button class="tile" data-a="go" data-p="study"><span class="ic">🧭</span><b>دراسة نفسي</b><span>'+nAns+' من '+SELF_Q.length+' أسئلة أجبتها</span></button><button class="tile" data-a="go" data-p="diary"><span class="ic">📓</span><b>يومياتي</b><span>'+S.diary.length+' تدوينة</span></button><button class="tile" data-a="go" data-p="breaks"><span class="ic">💔</span><b>انكساراتي</b><span>'+S.slips.length+' · بأسئلتها وأجوبتها</span></button><button class="tile" data-a="go" data-p="weekly"><span class="ic">🗓️</span><b>مراجعة الأسبوع</b><span>وقفة أسبوعية صادقة</span></button><button class="tile" data-a="go" data-p="settings"><span class="ic">⚙️</span><b>الإعدادات</b><span>المظهر، القفل، النسخ</span></button></div>';
 },{title:'نفسي',tab:'me'});
 /* --- دراسة النفس --- */
 reg('study',el=>{
@@ -2938,25 +2938,52 @@ CH.excr=el=>{const x=S.excuses.find(e=>e.id===el.dataset.id);if(x){x.r=el.value.
 A.exadd=()=>{const v=$('#ex-t').value.trim();if(!v)return;S.excuses.push({id:uid(),t:v,r:''});save();render()};
 A.exsug=el=>{S.excuses.push({id:uid(),t:el.dataset.v,r:''});save();haptic(8);render()};
 A.exdel=el=>{S.excuses=S.excuses.filter(e=>e.id!==el.dataset.id);save();render()};
+/* --- انكساراتي: كل زلة بأسئلتها وأجوبتها --- */
+const SLIP_Q=[['trigger','المحفّز'],['before','ما الذي كان قبلها؟'],['rule','قاعدة انكسرت'],['lesson','ما الدرس الذي تعلمته؟'],['punish','عقوبتي البنّاءة']];
+function slipAns(s,k){if(k==='rule'){const r=S.rules.find(x=>x.id===s.rule);return s.rule?(r?r.text:'قاعدة محذوفة'):''}return s[k]||''}
+function slipStreak(ms){const d=Math.floor(ms/DAY);if(d>=1)return d+' '+(d<11?'أيام':'يومًا');const h=Math.floor(ms/36e5);return h?h+' ساعة':'أقل من ساعة'}
+reg('breaks',el=>{
+  const f=S.ui.brk||'all',all=S.slips.slice().sort((a,b)=>b.t-a.t),list=all.filter(s=>f==='all'||s.counter===f),ins=insights();
+  let h='<div class="stat" style="margin-top:8px"><div><b>'+all.length+'</b><small>انكسار</small></div>'+K.map(k=>'<div><b>'+S.slips.filter(s=>s.counter===k).length+'</b><small>'+KN[k]+'</small></div>').join('')+'</div>'+
+  (ins.n?'<div class="card acc"><div class="sm">'+(ins.trig?'أكثر محفّز: <b>'+esc(ins.trig)+'</b><br>':'')+(ins.time?'أخطر وقت: <b>'+esc(ins.time)+'</b>':'')+'</div></div>':'')+
+  '<div class="chips"><button class="chip '+(f==='all'?'on':'')+'" data-a="brkf" data-v="all">الكل</button>'+K.map(k=>'<button class="chip '+(f===k?'on':'')+'" data-a="brkf" data-v="'+k+'">'+KN[k]+'</button>').join('')+'</div>';
+  if(!list.length)h+='<div class="card ph mt">لا انكسارات مسجّلة. وإن حدث، سجّلها هنا بصدق لتتعلّم منها.</div>';
+  list.forEach(s=>{
+    const d=new Date(s.t),pn=S.pending.find(p=>p.kind==='slip'&&p.t===s.t&&p.counter===s.counter);
+    h+='<div class="card"><div class="row"><b class="grow">'+KN[s.counter]+'</b><span class="chip">'+d.toLocaleDateString('ar',{day:'numeric',month:'long',year:'numeric'})+'</span></div>'+
+    '<div class="xs mut mt">'+d.toLocaleTimeString('ar',{hour:'numeric',minute:'2-digit'})+' · كانت سلسلتي '+slipStreak(s.streakMs)+'</div>'+
+    SLIP_Q.map(q=>{const a=slipAns(s,q[0]);return a?'<div class="card flat mt"><b class="sm">'+q[1]+'</b><div style="white-space:pre-wrap;word-break:break-word">'+esc(a)+'</div>'+(q[0]==='punish'&&pn?'<div class="xs mt" style="color:var(--'+(pn.done?'ok':'warn')+')">'+(pn.done?'✓ نُفّذت':'⏳ لم تُنفَّذ بعد')+'</div>':'')+'</div>':''}).join('')+
+    '<button class="btn sm ghost mt" data-a="brkedit" data-id="'+s.id+'">تعديل الإجابات</button></div>';
+  });
+  el.innerHTML=h;
+},{title:'انكساراتي',tab:'me',parent:'me'});
+A.brkf=el=>{S.ui.brk=el.dataset.v;save();render()};
+A.brkedit=el=>{
+  const s=S.slips.find(x=>x.id===el.dataset.id);if(!s)return;
+  sheet('<h3>تعديل الإجابات</h3>'+['trigger','before','lesson','punish'].map(k=>'<label class="lbl">'+SLIP_Q.find(q=>q[0]===k)[1]+'</label><textarea id="bk-'+k+'" style="min-height:'+(k==='trigger'?'48':'80')+'px">'+esc(s[k]||'')+'</textarea>').join('')+
+  '<button class="btn pri mt" data-a="brksave" data-id="'+s.id+'">حفظ</button><button class="btn bad" data-a="brkdel" data-id="'+s.id+'">حذف من السجل (لا يغيّر العدّاد)</button>');
+};
+A.brksave=el=>{const s=S.slips.find(x=>x.id===el.dataset.id);if(!s)return;['trigger','before','lesson','punish'].forEach(k=>{s[k]=($('#bk-'+k).value||'').trim()});save();closeSheets();render();toast('حُفظت')};
+A.brkdel=async el=>{if(await ask('حذف هذا الانكسار من السجل؟ لن يتغيّر العدّاد.',{danger:true,ok:'حذف'})){S.slips=S.slips.filter(x=>x.id!==el.dataset.id);save();closeSheets();render()}};
 /* --- اليوميات --- */
 let dMood=3,dyEdit=null,dyShow={};
 const DY_PAGE=40;
 function dyFiltered(){
   const q=(S.ui.dyQ||'').trim().toLowerCase(),m=S.ui.dyMood||0;
-  return S.diary.filter(d=>(!m||d.mood===m)&&(!q||d.text.toLowerCase().indexOf(q)>=0)).sort((a,b)=>b.t-a.t);
+  return S.diary.filter(d=>(!m||d.mood===m)&&(!S.ui.dyStar||d.star)&&(!q||d.text.toLowerCase().indexOf(q)>=0)).sort((a,b)=>b.t-a.t);
 }
 function dyStreak(){const days=new Set(S.diary.map(d=>dstr(d.t)));let s=0;for(let i=days.has(today())?0:1;i<4000;i++){if(days.has(dstr(Date.now()-i*DAY)))s++;else break}return s}
 reg('diary',el=>{
   const nm=dstr(Date.now()).slice(0,7),thisM=S.diary.filter(d=>dstr(d.t).slice(0,7)===nm).length;
   el.innerHTML='<button class="btn pri big" style="margin-top:8px" data-a="dynew">✍️ تدوينة جديدة</button>'+
   '<div class="stat"><div><b>'+S.diary.length+'</b><small>تدوينة</small></div><div><b>'+dyStreak()+'</b><small>أيام متتالية</small></div><div><b>'+thisM+'</b><small>هذا الشهر</small></div></div>'+
-  '<div class="card" style="padding:10px"><input id="dy-q" type="search" data-i="dyq" placeholder="🔍 ابحث في يومياتك…" value="'+esc(S.ui.dyQ||'')+'"><div class="chips mt"><button class="chip '+(!S.ui.dyMood?'on':'')+'" data-a="dyfm" data-v="0">الكل</button>'+MOODS.map((m,i)=>'<button class="chip '+(S.ui.dyMood===i+1?'on':'')+'" data-a="dyfm" data-v="'+(i+1)+'" style="font-size:18px">'+m+'</button>').join('')+'</div></div><div id="dylist"></div>';
+  '<div class="card" style="padding:10px"><input id="dy-q" type="search" data-i="dyq" placeholder="🔍 ابحث في يومياتك…" value="'+esc(S.ui.dyQ||'')+'"><div class="chips mt"><button class="chip '+(!S.ui.dyMood?'on':'')+'" data-a="dyfm" data-v="0">الكل</button>'+MOODS.map((m,i)=>'<button class="chip '+(S.ui.dyMood===i+1?'on':'')+'" data-a="dyfm" data-v="'+(i+1)+'" style="font-size:18px">'+m+'</button>').join('')+'<button class="chip '+(S.ui.dyStar?'on':'')+'" data-a="dystarf">⭐ المنجّمة · '+S.diary.filter(d=>d.star).length+'</button></div></div><div id="dylist"></div>';
 },{title:'يومياتي',tab:'me',parent:'me'});
 POST.diary=()=>dyList();
 function dyList(){
   const box=$('#dylist');if(!box)return;
-  const list=dyFiltered(),searching=!!((S.ui.dyQ||'').trim()||S.ui.dyMood);
-  if(!list.length){box.innerHTML='<div class="ph">'+(S.diary.length?'لا نتائج مطابقة':'لا تدوينات بعد. الكتابة تفرّغ الصدر وتكشف النفس.')+'</div>';return}
+  const list=dyFiltered(),searching=!!((S.ui.dyQ||'').trim()||S.ui.dyMood||S.ui.dyStar);
+  if(!list.length){box.innerHTML='<div class="ph">'+(S.ui.dyStar?'لا أيام منجّمة بعد. اضغط ☆ بجانب أي يوم تريد العودة إليه.':S.diary.length?'لا نتائج مطابقة':'لا تدوينات بعد. الكتابة تفرّغ الصدر وتكشف النفس.')+'</div>';return}
   const groups={};list.forEach(d=>{const x=new Date(d.t),k=x.getFullYear()+'-'+pad(x.getMonth()+1);(groups[k]=groups[k]||[]).push(d)});
   const keys=Object.keys(groups).sort().reverse(),nowK=today().slice(0,7);
   let h='',lastY='';
@@ -2971,12 +2998,14 @@ function dyList(){
       const gg=ws?g.filter(d=>wkOf(d)===ws):g;
       h+='<div class="chips" style="margin:2px 0 8px"><button class="chip '+(!ws?'on':'')+'" data-a="dywk" data-k="'+k+'" data-w="0">الكل · '+g.length+'</button>'+[1,2,3,4,5].filter(w=>cnt[w]).map(w=>'<button class="chip '+(ws===w?'on':'')+'" data-a="dywk" data-k="'+k+'" data-w="'+w+'">أسبوع '+w+' · '+cnt[w]+'</button>').join('')+'</div>';
       h+='<div class="list">'+gg.slice(0,lim).map(d=>{const x=new Date(d.t);
-      return '<button class="li" data-a="dyview" data-id="'+d.id+'" style="align-items:flex-start"><span style="flex:none;width:42px;text-align:center"><b style="font-size:20px;display:block;line-height:1.1">'+x.getDate()+'</b><span class="xs mut">'+AR_DAYS[x.getDay()]+'</span></span><span class="grow" style="min-width:0"><span style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;white-space:pre-wrap;word-break:break-word">'+esc(d.text)+'</span></span><span style="font-size:20px">'+MOODS[d.mood-1]+'</span></button>'}).join('')+'</div>'+(gg.length>lim?'<button class="btn sm ghost" style="margin:8px auto" data-a="dymore" data-k="'+k+'">عرض المزيد ('+(gg.length-lim)+')</button>':'');
+      return '<button class="li" data-a="dyview" data-id="'+d.id+'" style="align-items:flex-start"><span style="flex:none;width:42px;text-align:center"><b style="font-size:20px;display:block;line-height:1.1">'+x.getDate()+'</b><span class="xs mut">'+AR_DAYS[x.getDay()]+'</span></span><span class="grow" style="min-width:0"><span style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;white-space:pre-wrap;word-break:break-word">'+esc(d.text)+'</span></span><span style="font-size:20px">'+MOODS[d.mood-1]+'</span><span data-a="dystar" data-id="'+d.id+'" role="button" aria-label="نجمة" style="font-size:24px;padding:2px 4px;line-height:1;color:'+(d.star?'var(--warn)':'var(--faint)')+'">'+(d.star?'★':'☆')+'</span></button>'}).join('')+'</div>'+(gg.length>lim?'<button class="btn sm ghost" style="margin:8px auto" data-a="dymore" data-k="'+k+'">عرض المزيد ('+(gg.length-lim)+')</button>':'');
     }
   });
   box.innerHTML=h;
 }
 INP.dyq=el=>{S.ui.dyQ=el.value;clearTimeout(INP._t);INP._t=setTimeout(()=>{save();dyList()},180)};
+A.dystar=el=>{const d=S.diary.find(x=>x.id===el.dataset.id);if(!d)return;d.star=!d.star;if(!d.star)delete d.star;save();haptic(8);if(el.closest('.sh')){closeSheets();A.dyview(el)}render()};
+A.dystarf=()=>{S.ui.dyStar=!S.ui.dyStar;save();render()};
 A.dyfm=el=>{S.ui.dyMood=+el.dataset.v;save();$$('[data-a=dyfm]').forEach(b=>b.classList.toggle('on',b===el));dyList()};
 A.dymon=el=>{const k=el.dataset.k,nowK=today().slice(0,7),cur=S.ui.dyOpen[k]===undefined?k===nowK:S.ui.dyOpen[k];S.ui.dyOpen[k]=!cur;save();dyList()};
 A.dywk=el=>{S.ui.dyWk=S.ui.dyWk||{};S.ui.dyWk[el.dataset.k]=+el.dataset.w;dyShow[el.dataset.k]=DY_PAGE;save();dyList()};
@@ -3004,7 +3033,7 @@ A.dysave=()=>{
 };
 A.dyview=el=>{
   const d=S.diary.find(x=>x.id===el.dataset.id);if(!d)return;
-  sheet('<div class="row"><span style="font-size:30px">'+MOODS[d.mood-1]+'</span><div class="grow mut sm">'+new Date(d.t).toLocaleString('ar',{dateStyle:'full',timeStyle:'short'})+(d.edited?' · عُدّلت':'')+'</div></div><div class="mt" style="white-space:pre-wrap;word-break:break-word;font-size:17px;line-height:1.9">'+esc(d.text)+'</div><div class="row mt2"><button class="btn grow" data-a="dyedit" data-id="'+d.id+'">تعديل</button><button class="btn bad grow" data-a="dydel" data-id="'+d.id+'">حذف</button></div>');
+  sheet('<div class="row"><span style="font-size:30px">'+MOODS[d.mood-1]+'</span><div class="grow mut sm">'+new Date(d.t).toLocaleString('ar',{dateStyle:'full',timeStyle:'short'})+(d.edited?' · عُدّلت':'')+'</div></div><div class="mt" style="white-space:pre-wrap;word-break:break-word;font-size:17px;line-height:1.9">'+esc(d.text)+'</div><div class="row mt2"><button class="btn grow" data-a="dystar" data-id="'+d.id+'">'+(d.star?'★ منجّمة':'☆ نجمة')+'</button><button class="btn grow" data-a="dyedit" data-id="'+d.id+'">تعديل</button><button class="btn bad grow" data-a="dydel" data-id="'+d.id+'">حذف</button></div>');
 };
 A.dyedit=el=>{closeSheets();dySheet(el.dataset.id)};
 A.dydel=async el=>{if(await ask('حذف هذه التدوينة؟',{danger:true,ok:'حذف'})){S.diary=S.diary.filter(d=>d.id!==el.dataset.id);save();closeSheets();render()}};
