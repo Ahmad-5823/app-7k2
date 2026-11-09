@@ -476,7 +476,7 @@ function defaults(){return{v:2,onboarded:false,name:'',pin:null,theme:'dark',acc
  counters:{porn:mkCounter(),mast:mkCounter()},logs:{porn:{},mast:{}},slips:[],pending:[],earned:[],wins:[],
  rules:[],ruleLog:{},checkins:{},diary:[],answers:{},excuses:[],weekly:{},favs:[],seen:[],
  lists:{reasons:[],ifthen:[],alts:[],triggers:[],weak:[],warn:[],punish:[]},
- shield:{},shMeta:{},shCustom:[],shNotes:{},shCfg:{wird:100,quran:7,off:[],dhikr:[]},cstyle:{porn:'ring',mast:'ring'},war:[],warFronts:[],
+ shield:{},shMeta:{},shCustom:[],shNotes:{},shCfg:{wird:100,quran:7,off:[],dhikr:[]},cstyle:{porn:'ring',mast:'ring'},war:[],waves:[],warFronts:[],
  warPlay:[{id:'p1',when:'مريض أو مستلقٍ على الفراش',do:'أقوم من الفراش فورًا رغم المرض، وأُغلق الهاتف وأضعه في مكان بعيد'},{id:'p2',when:'سهران ولا يأتيني نوم',do:'أخرج من المنزل مباشرة وأمشي في الشارع ولو كان الليل متأخرًا'},{id:'p3',when:'متوتر وأنا أدرس',do:'أترك الدراسة ولو كان عندي امتحان، وأغيّر الفعل: حديث مع أصدقائي أو مشي نصف ساعة'}],
  plugins:[],ui:{k:'porn',jtab:'cal',calK:'all',calM:null,tipCat:'all',tipDay:'',tipCur:null,emEnd:0,stab:'q',rcat:'all',gk:'porn',shSel:'prayers',shDay:0,dyQ:'',dyMood:0,dyOpen:{},dyWk:{},warF:'all',warTab:'all',warV:'log',slT:'now',slP:'w',slO:0,hubS:'tools',warOpen:{},hTab:'cal',hP:'m',hO:0,hcM:null,hView:'list',hArch:false,jmap:'porn'}}}
 let S=null,locked=false,cur='today',lastCur=null;
@@ -927,7 +927,7 @@ function emergency(){
   '<div class="card"><b>لماذا أريد التغيير:</b>'+(reasons.length?reasons.map(r=>'<div class="mt">• '+esc(r)+'</div>').join(''):'<div class="mut sm mt">أضف أسبابك في «أدواتي ← خطتي» لتظهر هنا وقت الحاجة.</div>')+'</div>'+
   (it.length?'<div class="card"><b>خطتي المسبقة:</b>'+it.map(r=>'<div class="mt">• '+esc(r)+'</div>').join('')+'</div>':'')+
   (alts.length?'<div class="card"><b>بدائل أفعلها الآن:</b><div class="chips mt">'+alts.map(r=>'<span class="chip on">'+esc(r)+'</span>').join('')+'</div></div>':'')+
-  slEmBtn()+'<button class="btn ok big" data-a="emwin">نجوت من هذه الموجة 💪</button><button class="btn" data-a="emwar">⚔️ سجّل هذه الهجمة (محاور المعركة)</button><button class="btn ghost bad" data-a="emslip">زلّت قدمي</button></div>';
+  slEmBtn()+'<button class="btn ok big" data-a="emwin">نجوت من هذه الموجة 💪</button><button class="btn ghost bad" data-a="emslip">زلّت قدمي</button></div>';
   document.body.appendChild(d);document.body.style.overflow='hidden';
   if(emRunning())emT0=Date.now();
   clearInterval(emInt);emInt=setInterval(emStep,500);emStep();haptic(20);
@@ -951,7 +951,7 @@ function emStep(){
   if(bt.textContent!==ph[0]){bt.textContent=ph[0];b.style.transitionDuration=ph[1]+'s';b.style.transform='scale('+ph[2]+')'}
 }
 A.emstart=()=>{
-  S.ui.emEnd=Date.now()+20*60000;S.ui.emStarted=true;save();emT0=Date.now();
+  S.ui.emEnd=Date.now()+20*60000;S.ui.emStarted=true;S.ui.emSt=Date.now();save();emT0=Date.now();
   $('#em-sub').textContent='تنفّس مع الدائرة، ولا تفعل شيئًا سوى الانتظار حتى تهدأ الموجة';
   const b=$('#em-b');b.style.transform='scale(1)';$('#em-bt').textContent='';haptic(15);emStep();
 };
@@ -960,9 +960,13 @@ function emClose(){clearInterval(emInt);const e=$('#emerg');if(e)e.remove();docu
 A.emerg=()=>emergency();
 A.emclose=()=>emClose();
 A.emtip=()=>{const u=TIPS.urge.t;$('#em-tip').textContent=u[Math.floor(Math.random()*u.length)];haptic(6)};
-A.emwin=()=>{S.wins.push({t:Date.now(),k:S.ui.k});S.ui.emEnd=0;S.ui.emStarted=false;save();emClose();haptic([30,40,30]);toast('ما شاء الله! انتصرت على موجة جديدة 💪 ('+S.wins.length+' انتصار)',3500);render()};
+A.emwin=()=>{
+  const now=Date.now(),dur=S.ui.emSt&&now-S.ui.emSt<4*36e5?Math.max(1,Math.round((now-S.ui.emSt)/60000)):null,id=uid();
+  S.wins.push({t:now,k:S.ui.k});S.waves.push({id:id,t:now,int:0,trig:'',dur:dur});
+  S.ui.emEnd=0;S.ui.emStarted=false;S.ui.emSt=0;save();emClose();haptic([30,40,30]);render();waveSheet(id,true);
+};
 A.emslip=()=>{emClose();slipSheet(S.ui.k)};
-A.emwar=()=>{emClose();if(cur==='war')A.warattack();else{window._openWar=true;go('war')}};
+
 
 /* ===== أشكال العدّاد: كل شكل يمتلئ بقدر تقدّمك نحو هدفك القادم ===== */
 const CFIG={
@@ -1270,8 +1274,8 @@ function statsView(el){
 reg('tools',el=>{
   const act=S.rules.filter(r=>r.active).length;
   const extra=Object.keys(ROUTES).filter(i=>ROUTES[i].extra);
-  const sa=shAll(today()),ws=warStats();
-  el.innerHTML='<div class="grid2" style="margin-top:8px"><button class="tile wide" data-a="go" data-p="shield"><div style="width:46px;flex:none">'+shShield(sa.pct,46,'tl')+'</div><div class="grow"><b>الدرع اليومي</b><br><span>'+sa.pct+'% اليوم · صلاة، أذكار، ورد…</span></div></button><button class="tile wide" data-a="go" data-p="war"><span class="ic">⚔️</span><div class="grow"><b>محاور المعركة</b><br><span>'+(ws.total?ws.total+' حالة · نصر '+ws.rate+'% · قاعدة الثلاث':'سجّل هجماتك وطريقة تغلّبك عليها')+'</span></div></button><button class="tile wide sosT" data-a="emerg"><span class="ic">🆘</span><div><b>زر الطوارئ</b><br><span>اضغطه حين تشعر بالرغبة: تنفّس، مؤقّت، أسبابك وبدائلك</span></div></button>'+
+  const sa=shAll(today());
+  el.innerHTML='<div class="grid2" style="margin-top:8px"><button class="tile wide" data-a="go" data-p="shield"><div style="width:46px;flex:none">'+shShield(sa.pct,46,'tl')+'</div><div class="grow"><b>الدرع اليومي</b><br><span>'+sa.pct+'% اليوم · صلاة، أذكار، ورد…</span></div></button><button class="tile wide" data-a="go" data-p="war"><span class="ic">🌊</span><div class="grow"><b>موجاتي</b><br><span>'+(S.wins.length?S.wins.length+' موجة هزمتها · تتبّع ضعفها':'سجّل كل رغبة تهزمها وشاهد ضعفها مع الوقت')+'</span></div></button><button class="tile wide sosT" data-a="emerg"><span class="ic">🆘</span><div><b>زر الطوارئ</b><br><span>اضغطه حين تشعر بالرغبة: تنفّس، مؤقّت، أسبابك وبدائلك</span></div></button>'+
   tile('rules','📜','قواعدي',act?act+' قاعدة نشطة':'قواعد أضعها لنفسي')+tile('plan','🛡️','خطتي','أسبابي، إذا-فعندها، البدائل')+tile('tips','💡','نصائح','نصيحة جديدة بكل ضغطة')+tile('after','🌱','بعد الزلة','عودة بلا يأس')+tile('habits','📊','كل العادات','سلاسل وإحصاءات بنود الدرع')+
   extra.map(i=>tile(i,ROUTES[i].icon,ROUTES[i].title,ROUTES[i].desc)).join('')+'</div>';
 },{title:'أدواتي',tab:'tools'});
@@ -2676,6 +2680,72 @@ function sleepCard(){
 function slEmBtn(){const h=new Date().getHours();return(slOn()&&(h>=21||h<5))?'<button class="btn" data-a="emsleep">😴 الوقت متأخر: الأقوى الآن أن تنام</button>':''}
 A.emsleep=()=>{if(typeof emClose==='function')emClose();A.slbed()};
 
+/* ===== موجاتي (v2.7): كل موجة رغبة تجاوزتها، وتتبّع ضعفها مع الوقت ===== */
+const WV_LV=[[0,'🌱','بداية الوعي'],[3,'👁️','يقظ'],[10,'🌿','ثابت'],[25,'🪨','صلب'],[50,'🌳','راسخ'],[100,'⛰️','جبل']];
+function wvLevel(n){let r=WV_LV[0],nx=null;WV_LV.forEach((x,i)=>{if(n>=x[0]){r=x;nx=WV_LV[i+1]||null}});return{r:r,nx:nx}}
+function wvAvg(a){return a.length?a.reduce((x,y)=>x+y,0)/a.length:0}
+function waveSheet(id,isNew){
+  const w=S.waves.find(x=>x.id===id);if(!w)return;
+  window._wv={id:id,int:w.int||0,trig:w.trig||''};
+  const tr=[];(S.lists.triggers||[]).concat(WAR_SUG.ctx).forEach(t=>{if(tr.indexOf(t)<0)tr.push(t)});
+  sheet('<div class="center"><div class="hero-ic">💪</div><h3>'+(isNew?'هزمتَ هذه الموجة':'تفاصيل الموجة')+'</h3></div>'+
+  '<label class="lbl">كم كانت قوّتها؟ (1 خفيفة · 10 شديدة)</label><div class="chips cs" id="wv-int">'+[1,2,3,4,5,6,7,8,9,10].map(n=>'<button class="chip'+(w.int===n?' on':'')+'" data-a="wvint" data-v="'+n+'">'+n+'</button>').join('')+'</div>'+
+  '<label class="lbl">ما الذي أثارها؟ (اختياري)</label><div class="chips cs" id="wv-tr">'+tr.slice(0,12).map(t=>'<button class="chip'+(w.trig===t?' on':'')+'" data-a="wvtrig" data-v="'+esc(t)+'">'+esc(t)+'</button>').join('')+'</div>'+
+  '<input id="wv-tx" placeholder="أو اكتب سببًا آخر" value="'+(tr.indexOf(w.trig)<0?esc(w.trig||''):'')+'">'+
+  '<button class="btn pri mt" data-a="wvsave">حفظ</button>'+(isNew?'<button class="btn ghost" data-a="close">تخطّي</button>':'<button class="btn bad" data-a="wvdel" data-id="'+id+'">حذف الموجة</button>'));
+}
+A.wvint=el=>{window._wv.int=+el.dataset.v;document.querySelectorAll('#wv-int .chip').forEach(c=>c.classList.toggle('on',c===el));haptic(6)};
+A.wvtrig=el=>{const same=window._wv.trig===el.dataset.v;window._wv.trig=same?'':el.dataset.v;$('#wv-tx').value='';document.querySelectorAll('#wv-tr .chip').forEach(c=>c.classList.toggle('on',!same&&c===el));haptic(6)};
+A.wvsave=()=>{
+  const w=S.waves.find(x=>x.id===window._wv.id);if(!w)return;
+  const tx=($('#wv-tx').value||'').trim();
+  w.int=window._wv.int;w.trig=tx||window._wv.trig;
+  if(w.trig&&S.lists.triggers.indexOf(w.trig)<0&&WAR_SUG.ctx.indexOf(w.trig)<0)S.lists.triggers.push(w.trig);
+  save();closeSheets();render();toast('حُفظت. كل موجة تهزمها تقرّبك 💪')
+};
+A.wvdel=async el=>{if(await ask('حذف هذه الموجة؟',{danger:true,ok:'حذف'})){const w=S.waves.find(x=>x.id===el.dataset.id);S.waves=S.waves.filter(x=>x.id!==el.dataset.id);if(w){const i=S.wins.findIndex(x=>Math.abs(x.t-w.t)<2000);if(i>=0)S.wins.splice(i,1)}save();closeSheets();render()}};
+A.wvopen=el=>waveSheet(el.dataset.id,false);
+reg('war',el=>{
+  warMig();
+  const n=S.wins.length,lv=wvLevel(n),xp=lv.nx?Math.round((n-lv.r[0])*100/(lv.nx[0]-lv.r[0])):100;
+  const W=S.waves.slice().sort((a,b)=>a.t-b.t),rated=W.filter(w=>w.int>0),last=W[W.length-1];
+  const wk=Date.now()-7*DAY,thisW=S.wins.filter(w=>w.t>=wk).length,prevW=S.wins.filter(w=>w.t<wk&&w.t>=wk-7*DAY).length;
+  let h='<div class="card acc" style="margin-top:8px"><div class="center"><div style="font-size:46px">'+lv.r[1]+'</div><b style="font-size:20px">'+lv.r[2]+'</b>'+
+  '<div style="font-size:44px;font-weight:800;line-height:1.2">'+n+'</div><div class="mut">موجة رغبة هزمتَها</div></div>'+
+  '<div class="bar" style="margin:12px 0 6px"><i style="width:'+xp+'%"></i></div><div class="mut xs center">'+(lv.nx?(lv.nx[0]-n)+' موجات لمستوى «'+lv.nx[2]+'»':'بلغتَ أعلى مستوى، فاثبت ⛰️')+'</div></div>'+
+  '<button class="btn pri big mt" data-a="emerg">🌊 الرغبة جاية الآن</button>'+
+  '<div class="stat mt"><div><b>'+thisW+'</b><small>هذا الأسبوع</small></div><div><b>'+prevW+'</b><small>الأسبوع الماضي</small></div><div><b>'+(rated.length?wvAvg(rated.map(w=>w.int)).toFixed(1):'—')+'</b><small>متوسط القوّة</small></div></div>';
+  /* الضعف مع الوقت */
+  if(rated.length>=2){
+    const rec=rated.slice(-14),mx=10;
+    h+='<div class="sec"><h3>قوّة موجاتك</h3><small>آخر '+rec.length+' موجة</small></div><div class="card"><div style="display:flex;align-items:flex-end;gap:5px;height:90px">'+
+    rec.map(w=>'<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;height:100%"><i style="display:block;border-radius:5px 5px 2px 2px;background:linear-gradient(0deg,var(--acc2),var(--acc));height:'+Math.max(8,w.int*100/mx)+'%"></i></div>').join('')+'</div>';
+    if(rated.length>=6){
+      const half=Math.floor(rated.length/2),a=wvAvg(rated.slice(0,half).map(w=>w.int)),b=wvAvg(rated.slice(half).map(w=>w.int)),d=Math.round((a-b)*100/a);
+      h+='<div class="mt sm center" style="color:var(--'+(d>0?'ok':'warn')+')">'+(d>0?'📉 موجاتك الأخيرة أضعف بنحو '+d+'% من أولى موجاتك. الرغبة تضعف مع التكرار.':d<0?'موجاتك الأخيرة أقوى قليلًا. راجع محفّزاتك ونومك.':'قوّة موجاتك ثابتة. استمر.')+'</div>'
+    }else h+='<div class="mut xs center mt">سجّل قوّة ست موجات لتظهر لك مقارنة الضعف مع الوقت</div>';
+    h+='</div>';
+  }
+  /* تحليل */
+  if(W.length>=3){
+    const per=WAR_PER.map(p=>({n:p[1],ic:p[0],c:S.wins.filter(w=>{const hr=new Date(w.t).getHours();return hr>=p[2]&&hr<p[3]}).length})).sort((a,b)=>b.c-a.c)[0];
+    const tc={};W.forEach(w=>{if(w.trig)tc[w.trig]=(tc[w.trig]||0)+1});
+    const tt=Object.keys(tc).sort((a,b)=>tc[b]-tc[a])[0],durs=W.filter(w=>w.dur).map(w=>w.dur);
+    h+='<div class="sec"><h3>ماذا نتعلّم من موجاتك</h3></div><div class="card sm">'+
+    (per&&per.c?'<div>⏰ أكثر وقت تأتيك فيه: <b>'+per.ic+' '+per.n+'</b></div>':'')+
+    (tt?'<div class="mt">🎯 أكثر مثير: <b>'+esc(tt)+'</b> ('+tc[tt]+' مرات)</div>':'')+
+    (durs.length?'<div class="mt">⏱️ متوسط مدة الموجة: <b>'+Math.round(wvAvg(durs))+' دقيقة</b>، ثم تهدأ</div>':'')+
+    (tt&&suggestMove(tt)?'<div class="banner mt">خطتك لهذا المثير: <b>'+esc(suggestMove(tt).do)+'</b></div>':'')+'</div>';
+  }
+  /* خطتي */
+  h+='<div class="sec"><h3>خطتي لوقت الرغبة</h3><small>اكتبها وأنت هادئ</small></div><div class="card">'+(S.warPlay.length?S.warPlay.map(p=>'<div class="task"><div class="t"><b>'+esc(p.when)+'</b><small style="font-size:13.5px;color:var(--tx);opacity:.85">'+esc(p.do)+'</small></div><button class="link" data-a="plyedit" data-id="'+p.id+'">تعديل</button></div>').join(''):'<div class="mut sm">لا خطط بعد</div>')+'<button class="btn sm mt" data-a="plyedit">＋ خطة جديدة</button></div>';
+  /* السجل */
+  h+='<div class="sec"><h3>سجل الموجات</h3><small>'+W.length+' بتفاصيلها</small></div>';
+  if(!W.length)h+='<div class="card ph">اضغط «الرغبة جاية» عند أي رغبة، وبعد أن تهزمها سجّل قوّتها هنا.</div>';
+  else h+=W.slice().reverse().slice(0,40).map(w=>{const d=new Date(w.t);return '<button class="li" data-a="wvopen" data-id="'+w.id+'"><span class="ic">🌊</span><span class="grow"><b>'+d.toLocaleDateString('ar',{day:'numeric',month:'long'})+' · '+d.toLocaleTimeString('ar',{hour:'numeric',minute:'2-digit'})+'</b><br><small class="mut">'+(w.trig?esc(w.trig):'بلا مثير مسجّل')+(w.dur?' · '+w.dur+' دقيقة':'')+'</small></span>'+(w.int?'<span class="chip on">'+w.int+'/10</span>':'<span class="chip">—</span>')+'</button>'}).join('');
+  if(S.war.length)h+='<button class="btn ghost mt2" data-a="go" data-p="warold">سجل المعارك القديمة ('+S.war.length+')</button>';
+  el.innerHTML=h;
+},{title:'موجاتي',tab:'tools',parent:'tools'});
 /* ===== محاور المعركة (v2.2: بسيطة، نوعان + حالة حرّة + اقتراحات) ===== */
 const WAR_TYPES={
  pre:{n:'بمقدّمات',ic:'🎯',s:'سبقتها نظرة أو فكرة',d:'نظرة أو مشهد أو فكرة تسبقها ثم تكبر. تستطيع قطعها مبكرًا.'},
@@ -2734,7 +2804,7 @@ function warGroup(fn){
   return Object.keys(g).map(k=>{const o=g[k];o.rate=o.w+o.l?Math.round(o.w*100/(o.w+o.l)):null;return o}).sort((a,b)=>b.n-a.n||b.last-a.last);
 }
 /* --- الصفحة --- */
-reg('war',el=>{
+reg('warold',el=>{
   warMig();
   const st=warStats(),rk=warRank(st.won),ep=openEp(),v=S.ui.warV||'log';
   const xp=rk.nx?Math.round((st.won-rk.r[0])*100/(rk.nx[0]-rk.r[0])):100;
@@ -2752,8 +2822,8 @@ reg('war',el=>{
   else h+='<div id="warlog" class="mt"></div>';
   el.innerHTML=h;
   if(window._openWar){window._openWar=false;setTimeout(A.warattack,120)}
-},{title:'محاور المعركة',tab:'tools',parent:'tools'});
-POST.war=()=>warLog();
+},{title:'سجل المعارك القديمة',tab:'tools',parent:'war'});
+POST.warold=()=>warLog();
 A.warv=el=>{S.ui.warV=el.dataset.v;save();render()};
 /* --- تبويب التحليل --- */
 function warAna(){
@@ -2896,7 +2966,7 @@ function warCard(){
   warMig();
   const ep=openEp();if(!ep)return'';
   const t=epType(ep);
-  return '<button class="card bad row" style="width:100%;text-align:start" data-a="go" data-p="war"><span style="font-size:26px">'+t.ic+'</span><div class="grow"><b>حالة معركة مفتوحة · '+ep.n+' '+(ep.n>1?'هجمات':'هجمة')+'</b><div class="mut sm">'+(ep.n>=3&&!ep.moveDone?'نفّذ قاعدة الثلاث الآن!':'سجّل نتيجتها حين تهدأ')+'</div></div></button>';
+  return '<button class="card bad row" style="width:100%;text-align:start" data-a="go" data-p="warold"><span style="font-size:26px">'+t.ic+'</span><div class="grow"><b>حالة معركة مفتوحة · '+ep.n+' '+(ep.n>1?'هجمات':'هجمة')+'</b><div class="mut sm">'+(ep.n>=3&&!ep.moveDone?'نفّذ قاعدة الثلاث الآن!':'سجّل نتيجتها حين تهدأ')+'</div></div></button>';
 }
 
 /* ===== نفسي ===== */
