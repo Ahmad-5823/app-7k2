@@ -618,6 +618,89 @@ input[type=checkbox],input[type=radio],input[type=range]{border:0;background:non
 .swl{display:flex;gap:12px;margin-top:6px}
 .swl span{width:46px;text-align:center;font-size:11.5px;color:var(--mut)}
 .tlogo{display:block;width:112px;height:112px;margin:12px auto 0}
+
+/* ===== v5.1: بطاقة العدّاد المصمتة، موجاتي الجديدة ===== */
+html[data-s=light]{--hbg:var(--acc);--hfg:var(--onacc);--hsub:color-mix(in srgb,var(--onacc) 80%,transparent);--hgold:#F3D08A;--htrack:color-mix(in srgb,var(--onacc) 24%,transparent);--hbox:color-mix(in srgb,var(--onacc) 13%,transparent);--goldf:#D9A441}
+html[data-s=dark]{--hbg:color-mix(in srgb,var(--acc) 11%,var(--card));--hfg:var(--tx);--hsub:var(--mut);--hgold:var(--acc);--htrack:var(--card3);--hbox:var(--card2);--goldf:#E3B861}
+html[data-s] .card.hero,html[data-s] .wvH{background:var(--hbg);color:var(--hfg);border-color:transparent}
+html[data-s=dark] .card.hero,html[data-s=dark] .wvH{border-color:color-mix(in srgb,var(--acc) 34%,var(--line))}
+.card.hero .ringbox .bg{stroke:var(--htrack)}
+.card.hero .ringbox .fg{stroke:var(--hgold);filter:none}
+.card.hero .ringbox .lab,.card.hero .mut{color:var(--hsub)}
+.card.hero .ringbox .sub2,.card.hero .link{color:var(--hgold)}
+.card.hero .units div{background:var(--hbox)}
+.card.hero .units small{color:var(--hsub)}
+.card.hero .bar{background:var(--htrack)}
+.card.hero .bar i{background:var(--hgold)}
+html[data-s] .card.hero .btn{background:var(--hbox);border-color:var(--htrack);color:var(--hfg)}
+.wvsc{grid-template-columns:repeat(5,1fr);gap:8px}
+.wvsc button{height:52px;font-size:18px;border-radius:14px}
+.wvcv .ar{fill:color-mix(in srgb,var(--acc) 15%,transparent)}
+.wvH{padding:20px;border-radius:24px}
+.wvH-s{font-size:13.5px;color:var(--hsub)}
+.wvH-t{font-size:27px;font-weight:700;line-height:1.4}
+.wvH-n{text-align:center;flex:none}
+.wvH-n b{display:block;font-size:56px;font-weight:700;line-height:1}
+.wvH-n span{font-size:12.5px;color:var(--hsub)}
+.wvH-p{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:16px 0 8px}
+.wvH-p i{height:8px;border-radius:5px;background:var(--htrack)}
+.wvH-p i.on{background:var(--hgold)}
+html[data-s] .btn.wvH-c{margin:16px 0 0;min-height:56px;font-size:17.5px;gap:10px;background:var(--card);color:var(--acc);border-color:transparent}
+html[data-s=dark] .btn.wvH-c{background:var(--acc);color:var(--onacc)}
+.wvH-l{display:block;margin:6px auto 0;min-height:44px;font-size:14.5px;font-weight:600;color:var(--hsub);text-decoration:underline;text-underline-offset:4px}
+.wvlist{display:flex;flex-direction:column;gap:8px}
+.wvr{display:flex;align-items:center;gap:12px;width:100%;text-align:start;padding:12px 14px;border-radius:18px;background:var(--card);border:1px solid var(--line)}
+.wvr b{display:block;font-size:14.5px}
+.wvr small{display:block;color:var(--mut);font-size:12.5px}
+.wvr em{display:block;font-style:normal;font-size:13px;opacity:.8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
+.wvr-i{flex:none;width:44px;height:44px;border-radius:14px;display:grid;place-items:center;font-weight:700;font-size:19px;background:color-mix(in srgb,var(--acc) 13%,transparent);color:var(--acc)}
+.wvr-i.lo{background:color-mix(in srgb,var(--bad) 13%,transparent);color:var(--bad)}
+.wvls{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:start;padding:11px 0;border-bottom:1px solid var(--line);line-height:1.8}
+.wvls:last-child{border-bottom:0}
+.wvls span{flex:1}
+.wvls small{color:var(--mut);font-size:12px;flex:none;margin-top:5px}
+.wvxy svg{display:block;width:100%;height:auto}
+.wvxy text{font-size:11px;fill:var(--mut);font-family:inherit}
+.wvxy .g{stroke:var(--line);stroke-width:1}
+.wvxy .ln{fill:none;stroke:var(--acc);stroke-width:2.2;stroke-linejoin:round;stroke-linecap:round}
+.wvxy .wn{fill:var(--acc)}
+.wvxy .lo{fill:var(--card);stroke:var(--bad);stroke-width:2.2}
+
+/* ===== v5.1 (ب): الشعار في رأس اليوم، صفوف الموجات، الخريطة المستقيمة ===== */
+.wvsc{direction:inherit}
+#top .tmark{flex:none;width:38px;height:38px;border-radius:12px;display:block}
+@media(max-width:380px){#top{gap:6px}#top .ib:not(.sosb){width:40px;height:40px}#top .tmark{width:34px;height:34px}}
+.wvr{align-items:center}
+.wvr b{font-size:15.5px}
+.wvr-b{width:44px;height:48px;font-size:18px}
+.wvbadge.old{background:var(--card3);color:var(--mut)}
+.wvbadge.lost{background:color-mix(in srgb,var(--bad) 20%,var(--card));color:var(--bad)}
+.wvm{flex:none;display:flex;flex-direction:column;align-items:center;gap:4px}
+.wvm>span{display:flex;align-items:flex-end;gap:3px;height:20px;direction:ltr}
+.wvm i{width:4.5px;border-radius:2px;background:var(--card3)}
+.wvm i:nth-child(1){height:6px}.wvm i:nth-child(2){height:9.5px}.wvm i:nth-child(3){height:13px}.wvm i:nth-child(4){height:16.5px}.wvm i:nth-child(5){height:20px}
+.wvm i.on{background:var(--acc)}
+.wvm.lo i.on{background:var(--bad)}
+.wvm small{font-size:11px;color:var(--mut);white-space:nowrap}
+.wvi{padding-block:6px}
+.wvi>div{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.wvi>div:last-child{border-bottom:0}
+.wvi span{color:var(--mut)}
+.wvxy .ar{fill:color-mix(in srgb,var(--acc) 10%,transparent)}
+.wvmap .jn{width:48px;height:48px}
+.wvmap .jn b{font-size:16px}
+.wvmap .jn.fin{width:58px;height:58px}
+.wvjl b,.wvjl small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wvjl b{font-size:13.5px}
+.wvg{position:absolute;transform:translate(-50%,-50%);z-index:2;min-width:132px;padding:6px 18px 7px;border-radius:16px;text-align:center;white-space:nowrap;line-height:1.35;background:var(--card);border:1.5px solid var(--line);box-shadow:0 0 0 4px color-mix(in srgb,var(--bg2) 75%,transparent)}
+.wvg b{display:block;font-size:15.5px;color:var(--mut)}
+.wvg small{display:block;font-size:11.5px;color:var(--faint)}
+.wvg.gc{border-color:var(--acc)}
+.wvg.gc b{color:var(--acc)}
+.wvg.gc small{color:var(--mut)}
+.wvg.gd{background:color-mix(in srgb,var(--goldf) 22%,var(--card));border-color:var(--goldf)}
+.wvg.gd b{color:var(--tx)}
+.wvg.gd small{color:var(--gold)}
 </style>
 </head>
 <body>
@@ -644,7 +727,7 @@ const KA=()=>{const q=S&&S.quit;return q==='porn'||q==='mast'?[q]:K};
 function kFix(){if(!S||!S.ui)return;const a=KA();['k','gk','jmap'].forEach(x=>{if(S.ui[x]&&a.indexOf(S.ui[x])<0)S.ui[x]=a[0]});['calK','brk'].forEach(x=>{if(S.ui[x]&&S.ui[x]!=='all'&&a.indexOf(S.ui[x])<0)S.ui[x]='all'})}
 const DEF_GOALS=[1,3,7,14,30,60,90,180,365,730,1095];
 const DAY=864e5;
-const APP_VER='5.0.0';
+const APP_VER='5.1.0';
 const KEY='thabat2',KSNAP='thabat2_snaps',KBOOT='thabat2_boot',KCORR='thabat2_corrupt';
 const AR_MONTHS=['كانون الثاني','شباط','آذار','نيسان','أيار','حزيران','تموز','آب','أيلول','تشرين الأول','تشرين الثاني','كانون الأول'];
 const AR_DAYS=['أحد','اثنين','ثلاثاء','أربعاء','خميس','جمعة','سبت'];
@@ -862,6 +945,7 @@ const LOGO='<svg class="tlogo" viewBox="0 0 120 120" role="img" aria-label="شع
 function applyTheme(){
   const h=document.documentElement;
   const sc=S.theme==='auto'?(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'):S.theme;
+  if(!S.ui.v5t){S.ui.v5t=1;S.theme='light';S.acc='tree'}
   if(ACCS.indexOf(S.acc)<0)S.acc='tree';
   h.dataset.s=sc;h.dataset.acc=S.acc;h.style.fontSize=(S.fs||100)+'%';
   const m=$('meta[name=theme-color]');if(m)m.content=sc==='light'?'#F6F1E7':'#0F1A16';
@@ -872,15 +956,27 @@ let routeParam='';
 function route(){const h=(location.hash||'').replace(/^#\/?/,'').split('/');routeParam=decodeURIComponent(h[1]||'');const id=h[0]||'shield';if((id==='tools'||id==='me')&&S&&S.ui){S.ui.hubS=id;return'hub'}return V[id]?id:'shield'}
 function go(id){if(location.hash==='#/'+id){render()}else location.hash='#/'+id;window.scrollTo(0,0)}
 function back(){const r=ROUTES[cur];go(r&&r.parent?r.parent:'shield')}
+/* تحية «اليوم» تتقلّص لتبقى كاملة بجانب الشعار، وإن ضاق المكان يبقى الاسم وحده */
+function fitTop(){
+  if(cur!=='today'||!S)return;const tb=$('#top .ttl b');if(!tb)return;
+  tb.textContent='السلام عليكم'+(S.name?' يا '+S.name:'');tb.style.fontSize='';
+  let f=parseFloat(getComputedStyle(tb).fontSize)||20;
+  const over=()=>{const r=document.createRange();r.selectNodeContents(tb);return r.getBoundingClientRect().width>tb.getBoundingClientRect().width-.5};
+  const fit=mn=>{while(over()&&f>mn){f-=.5;tb.style.fontSize=f+'px'}};
+  fit(16);if(over()&&S.name){tb.textContent=S.name;f=19;tb.style.fontSize='19px';fit(14)}
+}
+addEventListener('resize',()=>{try{fitTop()}catch(e){}});
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{try{fitTop()}catch(e){}});
 function renderShell(){
   const r=ROUTES[cur]||{};const main=['today','journey','war','diary','shield'].indexOf(cur)>=0;
   const title=r.dyn?r.dyn():r.title;
   let ttl;
   if(cur==='today'||cur==='shield'){
-    ttl='<div class="ttl"><b>'+(cur==='shield'?'الدرع اليومي':'السلام عليكم'+(S.name?' يا '+esc(S.name):''))+'</b><small>'+dateLine()+'</small></div>';
+    ttl=(cur==='today'?LOGO.replace('class="tlogo"','class="tmark"'):'')+'<div class="ttl"><b>'+(cur==='shield'?'الدرع اليومي':'السلام عليكم'+(S.name?' يا '+esc(S.name):''))+'</b><small>'+dateLine()+'</small></div>';
   }else if(main)ttl='<div class="ttl"><b>'+esc(title)+'</b></div>';
   else ttl='<button class="ib" data-a="back" aria-label="رجوع">'+ICONS.back+'</button><div class="ttl"><b>'+esc(title)+'</b></div>';
   $('#top').innerHTML='<button class="ib sosb" data-a="emerg" aria-label="النجدة">'+ICONS.sos+'</button>'+ttl+'<button class="ib" data-a="lockNow" aria-label="قفل">'+ICONS.lock+'</button><button class="ib'+(cur==='hub'?' on':'')+'" data-a="gome" aria-label="أنا">'+ICONS.me+'</button>';
+  fitTop();
   let tab=r.tab||'today';if(tab==='tools'||tab==='me')tab='hub';
   ICONS.hub=ICONS.me;ICONS.sleep=slNavIcon();
   const nv=t=>'<button class="nv '+(tab===t[0]?'on':'')+'" data-a="tab" data-t="'+t[0]+'" aria-label="'+t[1]+'">'+ICONS[t[0]]+'<span>'+t[1]+'</span>'+(t[0]==='sleep'&&slDue()?'<i class="dot"></i>':'')+'</button>';
@@ -1013,13 +1109,13 @@ function hero(k){
   const seg='<div class="seg" role="tablist">'+KA().map(x=>'<button class="'+(x===k?'on':'')+'" data-a="ktab" data-k="'+x+'" role="tab">'+KN[x]+'<small>'+(C(x).start?daysOf(x)+' يوم':'لم يبدأ')+'</small></button>').join('')+'</div>';
   let body;
   if(!c.start){
-    body='<div class="card acc center">'+comp('ring',k)+'<p class="mut mt">ابدأ عدّاد «'+KN[k]+'» لتبدأ رحلتك. يمكنك اختيار تاريخ سابق إن كنت صامدًا من قبل.</p><button class="btn pri big" data-a="startnow" data-k="'+k+'">ابدأ العدّاد الآن</button><button class="btn ghost" data-a="startat" data-k="'+k+'">اختيار تاريخ ووقت آخر</button></div>';
+    body='<div class="card hero center">'+comp('ring',k)+'<p class="mut mt">ابدأ عدّاد «'+KN[k]+'» لتبدأ رحلتك. يمكنك اختيار تاريخ سابق إن كنت صامدًا من قبل.</p><button class="btn pri big" data-a="startnow" data-k="'+k+'">ابدأ العدّاد الآن</button><button class="btn ghost" data-a="startat" data-k="'+k+'">اختيار تاريخ ووقت آخر</button></div>';
   }else{
     const ng=nextGoal(k),e=elapsed(k);
     let gl='<div class="mut sm center">🏆 حققت كل أهدافك، أضف أهدافًا أكبر من «رحلتي»</div>';
     if(ng){const rem=ng.days*DAY-e;const rd=Math.floor(rem/DAY),rh=Math.floor(rem%DAY/36e5);
       gl='<div class="row sm"><span class="grow"><b>الهدف القادم: '+goalName(ng.days)+'</b></span><span class="mut">باقي '+(rd?rd+' يوم ':'')+rh+' ساعة</span></div><div class="bar mt"><i data-gbar="'+k+'" style="width:0"></i></div>'+(ng.reward?'<div class="sm mt">🎁 '+esc(ng.reward)+'</div>':'<button class="link mt" data-a="goach">حدّد جائزة لهذا الهدف</button>');}
-    body='<div class="card acc">'+comp('ring',k)+'<div class="mt2">'+gl+'</div><div class="row mt2"><button class="btn bad grow" style="margin:0" data-a="slip" data-k="'+k+'">سجّلت زلة</button><button class="btn grow" style="margin:0" data-a="editstart" data-k="'+k+'">تعديل البداية</button></div><div class="mut xs center mt">أفضل سلسلة لك: '+Math.floor(bestMs(k)/DAY)+' يوم — لا تضيع بالزلة، تبقى سجلًّا لك</div></div>';
+    body='<div class="card hero">'+comp('ring',k)+'<div class="mt2">'+gl+'</div><div class="row mt2"><button class="btn grow" style="margin:0" data-a="slip" data-k="'+k+'">حدثت زلة</button><button class="btn grow" style="margin:0" data-a="editstart" data-k="'+k+'">تعديل البداية</button></div><div class="mut xs center mt">أفضل سلسلة لك: '+Math.floor(bestMs(k)/DAY)+' يوم — لا تضيع بالزلة، تبقى سجلًّا لك</div></div>';
   }
   return '<div style="margin-top:6px">'+seg+'</div>'+body;
 }
@@ -1711,7 +1807,7 @@ reg('shield',el=>{
   const row=a.rows.find(r=>r.it.id===sel);
   const t=shTier(a.pct),doneN=a.rows.filter(r=>r.f>=1&&!r.skip&&!r.empty).length;
   el.innerHTML='<div class="row" style="margin-top:8px;justify-content:center;gap:14px"><button class="ib" data-a="shday" data-o="'+(off+1)+'" aria-label="اليوم السابق">'+ICONS.back+'</button><div class="center" style="min-width:150px"><b style="font-size:17px">'+dayLabel(off)+'</b>'+(off?'<div class="xs mut">'+ds+'</div>':'')+'</div><button class="ib" data-a="shday" data-o="'+Math.max(0,off-1)+'" style="transform:scaleX(-1);'+(off?'':'opacity:.3;pointer-events:none')+'" aria-label="اليوم التالي">'+ICONS.back+'</button></div>'+
-  (off?'<div class="center mt"><span class="chip" style="color:var(--warn)">أنت تعدّل يومًا سابقًا</span></div>':remBanner())+
+  (off?'<div class="center mt"><span class="chip" style="color:var(--warn)">أنت تعدّل يومًا سابقًا</span></div>':remBanner())+slDoor()+
   '<div class="whbox">'+shWheel(a,sel)+'<div class="shbox"><div class="shw">'+shShield(a.pct,150,'m')+'<div class="shn"><b>'+a.pct+'<small>%</small></b><span>قوة الدرع</span></div></div></div></div>'+
   '<div class="center" style="margin-top:-6px"><span class="chip on" style="font-size:14px;padding:5px 14px">'+t[2]+' · '+doneN+' من '+a.rows.filter(r=>!r.skip).length+'</span></div>'+
   (row?'<div style="margin-top:14px">'+shDetail(row,ds)+'<button class="btn" data-a="shnext">البند التالي ←</button></div>':'<div class="card ph">لا بنود ظاهرة. أضف بندًا أو فعّل بنودك من التخصيص.</div>')+
@@ -2423,6 +2519,11 @@ function slSimple(){
   '<label class="lbl">هدفي النهائي للاستيقاظ <small class="mut">اختياري، للتقدّم التدريجي</small></label><input type="time" data-c="sfgoal" value="'+(c.goal||'')+'" style="direction:ltr;text-align:center"></div>';
   return h;
 }
+function slDoor(){
+  let sub='برنامج نوم بسيط: ابدأه من هنا';
+  if(slOn()){const L=SL().log[today()]||{},e=slEval(today());sub=L.bed&&L.wake&&e?'ليلة اليوم: '+fmtDur(e.tot)+' · افتح السجل والأسبوع':'سجّل ليلتك في نصف دقيقة'}
+  return '<button class="card row" style="width:100%;text-align:start;margin-top:12px" data-a="go" data-p="sleep"><span class="ic" style="font-size:24px">😴</span><div class="grow"><b>النوم</b><div class="mut sm">'+sub+'</div></div><span class="chip on">افتح</span></button>';
+}
 function sleepCard(){
   if(!slOn())return'';
   const L=SL().log[today()]||{},hr=new Date().getHours();
@@ -2996,14 +3097,11 @@ function pgLesson(n,act){
   '<div class="card flat" style="margin:14px 0 0"><b class="sm" style="color:var(--acc)">مهمة اليوم</b><div class="mt">'+esc(l[2])+'</div></div>'+(act||'');
 }
 function progCard(){
-  const p=PG(),n=pgN(),st='width:100%;text-align:start';
-  if(!p.start){
-    const q=p.quiz.length;
-    return '<button class="card acc row" style="'+st+'" data-a="go" data-p="'+(q?'prog':'quiz')+'"><span style="font-size:30px">🧭</span><div class="grow"><b>'+(q?'ابدأ برنامج 90 يومًا':'اختبار البداية')+'</b><div class="mut sm">'+(q?'درس قصير ومهمة عملية كل يوم':'دقيقتان لتعرف وضعك وتبدأ خطتك')+'</div></div></button>';
-  }
-  if(n>=90)return'';
-  if(pgToday())return '<button class="card row" style="'+st+';padding:12px 16px" data-a="go" data-p="prog"><span style="font-size:20px">✅</span><div class="grow sm"><b>أتممت درس اليوم</b> <span class="mut">· '+n+' من 90</span></div></button>';
-  return '<button class="card acc row" style="'+st+'" data-a="go" data-p="prog"><span style="font-size:30px">📖</span><div class="grow"><div class="xs mut">درس اليوم · '+(n+1)+' من 90</div><b>'+esc(PROG[n][0])+'</b></div></button>';
+  const p=PG(),n=pgN(),st='width:100%;text-align:start',ic='<span class="ic" style="font-size:24px">📖</span>';
+  if(!p.start)return '<button class="card acc row" style="'+st+'" data-a="go" data-p="'+(p.quiz.length?'prog':'quiz')+'">'+ic+'<div class="grow"><b>برنامج 90 يومًا</b><div class="mut sm">'+(p.quiz.length?'ابدأه الآن: درس قصير ومهمة كل يوم':'يبدأ باختبار البداية، دقيقتان')+'</div></div><span class="chip on">ابدأ</span></button>';
+  if(n>=90)return '<button class="card row" style="'+st+'" data-a="go" data-p="prog">'+ic+'<div class="grow"><b>برنامج 90 يومًا</b><div class="mut sm">أتممته كاملًا. راجع دروسك متى شئت</div></div></button>';
+  if(pgToday())return '<button class="card row" style="'+st+'" data-a="go" data-p="prog">'+ic+'<div class="grow"><b>برنامج 90 يومًا</b><div class="mut sm">أتممت درس اليوم · '+n+' من 90</div></div><span class="chip on">✓</span></button>';
+  return '<button class="card acc row" style="'+st+'" data-a="go" data-p="prog">'+ic+'<div class="grow"><b>برنامج 90 يومًا</b><div class="sm" style="color:var(--tx)">اليوم '+(n+1)+': '+esc(PROG[n][0])+'</div><div class="mut xs">درس اليوم ومهمته</div></div><span class="chip on">اقرأ</span></button>';
 }
 reg('prog',el=>{
   const p=PG(),n=pgN(),fin=n>=90,cur=Math.min(90,n+1),ph=pgPhase(cur),pi=PROG_PH.indexOf(ph),dt=pgToday(),lq=p.quiz[p.quiz.length-1];
@@ -3108,35 +3206,67 @@ A.qzans=el=>{
   let sum=0,mx=0;QZ.forEach((q,i)=>{if(q[2]){sum+=qz.a[i]||0;mx+=3}});
   PG().quiz.push({t:Date.now(),score:Math.round(sum*100/mx),a:qz.a.slice()});qz=null;save();haptic([30,40,30]);render();window.scrollTo(0,0);
 };
-/* ===== الموجات كمستويات (v4): موجة مفتوحة، أسئلة قبل وبعد، خريطة مستويات، كتاب دروس ===== */
+/* ===== موجاتي (v5.1): مراحل من 3 مستويات، شدة 1–5، والزلة تعيد البوصلة إلى بداية المرحلة ===== */
 const WV_ST=['اليقظة','الصمود','الانضباط','البصيرة','الرسوخ','السكينة','العزيمة','الإتقان','الإحسان','القمة'];
+const WV_EX=['المرابطة','اليقين','الصفاء','الوفاء'];
 const WV_HOW=['غيّرت مكاني','توضأت وصلّيت','ذكرت الله','خرجت أمشي','نمت','اتصلت بأحد','رياضة','أغلقت الهاتف','انشغلت بعمل'];
 const WV_TY={direct:['مباشر','رغبة صريحة تدعوك للفعل'],pre:['استباقي','فكرة تبدو بريئة تفتح الباب']};
-const wvAll=()=>{if(!Array.isArray(S.waves))S.waves=[];return S.waves};
+const WV_IC='<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M2 9c2.5-3 5-3 7.5 0s5 3 7.5 0 3.5-2 5-1M2 16c2.5-3 5-3 7.5 0s5 3 7.5 0 3.5-2 5-1"/></svg>';
+const wv5=v=>Math.max(1,Math.min(5,Math.ceil(v/2)));
+const wvAll=()=>{
+  if(!Array.isArray(S.waves))S.waves=[];
+  if(!S.ui.wv5){S.waves.forEach(w=>{if(w.int>0)w.int=wv5(w.int);(w.pts||[]).forEach(p=>{p.v=wv5(p.v)})});if(S.wave&&S.wave.pts)S.wave.pts.forEach(p=>{p.v=wv5(p.v)});S.ui.wv5=1;save()}
+  return S.waves;
+};
 const wvWon=()=>wvAll().filter(w=>w.res!=='lost').sort((a,b)=>a.t-b.t);
-const wvLv=()=>wvWon().length;
-const wvStars=w=>w.int>=8?3:w.int>=4?2:1;
-const wvStarsH=n=>'<span class="wvs">'+'★'.repeat(n)+'<i>'+'★'.repeat(3-n)+'</i></span>';
-const wvStage=l=>Math.min(9,Math.floor((Math.max(1,l)-1)/10));
+/* المستوى يُحسب من السجل: كل انتصار +1، وكل زلة تعيد إلى بداية المرحلة الحالية */
+function wvProg(){
+  const ev=[];wvAll().forEach(w=>ev.push({t:w.t,w:w.res==='lost'?null:w}));
+  (S.slips||[]).forEach(x=>ev.push({t:x.t,w:null}));
+  ev.sort((a,b)=>a.t-b.t||(a.w?-1:1));
+  const lv=[];let hi=0;
+  ev.forEach(e=>{if(e.w){lv.push(e.w);if(lv.length>hi)hi=lv.length}else lv.length=Math.floor(lv.length/3)*3});
+  return{lv:lv,n:lv.length,hi:hi};
+}
+const wvLv=()=>wvProg().n;
+const wvStage=l=>Math.floor((Math.max(1,l)-1)/3);
+const wvStName=i=>i<10?WV_ST[i]:WV_EX[(i-10)%4]+(i>=14?' '+(Math.floor((i-10)/4)+1):'');
+const wvCap=hi=>hi<30?30:30+12*(Math.floor((hi-30)/12)+1);
+const wvCount=n=>n===1?'موجة واحدة':n===2?'موجتان':n+' موجات';
 const wvDur=m=>m==null?'':m<60?m+' دقيقة':fmtDur(m);
-const wvWhen=t=>{const d=new Date(t);return d.toLocaleDateString('ar',{day:'numeric',month:'long'})+' · '+d.toLocaleTimeString('ar',{hour:'numeric',minute:'2-digit'})};
+const wvWhen=t=>{const d=new Date(t);return d.getDate()+' '+AR_MONTHS[d.getMonth()]+' · '+d.toLocaleTimeString('ar',{hour:'numeric',minute:'2-digit'})};
+const wvDay=t=>{const d=new Date(t);return d.getDate()+'/'+(d.getMonth()+1)};
 function wvTrigs(){const o=[];(S.lists.triggers||[]).concat(WAR_SUG.ctx,WAR_SUG.cause).forEach(t=>{if(t&&o.indexOf(t)<0)o.push(t)});return o.slice(0,14)}
 function wvLessons(){
-  const o=[];wvWon().forEach((w,i)=>{String(w.lesson||'').split('\n').forEach(x=>{x=x.replace(/^[\s•*\-–]+/,'').trim();if(x)o.push({x:x,lv:i+1,t:w.t})})});
+  const o=[];wvWon().forEach(w=>{String(w.lesson||'').split('\n').forEach(x=>{x=x.replace(/^[\s•*\-–]+/,'').trim();if(x)o.push({x:x,t:w.t,id:w.id})})});
   return o.reverse();
 }
 function wvScale(id,v,act){
-  return '<div class="wvsc" id="'+id+'" data-v="'+(v||0)+'">'+[1,2,3,4,5,6,7,8,9,10].map(n=>'<button class="'+(n===v?'on ':'')+(n>=8?'h':n>=4?'m':'l')+'" data-a="'+(act||'wvpick')+'" data-v="'+n+'">'+n+'</button>').join('')+'</div>';
+  return '<div class="wvsc" id="'+id+'" data-v="'+(v||0)+'">'+[1,2,3,4,5].map(n=>'<button class="'+(n===v?'on ':'')+(n>=4?'h':n===3?'m':'l')+'" data-a="'+(act||'wvpick')+'" data-v="'+n+'">'+n+'</button>').join('')+'</div><div class="row xs mut" style="justify-content:space-between;margin-top:4px"><span>خفيفة</span><span>شديدة جدًا</span></div>';
 }
 function wvCurve(pts,t0,t1){
-  const W=300,H=96,P=8,sp=Math.max(1,t1-t0),xy=pts.map(p=>[P+(W-2*P)*Math.max(0,Math.min(1,(p.t-t0)/sp)),H-P-(H-2*P)*p.v/10]);
+  const W=300,H=96,P=8,sp=Math.max(1,t1-t0),xy=pts.map(p=>[P+(W-2*P)*Math.max(0,Math.min(1,(p.t-t0)/sp)),H-P-(H-2*P)*(p.v-1)/4]);
   const line=xy.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
   const area=line+' L'+xy[xy.length-1][0].toFixed(1)+' '+(H-P)+' L'+xy[0][0].toFixed(1)+' '+(H-P)+' Z';
-  return '<div class="wvcv" dir="ltr"><svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" role="img" aria-label="منحنى قوّة الموجة"><defs><linearGradient id="wvg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--acc)" stop-opacity=".38"/><stop offset="1" stop-color="var(--acc)" stop-opacity="0"/></linearGradient></defs>'+
-  [2.5,5,7.5].map(g=>'<line x1="'+P+'" x2="'+(W-P)+'" y1="'+(H-P-(H-2*P)*g/10)+'" y2="'+(H-P-(H-2*P)*g/10)+'" class="g"/>').join('')+
-  '<path d="'+area+'" fill="url(#wvg)"/><path d="'+line+'" class="ln"/>'+xy.map(p=>'<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="3.2"/>').join('')+'</svg><div class="row xs mut" style="justify-content:space-between"><span>البداية</span><span>'+wvDur(Math.max(1,Math.round(sp/60000)))+'</span></div></div>';
+  return '<div class="wvcv" dir="ltr"><svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" role="img" aria-label="منحنى شدة الموجة">'+
+  [2,3,4].map(g=>'<line x1="'+P+'" x2="'+(W-P)+'" y1="'+(H-P-(H-2*P)*(g-1)/4)+'" y2="'+(H-P-(H-2*P)*(g-1)/4)+'" class="g"/>').join('')+
+  '<path d="'+area+'" class="ar"/><path d="'+line+'" class="ln"/>'+xy.map(p=>'<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="3.2"/>').join('')+'</svg><div class="row xs mut" style="justify-content:space-between"><span>البداية</span><span>'+wvDur(Math.max(1,Math.round(sp/60000)))+'</span></div></div>';
 }
-/* ---- قبل الموجة: ثلاثة أسئلة ---- */
+/* رسم x,y: شدة كل موجة عبر الزمن */
+function wvXY(ws){
+  const W=320,H=172,L=24,R=12,T=12,B=28,n=ws.length,t0=ws[0].t,sp=Math.max(1,ws[n-1].t-t0);
+  const X=t=>n>1?L+(W-L-R)*(t-t0)/sp:(L+W-R)/2,Y=v=>T+(H-T-B)*(5-Math.max(1,Math.min(5,v)))/4;
+  const pts=ws.filter(w=>w.int>0),won=pts.filter(w=>w.res!=='lost');
+  const line=won.map((w,i)=>(i?'L':'M')+X(w.t).toFixed(1)+' '+Y(w.int).toFixed(1)).join(' ');
+  const area=won.length>1?line+' L'+X(won[won.length-1].t).toFixed(1)+' '+Y(1)+' L'+X(won[0].t).toFixed(1)+' '+Y(1)+' Z':'';
+  return '<div class="wvxy" dir="ltr"><svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="شدة الموجات عبر الزمن">'+
+  [1,2,3,4,5].map(v=>'<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(v)+'" y2="'+Y(v)+'" class="g"/><text x="'+(L-8)+'" y="'+(Y(v)+4)+'" text-anchor="end">'+v+'</text>').join('')+
+  (area?'<path d="'+area+'" class="ar"/><path d="'+line+'" class="ln"/>':'')+
+  pts.map(w=>'<circle cx="'+X(w.t).toFixed(1)+'" cy="'+Y(w.int).toFixed(1)+'" r="4.6" class="'+(w.res==='lost'?'lo':'wn')+'"/>').join('')+
+  '<text x="'+L+'" y="'+(H-6)+'" text-anchor="start">'+wvDay(t0)+'</text>'+(n>1?'<text x="'+(W-R)+'" y="'+(H-6)+'" text-anchor="end">'+wvDay(ws[n-1].t)+'</text>':'')+
+  '</svg></div><div class="legend" style="margin-top:8px"><span><i style="background:var(--acc);border-radius:50%"></i>موجة قاومتها</span><span><i style="background:none;border:2px solid var(--bad);border-radius:50%"></i>انتهت بزلة</span></div><div class="mut xs center" style="margin-top:4px">المحور الأفقي: التاريخ · المحور العمودي: الشدة من 1 إلى 5</div>';
+}
+/* ---- قبل الموجة ---- */
 function wvTypeUI(id,v){return '<div class="wvty" id="'+id+'" data-v="'+v+'">'+Object.keys(WV_TY).map(k=>'<button class="'+(v===k?'on':'')+'" data-a="wvtype" data-v="'+k+'"><b>'+WV_TY[k][0]+'</b><small>'+WV_TY[k][1]+'</small></button>').join('')+'</div>'}
 function wvTrigUI(id,v){const l=wvTrigs(),inl=l.indexOf(v)>=0;return '<div class="chips cs" id="'+id+'" data-v="'+esc(inl?v:'')+'">'+l.map(t=>'<button class="chip'+(v===t?' on':'')+'" data-a="wvtr" data-v="'+esc(t)+'">'+esc(t)+'</button>').join('')+'</div><input id="'+id+'-tx" class="mt" placeholder="أو اكتب سببًا آخر" value="'+(inl?'':esc(v||''))+'">'}
 const wvTrigVal=id=>{const tx=($('#'+id+'-tx').value||'').trim();return tx||$('#'+id).dataset.v||''};
@@ -3145,34 +3275,35 @@ A.wvtype=el=>{const p=el.closest('.wvty');p.dataset.v=el.dataset.v;p.querySelect
 A.wvtr=el=>{const p=el.parentNode,same=p.dataset.v===el.dataset.v;p.dataset.v=same?'':el.dataset.v;p.querySelectorAll('.chip').forEach(b=>b.classList.toggle('on',!same&&b===el));const tx=$('#'+p.id+'-tx');if(tx)tx.value='';haptic(6)};
 A.wvhow=el=>{el.classList.toggle('on');haptic(6)};
 A.wvstart=()=>{
-  if(S.wave){if(cur!=='war')go('war');return}
-  sheet('<div class="center"><div class="wvbadge big">'+(wvLv()+1)+'</div><h3>موجة جديدة · المستوى '+(wvLv()+1)+'</h3><p class="mut sm">ثلاثة أسئلة سريعة ثم نواجهها معًا. كل موجة تهزمها ترفعك مستوى.</p></div>'+
-  '<label class="lbl">1. كيف جاءت؟</label>'+wvTypeUI('wp-ty','direct')+
+  if(S.wave){S.ui.wvTab='main';if(cur!=='war')go('war');else render();return}
+  const n=wvLv()+1;
+  sheet('<div class="center"><div class="wvbadge big">'+n+'</div><h3>موجة جديدة · المستوى '+n+'</h3><p class="mut sm">ثلاثة أسئلة سريعة ثم نواجهها معًا. يمكنك تخطي أي سؤال.</p></div>'+
+  '<label class="lbl">1. كم شدتها الآن؟</label>'+wvScale('wp-v',3)+
   '<label class="lbl">2. ما الذي سبقها؟</label>'+wvTrigUI('wp-tr','')+
-  '<label class="lbl">3. كم قوّتها الآن؟ <small class="mut">1 خفيفة · 10 شديدة</small></label>'+wvScale('wp-v',5)+
+  '<label class="lbl">3. كيف جاءت؟</label>'+wvTypeUI('wp-ty','direct')+
   '<button class="btn pri big mt2" data-a="wvgo">ابدأ المواجهة</button>');
 };
 A.wvgo=()=>{
   if(S.wave){closeSheets();return}
   const now=Date.now(),tr=wvTrigVal('wp-tr');
-  S.wave={id:uid(),t0:now,type:$('#wp-ty').dataset.v||'direct',trig:tr,pts:[{t:now,v:+$('#wp-v').dataset.v||5}]};
+  S.wave={id:uid(),t0:now,type:$('#wp-ty').dataset.v||'direct',trig:tr,pts:[{t:now,v:+$('#wp-v').dataset.v||3}]};
   if(tr&&S.lists.triggers.indexOf(tr)<0&&wvTrigs().indexOf(tr)<0)S.lists.triggers.push(tr);
-  save();closeSheets();haptic([20,30,20]);if(cur==='war'){render();window.scrollTo(0,0)}else go('war');
+  S.ui.wvTab='main';save();closeSheets();haptic([20,30,20]);if(cur==='war'){render();window.scrollTo(0,0)}else go('war');
   toast('بسم الله. الموجة ترتفع ثم تهبط، فاثبت.',3200);
 };
 /* ---- أثناء الموجة ---- */
 function wvLive(){
   const w=S.wave;if(!w)return'';
   const now=Date.now(),m=Math.max(1,Math.round((now-w.t0)/60000)),last=w.pts[w.pts.length-1],pk=Math.max.apply(null,w.pts.map(p=>p.v)),ls=wvLessons(),sg=w.trig?suggestMove(w.trig):null;
-  return '<div class="card wvlive" style="margin-top:8px"><div class="row"><div class="grow"><div class="wvdot">موجة جارية</div><b style="font-size:21px">المستوى '+(wvLv()+1)+'</b><div class="mut sm">منذ '+wvDur(m)+' · الآن '+last.v+'/10 · الذروة '+pk+'/10</div></div><div class="wvbadge">'+(wvLv()+1)+'</div></div>'+
+  return '<div class="card wvlive"><div class="row"><div class="grow"><div class="wvdot">موجة جارية</div><b style="font-size:21px">المستوى '+(wvLv()+1)+'</b><div class="mut sm">منذ '+wvDur(m)+' · الآن '+last.v+'/5 · الذروة '+pk+'/5</div></div><div class="wvbadge">'+(wvLv()+1)+'</div></div>'+
   (w.pts.length>1?wvCurve(w.pts.concat([{t:now,v:last.v}]),w.t0,now):'')+
-  '<label class="lbl">كم قوّتها الآن؟ <small class="mut">سجّلها كلما تغيّرت فيُرسم منحنى موجتك</small></label>'+wvScale('wl-v',0,'wvpt')+
+  '<label class="lbl">كم شدتها الآن؟ <small class="mut">سجّلها كلما تغيّرت فيُرسم منحنى موجتك</small></label>'+wvScale('wl-v',0,'wvpt')+
   (sg?'<div class="banner mt">خطتك لهذا الموقف: <b>'+esc(sg.do)+'</b></div>':'')+
   (ls.length?'<div class="card flat" style="margin:12px 0 0"><b class="sm" style="color:var(--acc)">تذكّر ما تعلّمته</b>'+ls.slice(0,2).map(l=>'<div class="sm mt">• '+esc(l.x)+'</div>').join('')+'</div>':'')+
-  '<div class="row mt"><button class="btn grow" style="margin:0" data-a="emerg">أدوات المقاومة</button>'+(ls.length>2?'<button class="btn grow" style="margin:0" data-a="wvbook">كتاب دروسي</button>':'')+'</div>'+
-  '<button class="btn pri big mt" data-a="wvwin">انتهت · هزمتُها ✓</button><button class="btn ghost" style="color:var(--bad)" data-a="wvlost">زلّت قدمي</button></div>';
+  '<button class="btn mt" data-a="emerg">أدوات المقاومة والتنفّس</button>'+
+  '<button class="btn pri big" data-a="wvwin">عدّت بسلام ✓</button><button class="btn ghost" style="color:var(--bad)" data-a="wvlost">حدثت زلة</button></div>';
 }
-A.wvpt=el=>{const w=S.wave;if(!w)return;w.pts.push({t:Date.now(),v:+el.dataset.v});if(w.pts.length>60)w.pts.splice(1,1);save();haptic(8);render();toast(+el.dataset.v>=8?'في ذروتها الآن. بعد القمة يأتي الهبوط، اصبر.':'سُجّلت قوّتها: '+el.dataset.v+'/10')};
+A.wvpt=el=>{const w=S.wave;if(!w)return;w.pts.push({t:Date.now(),v:+el.dataset.v});if(w.pts.length>60)w.pts.splice(1,1);save();haptic(8);render();toast(+el.dataset.v>=4?'في ذروتها الآن. بعد القمة يأتي الهبوط، اصبر.':'سُجّلت شدتها: '+el.dataset.v+'/5')};
 function wvClose(res){
   const w=S.wave;if(!w)return null;
   const now=Date.now(),pk=Math.max.apply(null,w.pts.map(p=>p.v));
@@ -3183,10 +3314,11 @@ function wvClose(res){
 A.wvwin=()=>{if(!S.wave)return;const r=wvClose('won');haptic([30,40,30,40,60]);render();window.scrollTo(0,0);wvForm(r.id,'new')};
 A.wvlost=async()=>{
   if(!S.wave)return;
-  if(!(await ask('هل زلّت قدمك في هذه الموجة؟ لا تخسر مستوياتك السابقة: تبقى في مستواك وتعيد المحاولة.',{ok:'نعم، سجّلها',danger:true,title:'زلّة'})))return;
+  const n=wvLv(),st=wvStage(n+1),back=n-st*3;
+  if(!(await ask('هل حدثت زلة في هذه الموجة؟ مراحلك المكتملة تبقى كما هي.'+(back?' نعيد ضبط البوصلة من بداية مرحلة «'+wvStName(st)+'».':''),{ok:'نعم، سجّلها',danger:true,title:'زلة'})))return;
   wvClose('lost');render();slipSheet(S.ui.k);
 };
-/* ---- بعد الموجة: التوثيق (وتعديل مستوى قديم، وتسجيل موجة سابقة) ---- */
+/* ---- بعد الموجة: التوثيق، وتعديل موجة، وتسجيل موجة سابقة ---- */
 let wvF=null;
 const dtLocal=t=>{const d=new Date(t);return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+'T'+pad(d.getHours())+':'+pad(d.getMinutes())};
 function wvForm(id,mode){
@@ -3194,16 +3326,16 @@ function wvForm(id,mode){
   if(mode==='past')w={id:uid(),t:Date.now(),t0:Date.now()-3600000,dur:60,int:0,trig:'',type:'direct',res:'won'};
   if(!w)return;
   wvF={id:w.id,mode:mode,rec:mode==='past'?w:null};
-  const lvl=mode==='past'?wvLv()+1:wvWon().findIndex(x=>x.id===w.id)+1,how=Array.isArray(w.how)?w.how:[],full=mode!=='new',d=w.dur||0;
-  sheet((mode==='new'?'<div class="center wvup"><div class="wvbadge big pop">'+lvl+'</div><h3>أتممت المستوى '+lvl+'</h3><div>'+wvStarsH(wvStars(w))+'</div><p class="mut sm">بفضل الله. وثّق المعركة الآن وأنت تتذكّرها، فدروسها سلاحك في الموجة القادمة.</p></div>':'<h3>'+(mode==='past'?'تسجيل موجة سابقة':'تعديل المستوى '+lvl)+'</h3>')+
+  const P=wvProg(),lvl=P.lv.indexOf(w)+1,how=Array.isArray(w.how)?w.how:[],full=mode!=='new',d=w.dur||0,stDone=lvl&&lvl%3===0;
+  sheet((mode==='new'?'<div class="center wvup"><div class="wvbadge big pop">'+lvl+'</div><h3>'+(stDone?'أتممت مرحلة «'+wvStName(wvStage(lvl))+'»':'بلغتَ المستوى '+lvl)+'</h3><p class="mut sm">بفضل الله. وثّقها الآن وأنت تتذكّرها، فدروسها تنفعك في الموجة القادمة.</p></div>':'<h3>'+(mode==='past'?'تسجيل موجة سابقة':'تعديل الموجة')+'</h3>')+
   (full?'<label class="lbl">متى بدأت؟</label><input type="datetime-local" id="wa-t" value="'+dtLocal(w.t0||w.t)+'" max="'+dtLocal(Date.now())+'" style="direction:ltr;text-align:center">'+
     '<label class="lbl">كم استمرّت؟</label><div class="row"><div class="grow"><input type="number" inputmode="numeric" id="wa-h" min="0" max="72" value="'+Math.floor(d/60)+'" style="text-align:center"><div class="xs mut center">ساعة</div></div><div class="grow"><input type="number" inputmode="numeric" id="wa-m" min="0" max="59" value="'+(d%60)+'" style="text-align:center"><div class="xs mut center">دقيقة</div></div></div>'+
-    '<label class="lbl">كيف جاءت؟</label>'+wvTypeUI('wa-ty',w.type||'direct')+'<label class="lbl">ما الذي سبقها؟</label>'+wvTrigUI('wa-tr',w.trig||''):'')+
-  '<label class="lbl">أعلى قوّة وصلتها</label>'+wvScale('wa-v',w.int||0)+
-  '<label class="lbl">ماذا حدث؟ <small class="mut">صف الهجوم كما جرى</small></label><textarea id="wa-story" placeholder="متى بدأت؟ بماذا كنت تشعر؟ ماذا قالت لك نفسك؟">'+esc(w.story||'')+'</textarea>'+
+    '<label class="lbl">ما الذي سبقها؟</label>'+wvTrigUI('wa-tr',w.trig||'')+'<label class="lbl">كيف جاءت؟</label>'+wvTypeUI('wa-ty',w.type||'direct'):'')+
+  '<label class="lbl">أعلى شدة وصلتها</label>'+wvScale('wa-v',w.int||0)+
+  '<label class="lbl">ماذا حدث؟ <small class="mut">اختياري</small></label><textarea id="wa-story" placeholder="متى بدأت؟ بماذا كنت تشعر؟ ماذا قالت لك نفسك؟">'+esc(w.story||'')+'</textarea>'+
   '<label class="lbl">كيف قاومت؟</label><div class="chips cs" id="wa-how">'+WV_HOW.concat(how.filter(x=>WV_HOW.indexOf(x)<0)).map(t=>'<button class="chip'+(how.indexOf(t)>=0?' on':'')+'" data-a="wvhow" data-v="'+esc(t)+'">'+esc(t)+'</button>').join('')+'</div><textarea id="wa-howt" class="mt" style="min-height:64px" placeholder="تفاصيل أخرى (اختياري)">'+esc(w.howt||'')+'</textarea>'+
   '<label class="lbl">الدروس المستفادة <small class="mut">درس في كل سطر</small></label><textarea id="wa-les" placeholder="ماذا تعلّمت من هذه الموجة؟">'+esc(w.lesson||'')+'</textarea>'+
-  '<button class="btn pri big mt2" data-a="wvsave">حفظ في سجل المستويات</button>'+(mode==='new'?'<button class="btn ghost" data-a="close">أوثّقها لاحقًا</button>':''));
+  '<button class="btn pri big mt2" data-a="wvsave">حفظ</button>'+(mode==='new'?'<button class="btn ghost" data-a="close">أوثّقها لاحقًا</button>':''));
 }
 A.wvsave=()=>{
   if(!wvF)return;
@@ -3215,99 +3347,129 @@ A.wvsave=()=>{
     w.t0=t0;w.dur=dur;w.t=Math.min(Date.now(),t0+dur*60000);w.type=$('#wa-ty').dataset.v||'direct';w.trig=wvTrigVal('wa-tr');
   }
   const pk=+$('#wa-v').dataset.v||0;
-  if(wvF.mode==='past'&&!pk){toast('اختر أعلى قوّة وصلتها الموجة');return}
+  if(wvF.mode==='past'&&!pk){toast('اختر أعلى شدة وصلتها الموجة');return}
   if(pk)w.int=pk;
   w.story=($('#wa-story').value||'').trim();w.howt=($('#wa-howt').value||'').trim();w.lesson=($('#wa-les').value||'').trim();
   w.how=$$('#wa-how .chip.on').map(b=>b.dataset.v);
   if(w.trig&&S.lists.triggers.indexOf(w.trig)<0&&wvTrigs().indexOf(w.trig)<0)S.lists.triggers.push(w.trig);
   if(wvF.mode==='past'){wvAll().push(w);S.wins.push({t:w.t,k:S.ui.k})}
-  const lvl=wvWon().findIndex(x=>x.id===w.id)+1;
-  save();wvF=null;closeSheets();haptic(12);render();toast(w.res==='lost'?'حُفظت':'حُفظ المستوى '+lvl+' '+'★'.repeat(wvStars(w)),2800);
+  save();wvF=null;closeSheets();haptic(12);render();toast('حُفظت ✓',2400);
 };
-/* ---- بطاقة المستوى ---- */
+/* ---- بطاقة الموجة ---- */
 A.wvopen=el=>{
   const w=wvAll().find(x=>x.id===el.dataset.id);if(!w)return;
-  const won=w.res!=='lost',lvl=won?wvWon().findIndex(x=>x.id===w.id)+1:0,how=(Array.isArray(w.how)?w.how:[]).concat(w.howt?[w.howt]:[]);
+  const won=w.res!=='lost',lvl=won?wvProg().lv.indexOf(w)+1:0,how=(Array.isArray(w.how)?w.how:[]).concat(w.howt?[w.howt]:[]);
   const qa=(q,a)=>a?'<div class="card flat" style="margin:10px 0 0"><b class="sm" style="color:var(--acc)">'+q+'</b><div class="mt" style="white-space:pre-wrap;word-break:break-word;line-height:1.85">'+a+'</div></div>':'';
-  sheet('<div class="center"><div class="wvbadge big'+(won?'':' lost')+'">'+(won?lvl:'✕')+'</div><h3>'+(won?'المستوى '+lvl:'محاولة لم تكتمل')+'</h3>'+(won?'<div>'+wvStarsH(wvStars(w))+'</div>':'')+'<div class="mut sm">'+wvWhen(w.t0||w.t)+'</div></div>'+
+  sheet('<div class="center"><div class="wvbadge big'+(won?'':' lost')+'">'+(lvl||(won?'✓':'↺'))+'</div><h3>'+(lvl?'المستوى '+lvl:won?'انتصار':'موجة انتهت بزلة')+'</h3><div class="mut sm">'+wvWhen(w.t0||w.t)+'</div></div>'+
   (w.pts&&w.pts.length>2?wvCurve(w.pts,w.t0,w.t):'')+
-  '<div class="chips mt" style="justify-content:center">'+(w.dur?'<span class="chip">المدة: '+wvDur(w.dur)+'</span>':'')+(w.int?'<span class="chip">الذروة: '+w.int+'/10</span>':'')+(w.type?'<span class="chip">هجوم '+WV_TY[w.type==='pre'?'pre':'direct'][0]+'</span>':'')+(w.trig?'<span class="chip">'+esc(w.trig)+'</span>':'')+'</div>'+
-  qa('الهجوم',esc(w.story||''))+qa('كيف قاومت',how.map(x=>'• '+esc(x)).join('\n'))+qa('الدروس المستفادة',esc(w.lesson||''))+(won?qa('النتيجة','انتصار بفضل الله'):qa('النتيجة','زلّة. المستوى ما زال ينتظرك.'))+
-  (won&&!w.story&&!w.lesson?'<p class="mut sm center mt">لم توثّق هذه الموجة بعد. دروسها تنفعك في القادمة.</p>':'')+
+  '<div class="chips mt" style="justify-content:center">'+(w.int?'<span class="chip">الشدة: '+w.int+' من 5</span>':'')+(w.dur?'<span class="chip">المدة: '+wvDur(w.dur)+'</span>':'')+(w.trig?'<span class="chip">'+esc(w.trig)+'</span>':'')+(w.type==='pre'?'<span class="chip">هجوم استباقي</span>':'')+'</div>'+
+  qa('ماذا حدث',esc(w.story||''))+qa('كيف قاومت',how.map(x=>'• '+esc(x)).join('\n'))+qa('الدروس المستفادة',esc(w.lesson||''))+
+  (won&&!w.story&&!w.lesson?'<p class="mut sm center mt">لم توثّق هذه الموجة بعد.</p>':'')+
   '<div class="row mt2">'+(won?'<button class="btn grow" style="margin:0" data-a="wvedit" data-id="'+w.id+'">'+(w.story||w.lesson?'تعديل':'وثّقها الآن')+'</button>':'')+'<button class="btn bad grow" style="margin:0" data-a="wvdel" data-id="'+w.id+'">حذف</button></div>');
 };
 A.wvedit=el=>{closeSheets();wvForm(el.dataset.id,'edit')};
 A.wvpast=()=>wvForm(null,'past');
 A.wvdel=async el=>{
   const w=wvAll().find(x=>x.id===el.dataset.id);if(!w)return;
-  if(!(await ask(w.res==='lost'?'حذف هذه المحاولة من السجل؟':'حذف هذا المستوى؟ ستنزل المستويات التي بعده درجة.',{danger:true,ok:'حذف'})))return;
+  if(!(await ask('حذف هذه الموجة من السجل؟',{danger:true,ok:'حذف'})))return;
   S.waves=wvAll().filter(x=>x.id!==w.id);
   if(w.res!=='lost'){const i=S.wins.findIndex(x=>Math.abs(x.t-w.t)<2000);if(i>=0)S.wins.splice(i,1)}
   save();closeSheets();render();
 };
-A.wvbook=()=>{
-  const ls=wvLessons();
-  sheet('<h3>كتاب دروسي</h3><p class="mut sm">كل ما تعلّمته من موجاتك، الأحدث أولًا.</p>'+(ls.length?ls.map(l=>'<div class="task"><div class="t" style="line-height:1.8">'+esc(l.x)+'<small>المستوى '+l.lv+'</small></div></div>').join(''):'<div class="ph">لا دروس بعد. وثّق موجتك القادمة لتبدأ كتابك.</div>')+'<button class="btn mt2" data-a="close">أغلق</button>');
-};
 A.wvreset=async()=>{
-  if(!(await ask('تصفير كل المستويات والموجات المسجّلة والبدء من المستوى 1؟ لا يتأثر عدّاد الأيام.',{danger:true,ok:'صفّر المستويات',title:'بداية جديدة'})))return;
-  S.waves=[];S.wins=[];S.wave=null;save();render();toast('بدأت من جديد. المستوى 1 بانتظارك');
+  if(!(await ask('حذف كل الموجات المسجّلة والبدء من المستوى 1؟ لا يتأثر عدّاد الأيام ولا سجل الزلات.',{danger:true,ok:'ابدأ من جديد',title:'بداية جديدة'})))return;
+  S.waves=[];S.wins=[];S.wave=null;S.ui.wvBase=Date.now();save();render();toast('بدأت من جديد. المستوى 1 بانتظارك');
 };
-A.wvstg=el=>{const i=+el.dataset.i;S.ui.wvSt=S.ui.wvSt===i?-1:i;save();render()};
+A.wvtab=el=>{S.ui.wvTab=el.dataset.v;save();render();window.scrollTo(0,0);if(el.dataset.v==='map')setTimeout(()=>{if(cur==='war')wvMe(1)},260)};
+A.wvmore=()=>{S.ui.wvN=(S.ui.wvN||5)+15;save();render()};
 /* ---- بطاقات الصفحة الرئيسية ---- */
 function wvBanner(){
   const w=S.wave;if(!w)return'';
-  return '<button class="card wvlive row" style="width:100%;text-align:start" data-a="go" data-p="war"><div class="wvbadge">'+(wvLv()+1)+'</div><div class="grow"><div class="wvdot">موجة جارية</div><b>المستوى '+(wvLv()+1)+' · منذ '+wvDur(Math.max(1,Math.round((Date.now()-w.t0)/60000)))+'</b><div class="mut sm">افتحها: سجّل قوّتها أو أنهِها</div></div></button>';
+  return '<button class="card wvlive row" style="width:100%;text-align:start" data-a="wvstart"><div class="wvbadge">'+(wvLv()+1)+'</div><div class="grow"><div class="wvdot">موجة جارية</div><b>المستوى '+(wvLv()+1)+' · منذ '+wvDur(Math.max(1,Math.round((Date.now()-w.t0)/60000)))+'</b><div class="mut sm">افتحها: سجّل شدتها أو أنهِها</div></div></button>';
 }
 function wvHome(){
   if(S.wave)return'';
-  const lv=wvLv(),st=WV_ST[wvStage(lv+1)];
-  return '<div class="card wvhome"><button class="row" style="width:100%;text-align:start" data-a="go" data-p="war"><div class="wvbadge">'+lv+'</div><div class="grow"><div class="xs mut">مستواك في مواجهة الموجات</div><b>'+(lv?'المستوى '+lv+' · مرحلة '+st:'لم تبدأ بعد · المستوى 1 بانتظارك')+'</b></div></button><button class="btn wvcta" data-a="wvstart">🌊 جاءتني موجة</button></div>';
+  const lv=wvLv();
+  return '<button class="card row" style="width:100%;text-align:start;padding:12px 16px" data-a="go" data-p="war"><div class="wvbadge" style="width:40px;height:44px;font-size:17px">'+lv+'</div><div class="grow sm"><b>'+(lv?'المستوى '+lv+' · مرحلة '+wvStName(wvStage(lv+1)):'موجاتي: المستوى 1 بانتظارك')+'</b></div><span class="mut xs">موجاتي</span></button>';
 }
-/* ---- صفحة المستويات ---- */
-function wvMap(st,won){
-  const lv=won.length;let h='<div class="wvmap"><i class="wvln"></i>';
-  for(let i=0;i<10;i++){
-    const n=st*10+i+1,w=won[n-1],row=i<5?1:2,col=i<5?i+1:10-i,pos='grid-row:'+row+';grid-column:'+col;
-    if(w)h+='<button class="wvn done" style="'+pos+'" data-a="wvopen" data-id="'+w.id+'"><b>'+n+'</b><small>'+wvStarsH(wvStars(w))+'</small></button>';
-    else if(n===lv+1)h+='<button class="wvn cur" style="'+pos+'" data-a="wvstart"><b>'+n+'</b><small>'+(S.wave?'جارية':'التالي')+'</small></button>';
-    else h+='<div class="wvn lock" style="'+pos+'"><b>'+n+'</b><small>&nbsp;</small></div>';
+/* ---- التبويب 1: موجاتي ---- */
+const wvMeter=(v,lost)=>'<span class="wvm'+(lost?' lo':'')+'" role="img" aria-label="الشدة '+v+' من 5"><span>'+[1,2,3,4,5].map(i=>'<i'+(i<=v?' class="on"':'')+'></i>').join('')+'</span><small>شدة '+v+'</small></span>';
+function wvRow(w,P){
+  const won=w.res!=='lost',lvl=P.lv.indexOf(w)+1,les=String(w.lesson||'').split('\n')[0];
+  return '<button class="wvr" data-a="wvopen" data-id="'+w.id+'"><span class="wvbadge wvr-b'+(won?(lvl?'':' old'):' lost')+'">'+(won?(lvl||'✓'):'↺')+'</span><span class="grow" style="min-width:0"><b>'+(won?(lvl?'المستوى '+lvl:'موجة قاومتها'):'انتهت بزلة')+'</b><small>'+wvWhen(w.t0||w.t)+'</small><small>'+(w.trig?esc(w.trig):'بلا سبب مسجّل')+(w.dur?' · '+wvDur(w.dur):'')+'</small>'+(les?'<em>'+esc(les)+'</em>':'')+'</span>'+(w.int?wvMeter(w.int,!won):'')+'</button>';
+}
+function wvMainTab(P){
+  const all=wvAll().slice().sort((a,b)=>a.t-b.t),won=wvWon(),lv=P.n,cs=wvStage(lv+1),inSt=lv-cs*3,cap=wvCap(P.hi);
+  const mo=new Date();mo.setDate(1);mo.setHours(0,0,0,0);const monthW=won.filter(w=>w.t>=mo.getTime()).length;
+  const gaps=[];for(let i=1;i<won.length;i++)gaps.push((won[i].t-won[i-1].t)/DAY);
+  let h=S.wave?wvLive():'<div class="card wvH"><div class="row" style="align-items:flex-start"><div class="grow"><div class="wvH-s">المرحلة '+(cs+1)+' من '+(cap/3)+'</div><div class="wvH-t">'+wvStName(cs)+'</div></div><div class="wvH-n"><b>'+lv+'</b><span>مستواي</span></div></div>'+
+    '<div class="wvH-p">'+[0,1,2].map(i=>'<i class="'+(i<inSt?'on':'')+'"></i>').join('')+'</div><div class="wvH-s">'+(lv?'بقي '+wvCount(3-inSt)+' لإتمام المرحلة':'كل موجة تقاومها ترفعك مستوى. كل ثلاثة مستويات مرحلة.')+'</div>'+
+    '<button class="btn wvH-c" data-a="wvstart">'+WV_IC+'<span>جاءتني موجة الآن</span></button><button class="wvH-l" data-a="wvpast">سجّل موجة سابقة</button></div>';
+  h+='<div class="stat mt"><div><b>'+monthW+'</b><small>انتصارات هذا الشهر</small></div><div><b>'+(gaps.length?(Math.round(avgN(gaps)*10)/10):'—')+'</b><small>يوم بين الموجات</small></div><div><b>'+P.hi+'</b><small>أعلى مستوى وصلته</small></div></div>';
+  const rated=all.filter(w=>w.int>0);
+  h+='<div class="sec"><h3>شدة موجاتي</h3><small>'+(rated.length?rated.length+' موجة':'')+'</small></div><div class="card">'+(rated.length>=2?wvXY(all.filter(w=>w.int>0)):'<div class="mut sm center" style="padding:18px 0">يظهر الرسم بعد تسجيل موجتين بشدتهما.</div>')+'</div>';
+  if(won.length>=3){
+    const tc={};won.forEach(w=>{if(w.trig)tc[w.trig]=(tc[w.trig]||0)+1});const tt=Object.keys(tc).sort((a,b)=>tc[b]-tc[a])[0];
+    const per=WAR_PER.map(p=>({n:p[1],c:won.filter(w=>{const hr=new Date(w.t0||w.t).getHours();return hr>=p[2]&&hr<p[3]}).length})).sort((a,b)=>b.c-a.c)[0];
+    h+='<div class="sec"><h3>ما تقوله موجاتي</h3></div><div class="card wvi">'+(per&&per.c?'<div><span>أكثر وقت تبدأ فيه</span><b>'+per.n+'</b></div>':'')+(tt?'<div><span>أكثر ما يسبقها</span><b>'+esc(tt)+'</b></div>':'')+(rated.length?'<div><span>متوسط الشدة</span><b>'+avgN(rated.map(w=>Math.min(5,w.int))).toFixed(1)+' من 5</b></div>':'')+'</div>';
   }
-  return h+'</div>';
+  const rev=all.slice().reverse(),lim=S.ui.wvN||5;
+  h+='<div class="sec"><h3>آخر الموجات</h3><small>'+all.length+'</small></div>';
+  if(!all.length)h+='<div class="card ph">لا موجات بعد. حين تأتيك رغبة اضغط «جاءتني موجة الآن».</div>';
+  else h+='<div class="wvlist">'+rev.slice(0,lim).map(w=>wvRow(w,P)).join('')+'</div>'+(rev.length>lim?'<button class="btn sm" style="margin:10px auto;display:flex" data-a="wvmore">عرض المزيد</button>':'');
+  if(all.length)h+='<button class="btn ghost mt2" style="color:var(--mut)" data-a="wvreset">ابدأ الموجات من جديد</button>';
+  return h;
 }
+/* ---- التبويب 2: دروسي وخطتي ---- */
+function wvLearnTab(){
+  const ls=wvLessons();
+  return '<div class="sec" style="margin-top:14px"><h3>دروسي من الموجات</h3><small>'+ls.length+'</small></div>'+
+  (ls.length?'<div class="card">'+ls.map(l=>'<button class="wvls" data-a="wvopen" data-id="'+l.id+'"><span>'+esc(l.x)+'</span><small>'+wvDay(l.t)+'</small></button>').join('')+'</div>':'<div class="card ph">بعد كل موجة تكتب ما تعلّمته، فيتجمّع هنا ويظهر لك وقت الموجة القادمة.</div>')+
+  '<div class="sec"><h3>خطتي لوقت الموجة</h3><small>اكتبها وأنت هادئ</small></div><div class="card">'+(S.warPlay.length?S.warPlay.map(p=>'<div class="task"><div class="t"><b>'+esc(p.when)+'</b><small style="font-size:13.5px;color:var(--tx);opacity:.85">'+esc(p.do)+'</small></div><button class="link" data-a="plyedit" data-id="'+p.id+'">تعديل</button></div>').join(''):'<div class="mut sm">لا خطط بعد</div>')+'<button class="btn sm mt" data-a="plyedit">＋ خطة جديدة</button></div>';
+}
+/* ---- التبويب 3: الخريطة المستقيمة (بلغة خريطة رحلتي) ---- */
+function wvMapTab(P){
+  const lv=P.n,cap=wvCap(P.hi),NS=cap/3,W=360,cx=W/2,stp=76,g1=64,g2=62,padT=124,padB=132,H=padT+padB+NS*(g1+g2+2*stp);
+  const ys=[],gy=[];let y=H-padB;
+  for(let s=0;s<NS;s++){gy.push(y-g1);for(let i=0;i<3;i++)ys.push(y-g1-g2-i*stp);y=ys[ys.length-1]}
+  const y0=H-padB,yT=ys[cap-1],yD=lv?ys[lv-1]:y0,pc=(x,yy)=>'left:'+(x/W*100).toFixed(2)+'%;top:'+(yy/H*100).toFixed(2)+'%';
+  let r=7,rnd=()=>{r=(r*9301+49297)%233280;return r/233280},st='';
+  for(let i=0;i<60;i++){const x=rnd()*W,yy=rnd()*H,o=Math.max(0,.45*(yy/H)-.04),rr=.7+rnd()*1.2;if(o>0.04)st+='<circle cx="'+pf(x)+'" cy="'+pf(yy)+'" r="'+pf(rr)+'" fill="var(--tx)" opacity="'+o.toFixed(2)+'"/>'}
+  const ridge=(yy,amp,col,op,seed)=>{let q=seed,rn=()=>{q=(q*9301+49297)%233280;return q/233280},d='M0 '+(yy+amp);for(let x=0;x<=W;x+=36)d+=' L'+x+' '+pf(yy+rn()*amp);return '<path d="'+d+' L'+W+' '+(yy+amp*2)+' L0 '+(yy+amp*2)+'Z" fill="'+col+'" opacity="'+op+'"/>'};
+  const road='M'+cx+' '+y0+' L'+cx+' '+yT;
+  const svg='<svg viewBox="0 0 '+W+' '+H+'" class="jsvg" aria-hidden="true"><defs><radialGradient id="wvsun" cx="50%" cy="50%" r="50%"><stop offset="0" style="stop-color:var(--acc);stop-opacity:.55"/><stop offset="1" style="stop-color:var(--acc);stop-opacity:0"/></radialGradient></defs>'+
+   '<circle cx="'+cx+'" cy="'+(padT-44)+'" r="150" fill="url(#wvsun)"/>'+st+ridge(56,46,'var(--acc)',.1,3)+ridge(92,40,'var(--acc)',.08,11)+ridge(H-120,70,'var(--bg)',.55,5)+ridge(H-70,60,'var(--bg)',.8,9)+
+   '<path d="'+road+'" fill="none" stroke="var(--card3)" stroke-width="16" stroke-linecap="round"/><path d="'+road+'" fill="none" stroke="var(--faint)" stroke-width="2" stroke-dasharray="3 9" stroke-linecap="round" opacity=".7"/>'+
+   (lv?'<path d="M'+cx+' '+y0+' L'+cx+' '+yD+'" fill="none" stroke="var(--acc)" stroke-width="16" stroke-linecap="round" opacity=".26"/><path d="M'+cx+' '+y0+' L'+cx+' '+yD+'" fill="none" stroke="var(--acc)" stroke-width="5" stroke-linecap="round"/>':'')+'</svg>';
+  const lab=(n,yy,html,cls)=>{const rt=n%2===1;return '<div class="jl wvjl'+(cls||'')+'" style="left:'+((rt?cx+34:10)/W*100).toFixed(2)+'%;top:'+((yy-20)/H*100).toFixed(2)+'%;width:'+((cx-44)/W*100).toFixed(2)+'%;text-align:'+(rt?'left':'right')+'">'+html+'</div>'};
+  const here=(n,yy,tx)=>{const rt=n%2===0;return '<div class="jmt" style="left:'+((rt?cx+32:cx-32-84)/W*100).toFixed(2)+'%;top:'+((yy-11)/H*100).toFixed(2)+'%;width:84px;text-align:'+(rt?'left':'right')+'">'+tx+'</div>'};
+  let ov='<div class="jn st" style="'+pc(cx,y0)+'">🌱</div><div class="jl ok" style="left:'+((cx-100)/W*100).toFixed(2)+'%;top:'+((y0+34)/H*100).toFixed(2)+'%;width:200px;text-align:center"><b>نقطة الانطلاق</b><small>كل موجة تقاومها ترفعك مستوى</small></div>';
+  if(!lv)ov+=here(0,y0,'📍 ابدأ من هنا');
+  for(let s=0;s<NS;s++){
+    const dn=Math.max(0,Math.min(3,lv-s*3)),cur=wvStage(lv+1)===s;
+    ov+='<div class="wvg'+(dn===3?' gd':cur?' gc':'')+'" style="'+pc(cx,gy[s])+'"><b>'+wvStName(s)+'</b><small>المرحلة '+(s+1)+(dn===3?' · أتممتها':cur?' · '+dn+' من 3':'')+'</small></div>';
+  }
+  for(let n=1;n<=cap;n++){
+    const yy=ys[n-1],wv=P.lv[n-1],fin=n===cap;
+    if(wv){
+      ov+='<button class="jn ok" style="'+pc(cx,yy)+'" data-a="wvopen" data-id="'+wv.id+'" aria-label="المستوى '+n+'"><b>'+n+'</b><i class="jck">✓</i></button>'+lab(n,yy,'<b>'+wvDay(wv.t0||wv.t)+(wv.trig?' · '+esc(wv.trig):'')+'</b><small>'+(wv.int?'الشدة '+wv.int+' من 5':'بلا شدة مسجّلة')+'</small>',' ok');
+      if(n===lv)ov+=here(n,yy,'📍 أنت هنا');
+    }else if(n===lv+1){
+      ov+='<button class="jn nx'+(fin?' fin':'')+'" id="wvme" style="'+pc(cx,yy)+'" data-a="wvstart" aria-label="المستوى التالي"><b>'+n+'</b></button>'+lab(n,yy,'<b>'+(S.wave?'موجة جارية الآن':'المستوى التالي')+'</b><small class="jnxt">'+(S.wave?'افتحها':'ينتظر موجتك القادمة')+'</small>',' ok');
+    }else{
+      ov+='<div class="jn'+(fin?' fin':'')+'" style="'+pc(cx,yy)+'">'+(fin?'🏁':'<b>'+n+'</b>')+'</div>'+(fin?lab(n,yy,'<b>المستوى '+n+'</b><small>بعده تُفتح 12 مستوى جديدة</small>'):'');
+    }
+  }
+  return '<div class="row" style="justify-content:space-between;margin-top:14px"><b>خريطة المستويات</b><button class="btn sm" style="margin:0" data-a="wvme">📍 موقعي</button></div>'+
+  '<div class="jmap wvmap" style="aspect-ratio:'+W+'/'+H+'">'+svg+ov+'</div>'+
+  '<p class="mut xs center mt">الطريق من الأسفل إلى الأعلى. كل ثلاثة مستويات مرحلة، والزلة تعيدك إلى بداية مرحلتك الحالية فقط. اضغط أي مستوى أتممته لترى موجته.</p>';
+}
+const wvMe=sm=>{const m=$('#wvme')||$('.wvmap .jn.ok:last-of-type');if(m)m.scrollIntoView({block:'center',behavior:sm?'smooth':'auto'})};
+A.wvme=()=>wvMe(1);
 reg('war',el=>{
   warMig();
-  const all=wvAll(),won=wvWon(),lost=all.filter(w=>w.res==='lost').sort((a,b)=>b.t-a.t),lv=won.length,cs=wvStage(lv+1),inSt=lv-cs*10,stars=won.reduce((t,w)=>t+wvStars(w),0);
-  const gaps=[];for(let i=1;i<won.length;i++)gaps.push((won[i].t-won[i-1].t)/DAY);
-  const rated=won.filter(w=>w.int>0),ls=wvLessons();
-  let h=S.wave?wvLive():'<div class="card acc wvhero" style="margin-top:8px"><div class="wvbadge big">'+lv+'</div><div class="xs mut">المرحلة '+(cs+1)+' من 10</div><b style="font-size:22px">'+(lv>=100?'بلغتَ القمة':'مرحلة '+WV_ST[cs])+'</b>'+
-    '<div class="bar" style="margin:12px 0 6px"><i style="width:'+Math.min(100,Math.max(0,inSt)*10)+'%"></i></div><div class="mut xs">'+(lv>=100?'مئة موجة هزمتَها. اثبت.':lv?(10-inSt)+' مستويات لإتمام المرحلة':'كل موجة رغبة تهزمها ترفعك مستوى. الموجة ليست خطرًا فقط، هي فرصتك للترقّي.')+'</div>'+
-    '<button class="btn pri big mt" data-a="wvstart">🌊 جاءتني موجة الآن</button><button class="link" data-a="wvpast">＋ سجّل موجة سابقة</button></div>';
-  h+='<div class="stat mt"><div><b>'+lv+'</b><small>المستوى</small></div><div><b style="color:var(--gold)">★ '+stars+'</b><small>النجوم</small></div><div><b>'+(gaps.length?(Math.round(avgN(gaps)*10)/10):'—')+'</b><small>يوم بين الموجات</small></div></div>';
-  if(gaps.length>=5){
-    const hf=Math.floor(gaps.length/2),a=avgN(gaps.slice(0,hf)),b=avgN(gaps.slice(hf));
-    h+='<div class="banner mt">'+(b>a*1.15?'📈 موجاتك تتباعد: كانت كل '+a.toFixed(1)+' يوم وصارت كل '+b.toFixed(1)+' يوم.':b<a*.85?'موجاتك تتقارب مؤخرًا. راجع نومك ومحفّزاتك ودرعك.':'الفاصل بين موجاتك ثابت تقريبًا ('+b.toFixed(1)+' يوم).')+'</div>';
-  }
-  h+='<div class="sec"><h3>خريطة المستويات</h3><small>'+lv+' من 100</small></div>';
-  const op=S.ui.wvSt===undefined?cs:S.ui.wvSt;
-  for(let s=0;s<=Math.min(9,cs+1);s++){
-    const dn=Math.max(0,Math.min(10,lv-s*10)),isOp=op===s,lock=s>cs;
-    h+='<button class="card row wvst'+(lock?' lk':'')+'" data-a="wvstg" data-i="'+s+'"><span class="wvsn">'+(s+1)+'</span><span class="grow"><b>'+WV_ST[s]+'</b><span class="mut xs"> · المستويات '+(s*10+1)+'–'+(s*10+10)+'</span></span><span class="chip'+(dn===10?' on':'')+'">'+(lock?'مقفلة':dn+'/10')+'</span></button>';
-    if(isOp)h+=wvMap(s,won);
-  }
-  if(cs<8)h+='<div class="mut xs center" style="margin:12px 8px 0;line-height:1.9">المراحل القادمة: '+WV_ST.slice(cs+2).join(' · ')+'</div>';
-  if(rated.length>=3){
-    const tc={};won.forEach(w=>{if(w.trig)tc[w.trig]=(tc[w.trig]||0)+1});const tt=Object.keys(tc).sort((a,b)=>tc[b]-tc[a])[0];
-    const per=WAR_PER.map(p=>({n:p[1],ic:p[0],c:won.filter(w=>{const hr=new Date(w.t0||w.t).getHours();return hr>=p[2]&&hr<p[3]}).length})).sort((a,b)=>b.c-a.c)[0];
-    const pre=won.filter(w=>w.type==='pre').length,ds=won.filter(w=>w.dur).map(w=>w.dur);
-    h+='<div class="sec"><h3>ماذا تقول موجاتك</h3></div><div class="card sm">'+(per&&per.c?'<div>⏰ أكثر وقت تبدأ فيه: <b>'+per.n+'</b></div>':'')+(tt?'<div class="mt">🎯 أكثر ما يسبقها: <b>'+esc(tt)+'</b> ('+tc[tt]+')</div>':'')+
-    '<div class="mt">📊 متوسط الذروة: <b>'+avgN(rated.map(w=>w.int)).toFixed(1)+'/10</b>'+(ds.length?' · متوسط المدة: <b>'+wvDur(Math.round(avgN(ds)))+'</b>':'')+'</div>'+(pre?'<div class="mt">🕵️ هجمات استباقية كشفتها: <b>'+pre+'</b></div>':'')+'</div>';
-  }
-  h+='<div class="sec"><h3>كتاب دروسي</h3><small>'+ls.length+' درسًا</small></div><div class="card">'+(ls.length?ls.slice(0,3).map(l=>'<div class="task"><div class="t" style="line-height:1.8">'+esc(l.x)+'<small>المستوى '+l.lv+'</small></div></div>').join('')+(ls.length>3?'<button class="btn sm mt" data-a="wvbook">كل الدروس ('+ls.length+')</button>':''):'<div class="mut sm">بعد كل موجة تكتب ما تعلّمته، فيتجمّع هنا ويظهر لك وقت الموجة القادمة.</div>')+'</div>';
-  h+='<div class="sec"><h3>خطتي لوقت الموجة</h3><small>اكتبها وأنت هادئ</small></div><div class="card">'+(S.warPlay.length?S.warPlay.map(p=>'<div class="task"><div class="t"><b>'+esc(p.when)+'</b><small style="font-size:13.5px;color:var(--tx);opacity:.85">'+esc(p.do)+'</small></div><button class="link" data-a="plyedit" data-id="'+p.id+'">تعديل</button></div>').join(''):'<div class="mut sm">لا خطط بعد</div>')+'<button class="btn sm mt" data-a="plyedit">＋ خطة جديدة</button></div>';
-  if(lost.length)h+='<div class="sec"><h3>محاولات لم تكتمل</h3><small>'+lost.length+'</small></div><div class="list">'+lost.slice(0,10).map(w=>'<button class="li" data-a="wvopen" data-id="'+w.id+'"><span class="ic">↻</span><span class="grow"><b>'+wvWhen(w.t0||w.t)+'</b><span class="sub">'+(w.trig?esc(w.trig)+' · ':'')+'الذروة '+(w.int||'—')+'/10</span></span></button>').join('')+'</div>';
-  h+='<div class="row mt2">'+(all.length?'<button class="btn ghost grow" style="margin:0;color:var(--mut)" data-a="wvreset">تصفير المستويات</button>':'')+'</div>';
-  el.innerHTML=h;
+  const P=wvProg(),t=S.wave?'main':(S.ui.wvTab||'main');
+  el.innerHTML='<div class="seg" style="margin:8px 0 12px">'+[['main','موجاتي'],['learn','دروسي وخطتي'],['map','الخريطة']].map(x=>'<button class="'+(t===x[0]?'on':'')+'" data-a="wvtab" data-v="'+x[0]+'">'+x[1]+'</button>').join('')+'</div>'+(t==='learn'?wvLearnTab():t==='map'?wvMapTab(P):wvMainTab(P));
 },{title:'موجاتي',tab:'war'});
 /* ===== محاور المعركة (v2.2: بسيطة، نوعان + حالة حرّة + اقتراحات) ===== */
 const WAR_TYPES={

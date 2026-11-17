@@ -1,4 +1,4 @@
-const C='thabat2-v50';
+const C='thabat2-v51';
 const F=['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png','./fonts/ar-400.woff2','./fonts/ar-600.woff2','./fonts/ar-700.woff2','./fonts/la-400.woff2','./fonts/la-600.woff2','./fonts/la-700.woff2'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(F.map(f=>new Request(f,{cache:'reload'})))).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==C).map(x=>caches.delete(x)))).then(()=>self.clients.claim()))});
