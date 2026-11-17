@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" data-s="dark" data-acc="teal">
+<html lang="ar" dir="rtl" data-s="dark" data-acc="tree">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#060a12">
+<meta name="theme-color" content="#0F1A16">
 <meta name="color-scheme" content="dark light">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -571,6 +571,53 @@ html[data-s=dark] .sh{background:linear-gradient(180deg,#101a27,#0a111c);border-
 .mcol .st i.p{background:var(--bad)}.mcol .st i.m{background:var(--warn)}
 .mcol small{font-size:10.5px;color:var(--faint)}
 .mcol.now small{color:var(--acc);font-weight:700}
+
+/* ===== هوية ثبات 5: الشجرة (واحة) · فاتح وداكن وخمس هويات ===== */
+html[data-s=light]{color-scheme:light;--bg:#F6F1E7;--bg2:#EFE8DA;--card:#FFFFFF;--card2:#F3EDE0;--card3:#E9E2D2;--line:#E3DCCB;--tx:#17251F;--mut:#5B6B62;--faint:#8B978F;--ok:#1E8E5A;--bad:#6E5A7E;--warn:#8A5A0B;--gold:#8A5A0B;--help:#C8452F;--onhelp:#fff;--shadow:0 6px 20px rgba(60,50,20,.08);--glass:rgba(246,241,231,.92)}
+html[data-s=dark]{color-scheme:dark;--bg:#0F1A16;--bg2:#13201B;--card:#17251F;--card2:#1D2E27;--card3:#253A31;--line:#2A3A33;--tx:#F1EDE3;--mut:#A3B0A8;--faint:#6F7F76;--ok:#5FD0A3;--bad:#B9A7CC;--warn:#E3B861;--gold:#E3B861;--help:#FF8A75;--onhelp:#3A0D06;--shadow:0 8px 24px rgba(0,0,0,.3);--glass:rgba(15,26,22,.92)}
+html[data-s=light][data-acc=tree]{--acc:#0F5C43;--acc2:#0A4734;--onacc:#fff}
+html[data-s=light][data-acc=red]{--acc:#A63A2E;--acc2:#8A2E24;--onacc:#fff}
+html[data-s=light][data-acc=yellow]{--acc:#8A6A00;--acc2:#6F5500;--onacc:#fff}
+html[data-s=light][data-acc=green]{--acc:#1E8E5A;--acc2:#17744A;--onacc:#fff}
+html[data-s=light][data-acc=blue]{--acc:#1F5FA8;--acc2:#184C88;--onacc:#fff}
+html[data-s=dark][data-acc=tree]{--acc:#5FD0A3;--acc2:#3FB98A;--onacc:#06231B}
+html[data-s=dark][data-acc=red]{--acc:#FF9A8A;--acc2:#F27D6B;--onacc:#3A0D06}
+html[data-s=dark][data-acc=yellow]{--acc:#F2C94C;--acc2:#E0B53A;--onacc:#2B2003}
+html[data-s=dark][data-acc=green]{--acc:#6FE0A6;--acc2:#4CCB8C;--onacc:#06231B}
+html[data-s=dark][data-acc=blue]{--acc:#8FBDFF;--acc2:#6FA6F2;--onacc:#06203F}
+body::before,html[data-s=dark] body::before{background:var(--bg)}
+.card,.tile,.list,html[data-s=dark] .card,html[data-s=dark] .tile,html[data-s=dark] .list{background:var(--card);border:1px solid var(--line);box-shadow:none}
+.card.flat,html[data-s=dark] .card.flat{background:var(--card2);border-color:transparent}
+.card.acc,html[data-s=dark] .card.acc{background:color-mix(in srgb,var(--acc) 9%,var(--card));border-color:color-mix(in srgb,var(--acc) 34%,var(--line))}
+.card.bad,html[data-s=dark] .card.bad{background:color-mix(in srgb,var(--bad) 10%,var(--card));border-color:color-mix(in srgb,var(--bad) 36%,var(--line))}
+.btn,html[data-s=dark] .btn{background:var(--card2);border:1px solid var(--line)}
+.btn.ghost,html[data-s=dark] .btn.ghost{background:none;border-color:transparent}
+.btn.pri,html[data-s=dark] .btn.pri{background:var(--acc);color:var(--onacc);border-color:transparent;box-shadow:none}
+.btn.bad,html[data-s=dark] .btn.bad{background:color-mix(in srgb,var(--bad) 12%,var(--card));color:var(--bad);border-color:color-mix(in srgb,var(--bad) 40%,transparent)}
+.btn.ok,html[data-s=dark] .btn.ok{background:color-mix(in srgb,var(--ok) 12%,var(--card));border-color:color-mix(in srgb,var(--ok) 40%,transparent)}
+input,textarea,select,html[data-s=dark] input,html[data-s=dark] textarea,html[data-s=dark] select{background:var(--card);border:1px solid var(--line)}
+input[type=checkbox],input[type=radio],input[type=range]{border:0;background:none}
+.seg,html[data-s=dark] .seg{background:var(--card3)}
+.seg button.on,html[data-s=dark] .seg button.on{background:var(--acc);color:var(--onacc);box-shadow:none}
+.chip,html[data-s=dark] .chip{background:var(--card2)}
+.chip.on,html[data-s=dark] .chip.on{background:color-mix(in srgb,var(--acc) 15%,var(--card));border-color:var(--acc);color:var(--acc)}
+.tabs button,html[data-s=dark] .tabs button{background:var(--card2)}
+.tabs button.on,html[data-s=dark] .tabs button.on{background:var(--acc);color:var(--onacc)}
+#nav,html[data-s=dark] #nav{background:var(--card);border:1px solid var(--line);box-shadow:0 8px 24px rgba(0,0,0,.14)}
+.ib,html[data-s=dark] .ib{background:var(--card);border:1px solid var(--line)}
+.ib.sosb,html[data-s=dark] .ib.sosb{background:var(--help);border-color:transparent;color:var(--onhelp)}
+.ib.on{border-color:var(--acc);color:var(--acc)}
+.sh,html[data-s=dark] .sh{background:var(--bg2);border-top:1px solid var(--line)}
+.hero-ic{filter:none}
+.btn.pri,.wvbadge{box-shadow:none}
+.wvbadge{background:var(--acc)}
+.wvs{color:var(--gold)}
+.swatch button{width:46px;height:46px}
+.swatch button.on{border-color:var(--card);box-shadow:0 0 0 3px var(--tx)}
+.sw-tree{background:#0F5C43}.sw-red{background:#A63A2E}.sw-yellow{background:#E0A800}.sw-green{background:#1E8E5A}.sw-blue{background:#1F5FA8}
+.swl{display:flex;gap:12px;margin-top:6px}
+.swl span{width:46px;text-align:center;font-size:11.5px;color:var(--mut)}
+.tlogo{display:block;width:112px;height:112px;margin:12px auto 0}
 </style>
 </head>
 <body>
@@ -597,7 +644,7 @@ const KA=()=>{const q=S&&S.quit;return q==='porn'||q==='mast'?[q]:K};
 function kFix(){if(!S||!S.ui)return;const a=KA();['k','gk','jmap'].forEach(x=>{if(S.ui[x]&&a.indexOf(S.ui[x])<0)S.ui[x]=a[0]});['calK','brk'].forEach(x=>{if(S.ui[x]&&S.ui[x]!=='all'&&a.indexOf(S.ui[x])<0)S.ui[x]='all'})}
 const DEF_GOALS=[1,3,7,14,30,60,90,180,365,730,1095];
 const DAY=864e5;
-const APP_VER='4.0.0';
+const APP_VER='5.0.0';
 const KEY='thabat2',KSNAP='thabat2_snaps',KBOOT='thabat2_boot',KCORR='thabat2_corrupt';
 const AR_MONTHS=['كانون الثاني','شباط','آذار','نيسان','أيار','حزيران','تموز','آب','أيلول','تشرين الأول','تشرين الثاني','كانون الأول'];
 const AR_DAYS=['أحد','اثنين','ثلاثاء','أربعاء','خميس','جمعة','سبت'];
@@ -610,11 +657,13 @@ const ICONS={
  lock:'<svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>',
  set:'<svg viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg>',
  shield:'<svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12.2l2.4 2.4 4.6-4.8"/></svg>',
- back:'<svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>'
+ back:'<svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>',
+ war:'<svg viewBox="0 0 24 24"><path d="M2 9c2.5-3 5-3 7.5 0s5 3 7.5 0 3.5-2 5-1M2 16c2.5-3 5-3 7.5 0s5 3 7.5 0 3.5-2 5-1"/></svg>',
+ diary:'<svg viewBox="0 0 24 24"><path d="M4 20l1-4L16 5l3 3L8 19z"/><path d="M13.5 7.5l3 3"/></svg>'
 };
 /* ---------- الحالة ---------- */
 function mkCounter(){return{start:null,streaks:[],goals:DEF_GOALS.map(d=>({id:uid(),days:d,reward:''})),reached:[]}}
-function defaults(){return{v:2,onboarded:false,name:'',pin:null,theme:'dark',acc:'teal',fs:100,lockAfter:60,haptic:true,
+function defaults(){return{v:2,onboarded:false,name:'',pin:null,theme:'auto',acc:'tree',fs:100,lockAfter:60,haptic:true,
  counters:{porn:mkCounter(),mast:mkCounter()},logs:{porn:{},mast:{}},slips:[],pending:[],earned:[],wins:[],
  rules:[],ruleLog:{},checkins:{},diary:[],answers:{},excuses:[],weekly:{},favs:[],seen:[],
  lists:{reasons:[],ifthen:[],alts:[],triggers:[],weak:[],warn:[],punish:[]},
@@ -808,27 +857,30 @@ function dayAgg(ds){
   return'clean';
 }
 /* ---------- المظهر ---------- */
+const ACCS=['tree','red','yellow','green','blue'],ACCN={tree:'الشجرة',red:'الأحمر',yellow:'الأصفر',green:'الأخضر',blue:'الأزرق'};
+const LOGO='<svg class="tlogo" viewBox="0 0 120 120" role="img" aria-label="شعار ثبات"><rect width="120" height="120" rx="27" fill="#0F5C43"/><circle cx="60" cy="44" r="25" fill="#F6F1E7"/><rect x="56" y="46" width="8" height="38" fill="#F6F1E7"/><rect x="26" y="82" width="68" height="6" rx="3" fill="#F6F1E7"/><path d="M60 88 L43 104 M60 88 L60 107 M60 88 L77 104" stroke="#F6F1E7" stroke-width="6" stroke-linecap="round" fill="none" opacity=".6"/><circle cx="50" cy="42" r="4.2" fill="#D9A441"/><circle cx="60" cy="32" r="4.2" fill="#D9A441"/><circle cx="70" cy="42" r="4.2" fill="#D9A441"/></svg>';
 function applyTheme(){
   const h=document.documentElement;
   const sc=S.theme==='auto'?(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'):S.theme;
+  if(ACCS.indexOf(S.acc)<0)S.acc='tree';
   h.dataset.s=sc;h.dataset.acc=S.acc;h.style.fontSize=(S.fs||100)+'%';
-  const m=$('meta[name=theme-color]');if(m)m.content=sc==='light'?'#f2f6f6':'#091014';
+  const m=$('meta[name=theme-color]');if(m)m.content=sc==='light'?'#F6F1E7':'#0F1A16';
 }
 /* ---------- التوجيه والعرض ---------- */
-const TABS=[['today','اليوم'],['journey','رحلتي'],['sleep','النوم'],['hub','أنا']];
+const TABS=[['today','اليوم'],['war','موجاتي'],['diary','بقلمي'],['journey','رحلتي']];
 let routeParam='';
 function route(){const h=(location.hash||'').replace(/^#\/?/,'').split('/');routeParam=decodeURIComponent(h[1]||'');const id=h[0]||'shield';if((id==='tools'||id==='me')&&S&&S.ui){S.ui.hubS=id;return'hub'}return V[id]?id:'shield'}
 function go(id){if(location.hash==='#/'+id){render()}else location.hash='#/'+id;window.scrollTo(0,0)}
 function back(){const r=ROUTES[cur];go(r&&r.parent?r.parent:'shield')}
 function renderShell(){
-  const r=ROUTES[cur]||{};const main=['today','journey','sleep','hub','shield'].indexOf(cur)>=0;
+  const r=ROUTES[cur]||{};const main=['today','journey','war','diary','shield'].indexOf(cur)>=0;
   const title=r.dyn?r.dyn():r.title;
   let ttl;
   if(cur==='today'||cur==='shield'){
     ttl='<div class="ttl"><b>'+(cur==='shield'?'الدرع اليومي':'السلام عليكم'+(S.name?' يا '+esc(S.name):''))+'</b><small>'+dateLine()+'</small></div>';
   }else if(main)ttl='<div class="ttl"><b>'+esc(title)+'</b></div>';
   else ttl='<button class="ib" data-a="back" aria-label="رجوع">'+ICONS.back+'</button><div class="ttl"><b>'+esc(title)+'</b></div>';
-  $('#top').innerHTML=ttl+'<button class="ib sosb" data-a="emerg" aria-label="طوارئ">'+ICONS.sos+'</button><button class="ib" data-a="lockNow" aria-label="قفل">'+ICONS.lock+'</button><button class="ib" data-a="goset" aria-label="الإعدادات">'+ICONS.set+'</button>';
+  $('#top').innerHTML='<button class="ib sosb" data-a="emerg" aria-label="النجدة">'+ICONS.sos+'</button>'+ttl+'<button class="ib" data-a="lockNow" aria-label="قفل">'+ICONS.lock+'</button><button class="ib'+(cur==='hub'?' on':'')+'" data-a="gome" aria-label="أنا">'+ICONS.me+'</button>';
   let tab=r.tab||'today';if(tab==='tools'||tab==='me')tab='hub';
   ICONS.hub=ICONS.me;ICONS.sleep=slNavIcon();
   const nv=t=>'<button class="nv '+(tab===t[0]?'on':'')+'" data-a="tab" data-t="'+t[0]+'" aria-label="'+t[1]+'">'+ICONS[t[0]]+'<span>'+t[1]+'</span>'+(t[0]==='sleep'&&slDue()?'<i class="dot"></i>':'')+'</button>';
@@ -837,7 +889,6 @@ function renderShell(){
 }
 function dateLine(){
   const d=new Date();let h='';
-  try{h=new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura',{day:'numeric',month:'long'}).format(d)}catch(e){}
   return AR_DAYS[d.getDay()]+' '+d.getDate()+' '+AR_MONTHS[d.getMonth()]+(h?' · '+h:'');
 }
 function render(){
@@ -872,6 +923,7 @@ A.back=()=>back();
 A.tab=el=>{haptic(8);go(el.dataset.t)};
 A.go=el=>{haptic(6);go(el.dataset.p)};
 A.goset=()=>go('settings');
+A.gome=()=>go('hub');
 /* نبضة كل ثانية */
 function tick(){
   if(!S||locked)return;
@@ -993,7 +1045,7 @@ function nightBanner(){
 }
 reg('today',el=>{
   const k=S.ui.k;
-  el.innerHTML=pendingCards()+warCard()+wvBanner()+hero(k)+wvHome()+progCard()+shieldCard()+sleepCard()+nightBanner()+tasksCard()+tipCard();
+  el.innerHTML=pendingCards()+wvBanner()+hero(k)+wvHome()+progCard()+shieldCard()+sleepCard()+nightBanner()+tipCard();
   const ng=nextGoal(k);
   if(ng&&C(k).start){
     const bar=$('[data-gbar]',el);
@@ -1421,16 +1473,16 @@ reg('tools',el=>{
   const act=S.rules.filter(r=>r.active).length;
   const extra=Object.keys(ROUTES).filter(i=>ROUTES[i].extra);
   const sa=shAll(today());
-  el.innerHTML='<div class="grid2" style="margin-top:8px"><button class="tile wide" data-a="go" data-p="shield"><div style="width:46px;flex:none">'+shShield(sa.pct,46,'tl')+'</div><div class="grow"><b>الدرع اليومي</b><br><span>'+sa.pct+'% اليوم · صلاة، أذكار، ورد…</span></div></button><button class="tile wide" data-a="go" data-p="prog"><span class="ic">🧭</span><div class="grow"><b>برنامج 90 يومًا</b><br><span>'+(PG().start?pgN()+' من 90 درسًا · درس ومهمة كل يوم':'اختبار البداية ثم درس ومهمة كل يوم')+'</span></div></button><button class="tile wide" data-a="go" data-p="war"><span class="ic">🌊</span><div class="grow"><b>مستوياتي</b><br><span>'+(wvLv()?'المستوى '+wvLv()+' · مرحلة '+WV_ST[wvStage(wvLv()+1)]:'كل موجة رغبة تهزمها ترفعك مستوى')+'</span></div></button><button class="tile wide sosT" data-a="emerg"><span class="ic">🆘</span><div><b>زر الطوارئ</b><br><span>اضغطه حين تشعر بالرغبة: تنفّس، مؤقّت، أسبابك وبدائلك</span></div></button>'+
+  el.innerHTML='<div class="grid2" style="margin-top:8px"><button class="tile wide" data-a="go" data-p="prog"><span class="ic">🧭</span><div class="grow"><b>برنامج 90 يومًا</b><br><span>'+(PG().start?pgN()+' من 90 درسًا · درس ومهمة كل يوم':'اختبار البداية ثم درس ومهمة كل يوم')+'</span></div></button>'+
   tile('rules','📜','قواعدي',act?act+' قاعدة نشطة':'قواعد أضعها لنفسي')+tile('plan','🛡️','خطتي','أسبابي، إذا-فعندها، البدائل')+tile('tips','💡','نصائح','نصيحة جديدة بكل ضغطة')+tile('after','🌱','بعد الزلة','عودة بلا يأس')+tile('habits','📊','كل العادات','سلاسل وإحصاءات بنود الدرع')+
   extra.map(i=>tile(i,ROUTES[i].icon,ROUTES[i].title,ROUTES[i].desc)).join('')+'</div>';
 },{title:'أدواتي',tab:'tools'});
 /* ===== أنا: أدواتي + نفسي في تبويب واحد ===== */
 reg('hub',(el,ctx)=>{
   const sec=S.ui.hubS==='me'?'me':'tools';
-  el.innerHTML='<div class="seg" style="margin:8px 0 4px"><button class="'+(sec==='tools'?'on':'')+'" data-a="hubs" data-v="tools">🧰 أدواتي</button><button class="'+(sec==='me'?'on':'')+'" data-a="hubs" data-v="me">🧭 نفسي</button></div><div id="hubbody"></div><div class="center xs mut" style="margin:20px 0 4px">ثبات '+APP_VER+'</div>';
+  el.innerHTML='<div class="seg" style="margin:8px 0 4px"><button class="'+(sec==='tools'?'on':'')+'" data-a="hubs" data-v="tools">أدواتي</button><button class="'+(sec==='me'?'on':'')+'" data-a="hubs" data-v="me">سجلّي وإعداداتي</button></div><div id="hubbody"></div><div class="center xs mut" style="margin:20px 0 4px">ثبات '+APP_VER+'</div>';
   V[sec]($('#hubbody',el),ctx);
-},{title:'أنا',tab:'hub'});
+},{title:'أنا',tab:'hub',parent:'today'});
 A.appupd=async()=>{
   toast('جارٍ التحديث…',4000);
   try{if('serviceWorker' in navigator){const rs=await navigator.serviceWorker.getRegistrations();await Promise.all(rs.map(r=>r.unregister()))}}catch(e){}
@@ -2278,7 +2330,7 @@ reg('sleep',el=>{
   if(!slOn()){el.innerHTML=slSetup();return}
   let t=S.ui.slT||'now';if(['now','stats','goals','set'].indexOf(t)<0)t='now';
   el.innerHTML=slTabs()+({now:slSimple,stats:slStatsTab,goals:slGoalsTab,set:slSetTab}[t])();
-},{title:'النوم',tab:'sleep'});
+},{title:'النوم',tab:'shield',parent:'shield'});
 /* ===== النوم المبسّط (v4): صفّ واحد لكل يوم، وحكم أسبوعي ===== */
 const SL_MOOD=[[2,'سيّئ'],[3,'عادي'],[4,'جيد'],[5,'ممتاز']];
 const SL_DS=['أحد','اثنين','ثلاثاء','أربعاء','خميس','جمعة','سبت'];
@@ -3254,9 +3306,9 @@ reg('war',el=>{
   h+='<div class="sec"><h3>كتاب دروسي</h3><small>'+ls.length+' درسًا</small></div><div class="card">'+(ls.length?ls.slice(0,3).map(l=>'<div class="task"><div class="t" style="line-height:1.8">'+esc(l.x)+'<small>المستوى '+l.lv+'</small></div></div>').join('')+(ls.length>3?'<button class="btn sm mt" data-a="wvbook">كل الدروس ('+ls.length+')</button>':''):'<div class="mut sm">بعد كل موجة تكتب ما تعلّمته، فيتجمّع هنا ويظهر لك وقت الموجة القادمة.</div>')+'</div>';
   h+='<div class="sec"><h3>خطتي لوقت الموجة</h3><small>اكتبها وأنت هادئ</small></div><div class="card">'+(S.warPlay.length?S.warPlay.map(p=>'<div class="task"><div class="t"><b>'+esc(p.when)+'</b><small style="font-size:13.5px;color:var(--tx);opacity:.85">'+esc(p.do)+'</small></div><button class="link" data-a="plyedit" data-id="'+p.id+'">تعديل</button></div>').join(''):'<div class="mut sm">لا خطط بعد</div>')+'<button class="btn sm mt" data-a="plyedit">＋ خطة جديدة</button></div>';
   if(lost.length)h+='<div class="sec"><h3>محاولات لم تكتمل</h3><small>'+lost.length+'</small></div><div class="list">'+lost.slice(0,10).map(w=>'<button class="li" data-a="wvopen" data-id="'+w.id+'"><span class="ic">↻</span><span class="grow"><b>'+wvWhen(w.t0||w.t)+'</b><span class="sub">'+(w.trig?esc(w.trig)+' · ':'')+'الذروة '+(w.int||'—')+'/10</span></span></button>').join('')+'</div>';
-  h+='<div class="row mt2">'+(all.length?'<button class="btn ghost grow" style="margin:0;color:var(--mut)" data-a="wvreset">تصفير المستويات</button>':'')+(S.war.length?'<button class="btn ghost grow" style="margin:0;color:var(--mut)" data-a="go" data-p="warold">السجل القديم ('+S.war.length+')</button>':'')+'</div>';
+  h+='<div class="row mt2">'+(all.length?'<button class="btn ghost grow" style="margin:0;color:var(--mut)" data-a="wvreset">تصفير المستويات</button>':'')+'</div>';
   el.innerHTML=h;
-},{title:'مستوياتي',tab:'tools',parent:'tools'});
+},{title:'موجاتي',tab:'war'});
 /* ===== محاور المعركة (v2.2: بسيطة، نوعان + حالة حرّة + اقتراحات) ===== */
 const WAR_TYPES={
  pre:{n:'بمقدّمات',ic:'🎯',s:'سبقتها نظرة أو فكرة',d:'نظرة أو مشهد أو فكرة تسبقها ثم تكبر. تستطيع قطعها مبكرًا.'},
@@ -3494,7 +3546,7 @@ function insights(){
 reg('me',el=>{
   const ins=insights(),nAns=Object.keys(S.answers).filter(k=>S.answers[k]).length;
   el.innerHTML=(ins.n?'<div class="card acc" style="margin-top:8px"><b>ما تعلّمته عن نفسي</b><div class="sm mt">'+(ins.trig?'أكثر محفّز يوقعني: <b>'+esc(ins.trig)+'</b><br>':'')+(ins.time?'أخطر وقت: <b>'+esc(ins.time)+'</b>':'')+'</div><div class="mut xs mt">من '+ins.n+' زلة سجّلتها. اعرف عدوّك لتهزمه.</div></div>':'<div class="card acc" style="margin-top:8px"><b>النفس الأمّارة تُهزم بمعرفتها</b><div class="mut sm mt">كل ما تكتبه هنا يقرّبك من فهم نفسك، وكل ما تسجّله يصير خريطة تحميك.</div></div>')+
-  '<div class="grid2"><button class="tile" data-a="go" data-p="study"><span class="ic">🧭</span><b>دراسة نفسي</b><span>'+nAns+' من '+SELF_Q.length+' أسئلة أجبتها</span></button><button class="tile" data-a="go" data-p="diary"><span class="ic">📓</span><b>يومياتي</b><span>'+S.diary.length+' تدوينة</span></button><button class="tile" data-a="go" data-p="breaks"><span class="ic">💔</span><b>انكساراتي</b><span>'+S.slips.length+' · بأسئلتها وأجوبتها</span></button><button class="tile" data-a="go" data-p="weekly"><span class="ic">🗓️</span><b>مراجعة الأسبوع</b><span>وقفة أسبوعية صادقة</span></button><button class="tile" data-a="go" data-p="settings"><span class="ic">⚙️</span><b>الإعدادات</b><span>المظهر، القفل، النسخ</span></button></div>';
+  '<div class="grid2"><button class="tile" data-a="go" data-p="breaks"><span class="ic">💔</span><b>سجل الزلات</b><span>'+S.slips.length+' · مع الرسم الشهري</span></button><button class="tile" data-a="go" data-p="weekly"><span class="ic">🗓️</span><b>مراجعة الأسبوع</b><span>وقفة أسبوعية صادقة</span></button><button class="tile" data-a="go" data-p="settings"><span class="ic">⚙️</span><b>الإعدادات</b><span>المظهر، القفل، النسخ</span></button></div>';
 },{title:'نفسي',tab:'me'});
 /* --- دراسة النفس --- */
 reg('study',el=>{
@@ -3580,7 +3632,7 @@ reg('diary',el=>{
   el.innerHTML='<button class="btn pri big" style="margin-top:8px" data-a="dynew">✍️ تدوينة جديدة</button>'+
   '<div class="stat"><div><b>'+S.diary.length+'</b><small>تدوينة</small></div><div><b>'+dyStreak()+'</b><small>أيام متتالية</small></div><div><b>'+thisM+'</b><small>هذا الشهر</small></div></div>'+
   '<div class="card" style="padding:10px"><input id="dy-q" type="search" data-i="dyq" placeholder="🔍 ابحث في يومياتك…" value="'+esc(S.ui.dyQ||'')+'"><div class="chips mt"><button class="chip '+(!S.ui.dyMood?'on':'')+'" data-a="dyfm" data-v="0">الكل</button>'+MOODS.map((m,i)=>'<button class="chip '+(S.ui.dyMood===i+1?'on':'')+'" data-a="dyfm" data-v="'+(i+1)+'" style="font-size:18px">'+m+'</button>').join('')+'<button class="chip '+(S.ui.dyStar?'on':'')+'" data-a="dystarf">⭐ المنجّمة · '+S.diary.filter(d=>d.star).length+'</button></div></div><div id="dylist"></div>';
-},{title:'يومياتي',tab:'me',parent:'me'});
+},{title:'بقلمي',tab:'diary'});
 POST.diary=()=>dyList();
 function dyList(){
   const box=$('#dylist');if(!box)return;
@@ -3655,8 +3707,8 @@ const isStandalone=()=>matchMedia('(display-mode: standalone)').matches||navigat
 reg('settings',el=>{
   const sg=(key,opts,val)=>'<div class="seg">'+opts.map(o=>'<button class="'+(String(val)===String(o[0])?'on':'')+'" data-a="setopt" data-key="'+key+'" data-v="'+o[0]+'">'+o[1]+'</button>').join('')+'</div>';
   el.innerHTML='<div class="sec"><h3>عنّي</h3></div><div class="card"><label class="lbl" style="margin-top:0">اسمي</label><input data-c="name" value="'+esc(S.name)+'" placeholder="يظهر في التحية"><label class="lbl">ماذا أريد أن أترك؟</label><div class="seg">'+[['both','الاثنتين'],['porn','الإباحية'],['mast','العادة السرية']].map(o=>'<button class="'+((S.quit||'both')===o[0]?'on':'')+'" data-a="setquit" data-v="'+o[0]+'">'+o[1]+'</button>').join('')+'</div></div>'+
-  '<div class="sec"><h3>المظهر</h3></div><div class="card"><label class="lbl" style="margin-top:0">السمة</label>'+sg('theme',[['dark','داكن'],['light','فاتح'],['auto','تلقائي']],S.theme)+
-  '<label class="lbl">اللون</label><div class="swatch">'+['teal','gold','sky','violet'].map(c=>'<button class="sw-'+c+' '+(S.acc===c?'on':'')+'" data-a="setopt" data-key="acc" data-v="'+c+'" aria-label="'+c+'"></button>').join('')+'</div>'+
+  '<div class="sec"><h3>المظهر</h3></div><div class="card"><label class="lbl" style="margin-top:0">السمة</label>'+sg('theme',[['light','فاتح'],['dark','داكن'],['auto','حسب الهاتف']],S.theme)+
+  '<label class="lbl">هوية التطبيق</label><div class="swatch">'+ACCS.map(c=>'<button class="sw-'+c+' '+(S.acc===c?'on':'')+'" data-a="setopt" data-key="acc" data-v="'+c+'" aria-label="'+ACCN[c]+'"></button>').join('')+'</div><div class="swl">'+ACCS.map(c=>'<span>'+ACCN[c]+'</span>').join('')+'</div>'+
   '<label class="lbl">حجم الخط</label>'+sg('fs',[[90,'صغير'],[100,'عادي'],[112,'كبير']],S.fs)+'</div>'+
   '<div class="sec"><h3>شكل العدّاد</h3><small>يظهر في «اليوم»</small></div><div class="card"><p class="mut sm" style="margin:0">كل شكل يمتلئ بقدر تقدّمك نحو هدفك القادم. الشكل الذي تختاره يُطبَّق على كل العدّادات.</p>'+cstyleSettings()+'</div>'+
   '<div class="sec"><h3>الأمان والخصوصية</h3></div><div class="list">'+
@@ -3801,7 +3853,7 @@ function onboard(){
   const dots=n=>'<div class="pdots">'+[0,1,2,3].map(i=>'<i class="'+(i<=n?'on':'')+'"></i>').join('')+'</div>';
   function draw(){
     let b='';const s=st.step;
-    if(s===0)b=dots(0)+'<div class="wvbadge big" style="width:104px;height:113px;font-size:54px;margin-top:12px"><span style="margin-top:-14px">ث</span></div><div class="big-t">ثبات</div><p class="mut center mt">رفيقك لبناء قلب طاهر وحياة أنقى. خصوصيتك أولًا: كل بياناتك تبقى على جهازك ولا تُرسل لأحد.</p><div class="card flat mt2"><div class="step"><i>✓</i><div>عدّاد دقيق يعدّ كل ثانية</div></div><div class="step"><i>✓</i><div>خطة وقواعد وأدوات لحظة الرغبة</div></div><div class="step"><i>✓</i><div>فهم نفسك وتسجيل رحلتك بصدق</div></div></div><div style="flex:1"></div><button class="btn pri big" data-ob="next">لنبدأ</button>';
+    if(s===0)b=dots(0)+''+LOGO+'<div class="big-t">ثبات</div><p class="mut center mt">رفيقك لبناء قلب طاهر وحياة أنقى. خصوصيتك أولًا: كل بياناتك تبقى على جهازك ولا تُرسل لأحد.</p><div class="card flat mt2"><div class="step"><i>✓</i><div>عدّاد دقيق يعدّ كل ثانية</div></div><div class="step"><i>✓</i><div>خطة وقواعد وأدوات لحظة الرغبة</div></div><div class="step"><i>✓</i><div>فهم نفسك وتسجيل رحلتك بصدق</div></div></div><div style="flex:1"></div><button class="btn pri big" data-ob="next">لنبدأ</button>';
     else if(s===1)b=dots(1)+'<div class="hero-ic">🤍</div><div class="big-t">كيف أناديك؟</div><p class="mut center mt">اختياري، يظهر في التحية فقط.</p><input id="ob-n" class="mt2" value="'+esc(st.name)+'" placeholder="الاسم"><div style="flex:1"></div><button class="btn pri big" data-ob="next">التالي</button><button class="btn ghost" data-ob="back">رجوع</button>';
     else if(s===2){
       b=dots(2)+'<div class="big-t">متى تبدأ؟</div><p class="mut center mt">اختر ما تريد تركه ومتى تبدأ. يمكنك التعديل لاحقًا.</p><div class="seg mt">'+[['both','الاثنتين'],['porn','الإباحية'],['mast','العادة السرية']].map(o=>'<button class="'+(st.q===o[0]?'on':'')+'" data-ob="q" data-v="'+o[0]+'">'+o[1]+'</button>').join('')+'</div>'+K.filter(k=>st.q==='both'||st.q===k).map(k=>'<div class="card"><b>'+KN[k]+'</b><div class="seg mt">'+[['now','الآن'],['date','تاريخ سابق'],['later','لاحقًا']].map(o=>'<button class="'+(st.m[k]===o[0]?'on':'')+'" data-ob="m" data-k="'+k+'" data-v="'+o[0]+'">'+o[1]+'</button>').join('')+'</div>'+(st.m[k]==='date'?'<input type="datetime-local" class="mt" data-obd="'+k+'" value="'+st.d[k]+'">':'')+'</div>').join('')+'<div style="flex:1"></div><button class="btn pri big" data-ob="next">التالي</button><button class="btn ghost" data-ob="back">رجوع</button>';
